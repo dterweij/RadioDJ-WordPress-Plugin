@@ -5,8 +5,8 @@ if ( !function_exists( 'add_action' ) ) {
 ?>
 <div class="rdj-wrap requests">
 	<div class="requestcontainer">
-		<p><?php printf( __('You are about to request <b>%s</b> by <b>%s</b>'), $track->title, $track->artist ); ?></p>
-		<form id="requestform" class="request-form" method="post" action="<?php the_permalink(); ?>">
+		<p><?php printf( __('You are about to request <b>%s</b> by <b>%s</b>', 'radiodj'), $track->title, $track->artist ); ?></p>
+		<form id="requestform" class="Arequest-form" method="post" action="<?php the_permalink(); ?>">
 			<fieldset>
 				<legend><?php _e('Please enter request details below', 'radiodj'); ?></legend>
 				<?php if( get_option('rdj_request_name_field') ) { ?>
@@ -21,7 +21,7 @@ if ( !function_exists( 'add_action' ) ) {
 					<input type="hidden" name="songID" value="<?php echo $requestid; ?>">
 				</p>
 			<?php if(get_option('rdj_use_recaptcha') && !empty($recaptcha_sitekey) ) { ?>
-				<div class="g-recaptcha" data-sitekey="<?php echo esc_attr($recaptcha_sitekey); ?>"></div>
+				<div class="Ag-recaptcha" Adata-sitekey="<?php echo esc_attr($recaptcha_sitekey); ?>"></div>
 			<?php } ?>
 				<p>
 					<input type="submit" name="reqsubmit" value="<?php _e('Submit your request', 'radiodj'); ?>" />

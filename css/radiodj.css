@@ -1,6 +1,11 @@
 /*
 /// Now playing info
 */
+
+body {
+font-size: 9pt;
+}
+
 #nptable {
 	padding: 0;
 	margin: auto;
@@ -19,9 +24,10 @@
 	padding: 5px;
 	margin: 0;
 	text-align: left;
+font-size: 9pt;
 }
 
-#nptable td.request-col {
+#nptable td.Arequest-col {
 	text-align: center;
 }
 
@@ -29,31 +35,27 @@
 	background: #CCD6E0;
 }
 
-.current-track td span {
+.Acurrent-track td span {
 	font-weight: bold;
 }
 
-.requests-not-accepted {
+.Arequests-not-accepted {
 	padding: 2em;
 	text-align: center;
 	border: 1px solid #ddd;
 }
 
-.request-form {
+.Arequest-form {
 	padding: 0;
 	margin: auto;
 	width: 100%;
 }
 
-.request-form fieldset > p,
-.request-form fieldset > div {
+.Arequest-form fieldset > p,
+.Arequest-form fieldset > div {
 	margin-bottom: 1em;
 }
 
-.entry_no {
-	width: 10px;
-	text-align: center;
-}
 
 .header_live {
 	background-color: #849DB3;
@@ -151,21 +153,92 @@ div#albumart {
 	width: 100%;
 }
 
-#albumart div.artist {
+#albumart div.Aartist {
 	position: relative;
 	font-weight: bold;
 	text-align: center;
 	top: 150px;
 }
-
-#albumart div.title {
+#albumart div.Atitle {
 	position: relative;
 	font-size: 9pt;
 	text-align: center;
 	top: 150px;
 }
-
-#albumart div.duration {
+#albumart div.Aduration {
 	font-size: 9pt;
 	text-align: left;
+}
+
+.Aartist {
+	font-size: 10pt;
+	text-align: left;
+color: #000;
+font-weight: bold;
+
+}
+.Atitle {
+	font-size: 9pt;
+	text-align: left;
+color: #000;
+
+}
+.Aduration {
+	font-size: 9pt;
+	text-align: left;
+color: #000;
+
+}
+
+.Atimestamp {
+	font-size: 9pt;
+	text-align: left;
+color: #000;
+
+}
+.Aposition {
+	font-size: 9pt;
+	text-align: left;
+color: #000;
+
+}
+
+.Aseparator {
+	font-size: 9pt;
+color: #000;
+}
+.Aentry_no {
+color: #000; 
+	width: 10px;
+	text-align: left;
+font-size: 9pt;
+}
+
+.Acount_played {
+color: #000; 
+	text-align: left;
+font-size: 9pt;
+}
+
+.Aalbum-title {
+	font-size: 9pt;
+	text-align: left;
+color: #000;
+
+}
+
+#nptable td.Aposition {
+width: 10px;
+}
+#nptable td.Acount_played {
+width: 10px;
+}
+#nptable td.Aartist {
+width: 30%;
+}
+
+legend.Ascreenreader-text {
+	font-size: 9pt;
+	text-align: left;
+color: #000;
 }

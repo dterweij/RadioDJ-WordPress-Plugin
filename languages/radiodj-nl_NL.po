@@ -1,0 +1,370 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: RadioDJ Plugin v0.7.0-dev\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-09-25 00:57+0200\n"
+"PO-Revision-Date: 2022-09-25 01:04+0200\n"
+"Last-Translator: Andis Grosšteins <andis.grossteins@gmail.com>\n"
+"Language-Team: SUPERSTAR\n"
+"Language: nl_NL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.1.1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Textdomain-Support: yes\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: lib/radiodj-admin.class.php:104
+msgid ""
+"RadioDJ requests submission is disabled. <a href=\"#rdj_requests\">Check "
+"settings</a>"
+msgstr ""
+
+#: lib/radiodj-admin.class.php:136
+msgid "RadioDJ Options"
+msgstr "RadioDJ Opties"
+
+#: lib/radiodj-admin.class.php:140
+msgid "Options"
+msgstr "Opties"
+
+#: lib/radiodj-admin.class.php:158
+msgid "Settings saved"
+msgstr "Instellingen zijn opgeslagen"
+
+#: lib/radiodj-admin.class.php:267
+msgid "Please specify server address"
+msgstr "Server adres/host"
+
+#: lib/radiodj-admin.class.php:270
+msgid "Please specify database name"
+msgstr "Database naam"
+
+#: lib/radiodj-admin.class.php:273
+msgid "Please specify username"
+msgstr "Gebruikersnaam"
+
+#: lib/radiodj-admin.class.php:276
+msgid "Please specify password"
+msgstr "Wachtwoord"
+
+#: lib/radiodj-admin.class.php:291
+#, php-format
+msgid "Using %s client to connect"
+msgstr ""
+
+#: lib/radiodj-admin.class.php:294
+msgid "Successfully connected to RadioDJ database"
+msgstr ""
+
+#: lib/radiodj-admin.class.php:295
+#, php-format
+msgid "Database version: %s"
+msgstr ""
+
+#: lib/radiodj-admin.class.php:298
+#, php-format
+msgid "Connection took %s seconds"
+msgstr ""
+
+#: lib/radiodj-admin.class.php:301
+msgid "Error connecting to RadioDJ database: "
+msgstr ""
+
+#: lib/radiodj-admin.class.php:306
+#, php-format
+msgid ""
+"Please check your password and verify that user <code>%s</code> is allowed "
+"to connect to specified database remotely."
+msgstr ""
+
+#: lib/radiodj-admin.class.php:311
+msgid "Please make sure that you are using correct IP address and port number."
+msgstr ""
+
+#: lib/radiodj-admin.class.php:312
+msgid ""
+"Either your webhost is blocking outgoing MySQL connections or MySQL is not "
+"listening on given IP address and port."
+msgstr ""
+
+#: lib/radiodj-admin.class.php:315
+msgid ""
+"Unknown errno (9999) or no error description available because of existing "
+"mysql connection."
+msgstr ""
+
+#: lib/radiodj-admin.class.php:318
+msgid "Unknown mysql error occured"
+msgstr ""
+
+#: lib/radiodj-admin.class.php:324
+msgid "Error selecting database: "
+msgstr ""
+
+#: lib/radiodj-admin.class.php:325
+msgid "Please verify that you are using correct database name"
+msgstr ""
+
+#: lib/radiodj-admin.class.php:333
+#, php-format
+msgid ""
+"Error querying last played song. Probably <code>%s</code> is not RadioDJ "
+"database."
+msgstr ""
+
+#: lib/radiodj-admin.class.php:335
+msgid "Could not get last played song. Have you enabled history in RadioDJ?"
+msgstr ""
+
+#: lib/radiodj-admin.class.php:336
+msgid ""
+"Now playing, top tracks and top albums won't function if history is disabled."
+msgstr ""
+
+#: lib/radiodj-admin.class.php:340
+#, php-format
+msgid "Last played song: %s at %s"
+msgstr ""
+
+#: lib/radiodj.class.php:204 lib/radiodj.class.php:255
+#: lib/radiodj.class.php:296 lib/radiodj.class.php:337
+#: lib/radiodj.class.php:535 lib/radiodj.class.php:671
+msgid "Empty output from ob_get_clean()"
+msgstr ""
+
+#: lib/radiodj.class.php:247 lib/radiodj.class.php:288
+#: lib/radiodj.class.php:329 lib/radiodj.class.php:663
+msgid "Currently there are no results to display."
+msgstr "Geen resultaten beschikbaar."
+
+#: lib/radiodj.class.php:406 lib/radiodj.class.php:588
+msgid "Sorry, you've reached the request limit. Please try again later."
+msgstr ""
+"Sorry, maar je hebt de verzoeklimiet bereikt. Probeer later nog een keer."
+
+#: lib/radiodj.class.php:406 lib/radiodj.class.php:409
+#: lib/radiodj.class.php:415 lib/radiodj.class.php:556
+#: lib/radiodj.class.php:568 lib/radiodj.class.php:588
+#: lib/radiodj.class.php:592 lib/radiodj.class.php:599
+#: lib/radiodj.class.php:601
+msgid "Return to list of tracks"
+msgstr "Terug naar lijst met nummers"
+
+#: lib/radiodj.class.php:409 lib/radiodj.class.php:592
+msgid ""
+"The selected track is already requested. Please try again later, or select "
+"another track."
+msgstr ""
+"Het geselecteerde nummer is al recent gedraaid. Probeer het later opnieuw of "
+"selecteer een ander nummer."
+
+#: lib/radiodj.class.php:415 lib/radiodj.class.php:568
+msgid "The selected track was not found"
+msgstr "Nummer niet gevonden"
+
+#: lib/radiodj.class.php:455 lib/radiodj.class.php:457
+msgid "Previous"
+msgstr "Terug"
+
+#: lib/radiodj.class.php:522 lib/radiodj.class.php:524
+msgid "Next"
+msgstr "Volgende"
+
+#: lib/radiodj.class.php:555
+msgid "reCAPTCHA validation failed. Are you really a human?"
+msgstr ""
+
+#: lib/radiodj.class.php:572
+msgid "Please enter your name in order to send the request."
+msgstr "Vul a.u.b. uw naam in om de aanvraag te versturen."
+
+#: lib/radiodj.class.php:599
+msgid "Your request was succesfully placed."
+msgstr "Je verzoek is verzonden."
+
+#: lib/radiodj.class.php:601
+msgid "Unknown error occured. Please try again."
+msgstr "Er is een onbekende fout opgetreden. Probeer het opnieuw."
+
+#: views/config.php:38
+msgid "Database name used by RadioDJ"
+msgstr ""
+
+#: views/config.php:67 views/config.php:273
+msgid "Save Settings"
+msgstr "Opslaan Opties"
+
+#: views/config.php:166
+msgid "We are not accepting requests right now. Please come back later."
+msgstr "We accepteren momenteel geen verzoeken. Kom alstublieft later terug."
+
+#: views/config.php:194 views/config.php:202
+msgid "minutes"
+msgstr "minuten"
+
+#: views/config.php:255
+#, php-format
+msgid ""
+"You have to <a href=\"%s\">get site and secret key from Google</a> and enter "
+"them below to use reCAPTCHA."
+msgstr ""
+
+#: views/config.php:278 views/nowplaying.php:10
+msgid "Now Playing"
+msgstr "Nu spelend"
+
+#: views/config.php:279
+msgid "Top Played Tracks"
+msgstr "Top gespeelde nummers"
+
+#: views/config.php:280
+msgid "Top Played Albums"
+msgstr "Top gespeelde albums"
+
+#: views/config.php:281
+msgid "Top Played Artists"
+msgstr "Top gespeelde artiesten"
+
+#: views/config.php:282
+msgid "Request Section"
+msgstr "Verzoekjes"
+
+#: views/config.php:283
+msgid "Top Requests"
+msgstr "Top Verzoekjes"
+
+#: views/nowplaying.php:30
+msgid "Coming Soon"
+msgstr "Volgende nummers"
+
+#: views/nowplaying.php:55
+msgid "Recently Played Songs"
+msgstr "Laatst gespeelde nummers"
+
+#: views/request-form.php:8
+#, php-format
+msgid "You are about to request <b>%s</b> by <b>%s</b>"
+msgstr "U staat op het punt een aanvraag te doen: <b>%s</b> door <b>%s</b>"
+
+#: views/request-form.php:11
+msgid "Please enter request details below"
+msgstr "Voer hieronder de details van het verzoek in"
+
+#: views/request-form.php:14
+msgid "Your Name"
+msgstr "Je naam"
+
+#: views/request-form.php:19
+msgid "Message (optional)"
+msgstr "Bericht (optioneel)"
+
+#: views/request-form.php:27
+msgid "Submit your request"
+msgstr "Verstuur jouw verzoekje"
+
+#: views/request-table.php:16
+msgid "Use this form to search for artist or title"
+msgstr "Gebruik dit formulier om naar artiest of titel te zoeken"
+
+#: views/request-table.php:18
+msgid "Search artist or title"
+msgstr "Zoek artiest of titel"
+
+#: views/request-table.php:20
+msgid "Search"
+msgstr "Zoek"
+
+#: views/request-table.php:34 views/topalbums.php:11 views/topartists.php:11
+#: views/toprequests.php:11
+msgctxt "table header"
+msgid "#"
+msgstr "#"
+
+#: views/request-table.php:37 views/topalbums.php:14 views/topartists.php:14
+#: views/toprequests.php:14 views/toptracks.php:14
+msgid "Artist"
+msgstr "Artiest"
+
+#: views/request-table.php:40 views/toprequests.php:17 views/toptracks.php:17
+msgid "Title"
+msgstr "Titel"
+
+#: views/request-table.php:43
+msgid "Duration"
+msgstr "Duur"
+
+#: views/request-table.php:46
+msgid "Request"
+msgstr "Verzoek"
+
+#: views/request-table.php:94
+msgid ""
+"No track was found using your search query. Please try different search "
+"phrase."
+msgstr ""
+"Er is geen nummer gevonden door je zoekopdracht. Probeer een andere zoekterm."
+
+#: views/topalbums.php:17
+msgid "Album"
+msgstr "Album"
+
+#: views/topalbums.php:20 views/topartists.php:17 views/toprequests.php:20
+#: views/toptracks.php:20
+msgid "Count"
+msgstr "Aantal"
+
+#: views/toptracks.php:11
+msgid "#"
+msgstr "#"
+
+# @ radiodj
+#~ msgid "RadioDJ Plugin (new)"
+#~ msgstr "RadioDJ Plugin"
+
+# @ radiodj
+#~ msgid "Username"
+#~ msgstr "Gebruikersnaam"
+
+# @ radiodj
+#~ msgid "Password"
+#~ msgstr "Wachtwoord"
+
+#~ msgid "RadioDJ Timezone"
+#~ msgstr "RadioDJ Tijdzone"
+
+#~ msgid "Now Playing Options"
+#~ msgstr "Nu spelen Opties"
+
+#~ msgid "Requests Options"
+#~ msgstr "Verzoek Opties"
+
+# @ radiodj
+#~ msgid "Items per Page"
+#~ msgstr "Nummers per pagina"
+
+# @ default
+#~ msgid "Daily Request Limit"
+#~ msgstr "Dagelijkse aanvraaglimiet"
+
+# @ default
+#~ msgid "Daily allowed requests per IP address"
+#~ msgstr "Dagelijks toegestane verzoeken per IP-adres"
+
+#~ msgctxt "action button"
+#~ msgid "Request"
+#~ msgstr "Verzoek"
+
+#~ msgctxt "indicates status"
+#~ msgid "Requested"
+#~ msgstr "Aangevraagd"
+
+# @ radiodj
+#~ msgctxt "action button"
+#~ msgid "This track cannot be requested"
+#~ msgstr "Dit nummer kan niet aangevraagd worden"

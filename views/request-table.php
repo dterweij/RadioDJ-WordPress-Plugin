@@ -13,7 +13,7 @@ if ( !function_exists( 'add_action' ) ) {
 			}
 			?>
 			<fieldset>
-				<legend class="screenreader-text"><?php _e('Use this form to search for artist or title', 'radiodj'); ?></legend>
+				<legend class="Ascreenreader-text"><?php _e('Use this form to search for artist or title', 'radiodj'); ?></legend>
 				<p>
 					<label for="searchterm"><?php _e('Search artist or title', 'radiodj'); ?></label>
 					<input type="text" value="<?php echo $searchterm; ?>" name="searchterm" id="searchterm" />
@@ -30,19 +30,19 @@ if ( !function_exists( 'add_action' ) ) {
 	<table id="nptable">
 		<thead>
 			<tr class="header_live">
-				<th class="entry_no position">
+				<th class="Aentry_no Aposition">
 					<?php _ex('#', 'table header', 'radiodj'); ?>
 				</th>
-				<th class="artist">
+				<th class="Aartist">
 					<?php _e('Artist', 'radiodj'); ?>
 				</th>
-				<th class="title">
+				<th class="Atitle">
 					<?php _e('Title', 'radiodj'); ?>
 				</th>
-				<th class="entry_no duration">
+				<th class="Aentry_no Aduration">
 					<?php _e('Duration', 'radiodj'); ?>
 				</th>
-				<th class="entry_no request-col">
+				<th class="Aentry_no Arequest-col">
 					<?php _e('Request', 'radiodj'); ?>
 				</th>
 			</tr>
@@ -59,11 +59,11 @@ if ( !function_exists( 'add_action' ) ) {
 					$td_class = ($counter++) % 2 ? 'odd' : 'even';
 			?>
 			<tr class="<?php echo $td_class; ?>" data-track="<?php echo esc_attr(json_encode($track)); ?>">
-				<th scope="row" class="entry_no position"><?php echo $cnt ?></th>
-				<td class="artist"><?php echo htmlspecialchars( $track->artist, ENT_QUOTES ); ?></td>
-				<td class="title"><?php echo htmlspecialchars( $track->title, ENT_QUOTES ); ?></td>
-				<td class="duration"><?php echo RadioDJ::track_duration( $track->duration ); ?></td>
-				<td class="entry_no request-col">
+				<th scope="row" class="Aentry_no Aposition"><?php echo $cnt ?></th>
+				<td class="Aartist"><?php echo htmlspecialchars( $track->artist, ENT_QUOTES ); ?></td>
+				<td class="Atitle"><?php echo htmlspecialchars( $track->title, ENT_QUOTES ); ?></td>
+				<td class="Aduration"><?php echo RadioDJ::track_duration( $track->duration ); ?></td>
+				<td class="Aentry_no Arequest-col">
 				<?php
 				if(!$track->requested && $track->played_minutes > $track_rep && $track->artist_played_minutes > $artist_rep && !$track->in_queue) {
 					$arr_params = array( 'pg' => $page, 'requestid' => $track->ID );

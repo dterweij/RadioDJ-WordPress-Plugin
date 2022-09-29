@@ -164,7 +164,7 @@ class RadioDJ {
 			}
 
 			$history_items = intval( get_option( 'history_items' ) ) + 1;
-			$sql = $DB->prepare("SELECT `date_played`, `artist`, `title`, `duration`, TIMESTAMPDIFF(SECOND, `date_played`, NOW()) AS `since_played` FROM `history` WHERE `song_type` IN ($song_types) ORDER BY `date_played` DESC LIMIT 0, %d", $history_items);
+			$sql = $DB->prepare("SELECT date_played, artist, title, duration, TIMESTAMPDIFF(SECOND, date_played, NOW()) AS since_played FROM history WHERE song_type IN ($song_types) ORDER BY date_played DESC LIMIT 0, %d", $history_items);
 			$nowplaying = $DB->get_results( $sql );
 
 			if( !empty( $nowplaying ) ) {
@@ -274,7 +274,7 @@ class RadioDJ {
 
 			$num_days = (int)get_option('top_days');
 			$num_albums = (int)get_option('top_tracks');
-			$sql = $DB->prepare( "SELECT `artist`, `album`, COUNT( * ) AS `count_played` FROM `history` WHERE TIMESTAMPDIFF(DAY, `date_played` , NOW()) <= %d" .
+			$sql = $DB->prepare( "SELECT `artist`, `album`, COUNT( * ) AS `count_played` FROM `history` WHERE CHAR_LENGTH(`album`) > 0 AND TIMESTAMPDIFF(DAY, `date_played` , NOW()) <= %d" .
 			" AND `song_type` = 0 GROUP BY `artist`, `album` ORDER BY `count_played` DESC LIMIT 0,%d", $num_days, $num_albums );
 			$topalbums = $DB->get_results( $sql );
 			if( !empty($topalbums) ) {
@@ -403,16 +403,16 @@ class RadioDJ {
 			$request_state = $DB->get_row( $sql );
 
 			if( $request_state->userlimit >= $request_limit ) {
-				return '<div class="errordiv">' . __("Sorry, you've reached the request limit. Please try again later.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks')).'</p>';
+				return '<div class="errordiv">' . __("Sorry, you've reached the request limit. Please try again later.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks', 'radiodj')).'</p>';
 			}
 			if( $request_state->already_requested ) {
-				return '<div class="errordiv">' . __("The selected track is already requested. Please try again later, or select another track.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks')).'</p>';
+				return '<div class="errordiv">' . __("The selected track is already requested. Please try again later, or select another track.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks', 'radiodj')).'</p>';
 			}
 
 			$sql = $DB->prepare( "SELECT `artist`, `title` FROM `songs` WHERE `ID` = %d AND `song_type` IN(" . implode(',', $allowed_types) . ")", $requestid );
 			$track = $DB->get_row( $sql );
 			if( empty($track) ) {
-				return '<div class="errordiv">' . __('The selected track was not found', 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks')).'</p>';
+				return '<div class="errordiv">' . __('The selected track was not found', 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks', 'radiodj')).'</p>';
 			}
 			require_once(RDJ_PLUGIN_DIR . 'views/request-form.php');
 

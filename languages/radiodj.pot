@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: RadioDJ Plugin (new) v0.6.0-dev\n"
+"Project-Id-Version: RadioDJ Plugin v0.7.0-dev\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: 2014-07-27 14:53:17+0000\n"
@@ -224,7 +224,7 @@ msgstr ""
 #. translators: plugin header field 'Version'
 #: radiodj.php:0
 #@ radiodj
-msgid "0.6.0-dev"
+msgid "0.7.0-dev"
 msgstr ""
 
 #: views/config.php:11

@@ -12,33 +12,37 @@ if ( !function_exists( 'add_action' ) ) {
 		</tr>
 <?php if(!empty($current)) { ?>
 		<tr class="current-track">
-			<td class="playing_track">
-				<span class="artist"><?php echo htmlspecialchars($current->artist, ENT_QUOTES) ?></span><span class="separator"> - </span>
-				<span class="title"><?php echo htmlspecialchars($current->title, ENT_QUOTES) ?></span>
-				<span class="duration">[<?php echo RadioDJ::track_duration( $current->duration ); ?>]</span>
+			<td class="Aplaying_track">
+				<div class="Aartist"><?php echo htmlspecialchars($current->artist, ENT_QUOTES) ?></div>
+                        </td>
+		</tr>
+		<tr class="current-track">
+			<td class="Aplaying_track">
+				<div class="Atitle"><?php echo htmlspecialchars($current->title, ENT_QUOTES) ?></div>
 			</td>
 		</tr>
+
 <?php } ?>
 
 <?php if( !empty($upcoming) ) { ?>
-		<tr class="coming-soon">
+		<tr class="Acoming-soon">
 			<th class="header_live">
 				<b><?php _e('Coming Soon', 'radiodj'); ?></b>
 			</th>
 		</tr>
 <?php	if(  is_string($upcoming[0]) ) { ?>
 		<tr>
-			<td class="comming-soon">
+			<td class="Acomming-soon">
 				<?php echo implode( ", ", $upcoming ); ?>
 			</td>
 		</tr>
 <?php	} else {
 			foreach($upcoming as $song) { ?>
-		<tr class="comming-soon">
+		<tr class="Acomming-soon">
 			<td>
-				<span class="artist"><?php echo htmlspecialchars( $song->artist, ENT_QUOTES ); ?></span>
-				<span class="separator">-</span>
-				<span class="title"><?php echo htmlspecialchars( $song->title, ENT_QUOTES ); ?></span>
+				<span class="Aartist"><?php echo htmlspecialchars( $song->artist, ENT_QUOTES ); ?></span>
+				<span class="Aseparator">-</span>
+				<span class="Atitle"><?php echo htmlspecialchars( $song->title, ENT_QUOTES ); ?></span>
 			</td>
 		</tr>
 <?php		}
@@ -56,13 +60,12 @@ if ( !function_exists( 'add_action' ) ) {
 			foreach($nowplaying as $song){
 				$td_class = ($counter++) % 2 ? 'odd' : 'even';
 ?>
-		<tr class="recent-tracks">
+		<tr class="Arecent-tracks">
 			<td class="<?php echo $td_class; ?>">
-				<span class="timestamp"><?php echo date( 'H:i:s', strtotime( $song->date_played ) ); ?></span>
-				<span class="artist"><?php echo htmlspecialchars( $song->artist, ENT_QUOTES ); ?></span><span class="separator"> - </span>
-				<span class="title"><?php echo htmlspecialchars( $song->title, ENT_QUOTES ); ?></span>
-				<span class="duration">[<?php echo RadioDJ::track_duration( $song->duration ); ?>]</span>
-			</td>
+				<span class="Atimestamp"><?php echo date( 'H:i:s', strtotime( $song->date_played ) ); ?></span>
+				<span class="Aartist"><?php echo htmlspecialchars( $song->artist, ENT_QUOTES ); ?></span><span class="Aseparator"> - </span>
+				<span class="Atitle"><?php echo htmlspecialchars( $song->title, ENT_QUOTES ); ?></span>
+				</td>
 		</tr>
 <?php
 			}
