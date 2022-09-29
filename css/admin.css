@@ -1,0 +1,36 @@
+/* admin.css */
+
+.radiodj .small-text,
+.radiodj .regular-text,
+.radiodj .code {
+	padding: 3px 5px;
+}
+
+.shortcodes li span {
+	font-family: Consolas, Monaco, monospace;
+	padding: 3px 5px 2px 5px;
+	margin: 0 1px;
+	background: #eaeaea;
+	background: rgba(0,0,0,0.07);
+	font-size: 13px;
+}
+
+/* Emphasize checkbox if requests are not being accepted */
+#rdj_allow_requests {
+	position: relative;
+}
+
+#rdj_allow_requests:not(:checked)::before {
+	content: "!!!";
+	display: block;
+	color: red;
+	font-weight: bold;
+	position: absolute;
+	left: -1.3em;
+	top: 50%;
+	font-size: 2em;
+}
+
+:target .rdj-allow-requests {
+	background: #fff4f4;
+}

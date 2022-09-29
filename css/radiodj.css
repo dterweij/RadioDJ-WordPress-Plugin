@@ -1,0 +1,171 @@
+/*
+/// Now playing info
+*/
+#nptable {
+	padding: 0;
+	margin: auto;
+	border: 1px solid #DDD;
+	width: 100%;
+}
+
+#nptable h3 {
+	padding: 0;
+	margin: 0;
+	color: white;
+	font-size: 1em;
+}
+
+#nptable td {
+	padding: 5px;
+	margin: 0;
+	text-align: left;
+}
+
+#nptable td.request-col {
+	text-align: center;
+}
+
+#nptable .odd {
+	background: #CCD6E0;
+}
+
+.current-track td span {
+	font-weight: bold;
+}
+
+.requests-not-accepted {
+	padding: 2em;
+	text-align: center;
+	border: 1px solid #ddd;
+}
+
+.request-form {
+	padding: 0;
+	margin: auto;
+	width: 100%;
+}
+
+.request-form fieldset > p,
+.request-form fieldset > div {
+	margin-bottom: 1em;
+}
+
+.entry_no {
+	width: 10px;
+	text-align: center;
+}
+
+.header_live {
+	background-color: #849DB3;
+	color: white;
+	text-align: center;
+}
+
+.errordiv,
+.noticediv {
+	width: 95%;
+	margin: 0 auto;
+	padding: 10px 0;
+	text-align: center;
+	font-weight: bold;
+}
+
+.errordiv {
+	background-color: #ffeeee;
+	border-left: 3px solid #c10707;
+}
+
+.noticediv {
+	color: #000;
+	background-color: #efffee;
+	border-left: 3px solid #5ca91f;
+}
+
+.rdj-return {
+	position: relative;
+	padding-left: 2.5em;
+	margin: 0.5em 0;
+	display: inline-block;
+}
+
+.rdj-return:before {
+	content: "\25C0";
+	display: block;
+	left: 1em;
+	position: absolute;
+	opacity: .7;
+}
+
+.paginate {
+	padding: 3px;
+	margin: 3px;
+	text-align: center;
+}
+
+.paginate a {
+	padding: 2px 5px;
+	margin: 2px;
+	border: 1px solid #999;
+	text-decoration: none;
+	color: #666;
+}
+
+.paginate a:hover, .paginate a:active {
+	border: 1px solid #999;
+	color: #000;
+}
+
+.paginate .current {
+	margin: 2px;
+	padding: 2px 5px;
+	border: 1px solid #999;
+	font-weight: bold;
+	background-color: #999;
+	color: #FFF;
+}
+.paginate .disabled {
+	padding: 2px 5px;
+	margin: 2px;
+	border: 1px solid #eee;
+	color: #ccc;
+}
+
+.searchbox {
+	padding: 5px 0;
+	margin: 5px auto;
+}
+
+div#albumart {
+	width: 200px;
+	height: 200px;
+	padding: 0;
+	margin: 0;
+	border: 1px solid #000;
+}
+
+#albumart div {
+	color: #fff;
+	background: #CCC;
+	background: rgb(54, 25, 25);
+	background: rgba(54, 25, 25, .7);
+	width: 100%;
+}
+
+#albumart div.artist {
+	position: relative;
+	font-weight: bold;
+	text-align: center;
+	top: 150px;
+}
+
+#albumart div.title {
+	position: relative;
+	font-size: 9pt;
+	text-align: center;
+	top: 150px;
+}
+
+#albumart div.duration {
+	font-size: 9pt;
+	text-align: left;
+}

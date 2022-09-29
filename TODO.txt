@@ -1,0 +1,13 @@
+== 0.6.x ==
+Enhancement: Better looking options screen
+Enhancement: Help on options screen
+Enhancement: Configurable showing/hiding now playing items (timestamp, duration)
+Enhancement: Options for each shortcode to allow customisation of each instance
+
+Enhancement: Add advanced option for selection of song_type
+
+== 0.7.x ==
+Enhancement: Add category filter for request tracks
+
+== Crazy ideas ==
+Random track request?

@@ -1,0 +1,555 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: RadioDJ Plugin (new) v0.6.0-dev\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2014-07-27 14:53:17+0000\n"
+"Last-Translator: andy <andy@axellence.lv>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: CSL v1.x\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: UNITED STATES\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: \n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: lib/radiodj-admin.class.php:78
+#: views/config.php:8
+#@ radiodj
+msgid "RadioDJ Options"
+msgstr ""
+
+#: lib/radiodj-admin.class.php:82
+#@ radiodj
+msgid "Options"
+msgstr ""
+
+#: lib/radiodj-admin.class.php:99
+#@ radiodj
+msgid "Settings saved"
+msgstr ""
+
+#: lib/radiodj-admin.class.php:163
+#@ default
+msgid "Please specify server address"
+msgstr ""
+
+#: lib/radiodj-admin.class.php:166
+#@ default
+msgid "Please specify database name"
+msgstr ""
+
+#: lib/radiodj-admin.class.php:169
+#@ default
+msgid "Please specify username"
+msgstr ""
+
+#: lib/radiodj-admin.class.php:172
+#@ default
+msgid "Please specify password"
+msgstr ""
+
+#: lib/radiodj-admin.class.php:183
+#, php-format
+#@ radiodj
+msgid "Using %s client to connect"
+msgstr ""
+
+#: lib/radiodj-admin.class.php:186
+#@ radiodj
+msgid "Successfully connected to RadioDJ database"
+msgstr ""
+
+#: lib/radiodj-admin.class.php:187
+#, php-format
+#@ radiodj
+msgid "Database version: %s"
+msgstr ""
+
+#: lib/radiodj-admin.class.php:191
+#@ radiodj
+msgid "Error connecting to RadioDJ database: "
+msgstr ""
+
+#: lib/radiodj-admin.class.php:196
+#, php-format
+#@ radiodj
+msgid "Please check your password and verify that user <code>%s</code> is allowed to connect to specified database remotely."
+msgstr ""
+
+#: lib/radiodj-admin.class.php:201
+#@ radiodj
+msgid "Please make sure that you are using correct IP address and port number."
+msgstr ""
+
+#: lib/radiodj-admin.class.php:202
+#@ radiodj
+msgid "Either your webhost is blocking outgoing MySQL connections or MySQL is not listening on given IP address and port."
+msgstr ""
+
+#: lib/radiodj-admin.class.php:205
+#@ radiodj
+msgid "Unknown errno (9999) or no error description available because of existing mysql connection."
+msgstr ""
+
+#: lib/radiodj-admin.class.php:208
+#@ radiodj
+msgid "Unknown mysql error occured"
+msgstr ""
+
+#: lib/radiodj-admin.class.php:213
+#@ radiodj
+msgid "Error selecting database: "
+msgstr ""
+
+#: lib/radiodj-admin.class.php:214
+#@ radiodj
+msgid "Please verify that you are using correct database name"
+msgstr ""
+
+#: lib/radiodj-admin.class.php:222
+#, php-format
+#@ radiodj
+msgid "Error querying last played song. Probably <code>%s</code> is not RadioDJ database."
+msgstr ""
+
+#: lib/radiodj-admin.class.php:224
+#@ radiodj
+msgid "Could not get last played song. Have you enabled history in RadioDJ?"
+msgstr ""
+
+#: lib/radiodj-admin.class.php:225
+#@ radiodj
+msgid "Now playing, top tracks and top albums won't function if history is disabled."
+msgstr ""
+
+#: lib/radiodj-admin.class.php:229
+#, php-format
+#@ radiodj
+msgid "Last played song: %s at %s"
+msgstr ""
+
+#: lib/radiodj.class.php:159
+#: lib/radiodj.class.php:194
+#: lib/radiodj.class.php:228
+#: lib/radiodj.class.php:472
+#@ default
+#@ radiodj
+msgid "Currently there are no results to display."
+msgstr ""
+
+#: lib/radiodj.class.php:276
+#: lib/radiodj.class.php:435
+#, php-format
+#@ radiodj
+msgid "Sorry, but you've reached the request limit of %d requests for one day."
+msgstr ""
+
+#: lib/radiodj.class.php:279
+#: lib/radiodj.class.php:438
+#@ radiodj
+msgid "The selected track is already requested. Please try again later, or select another track."
+msgstr ""
+
+#: lib/radiodj.class.php:285
+#: lib/radiodj.class.php:422
+#@ radiodj
+msgid "The selected track was not found"
+msgstr ""
+
+#: lib/radiodj.class.php:321
+#: lib/radiodj.class.php:323
+#@ radiodj
+msgid "Previous"
+msgstr ""
+
+#: lib/radiodj.class.php:388
+#: lib/radiodj.class.php:390
+#@ radiodj
+msgid "Next"
+msgstr ""
+
+#: lib/radiodj.class.php:432
+#@ radiodj
+msgid "Please enter your name in order to send the request."
+msgstr ""
+
+#: lib/radiodj.class.php:445
+#@ radiodj
+msgid "Your request was succesfully placed."
+msgstr ""
+
+#: lib/radiodj.class.php:447
+#@ radiodj
+msgid "Unknown error occured. Please try again."
+msgstr ""
+
+#. translators: plugin header field 'Name'
+#: radiodj.php:0
+#@ radiodj
+msgid "RadioDJ Plugin (new)"
+msgstr ""
+
+#. translators: plugin header field 'PluginURI'
+#: radiodj.php:0
+#@ radiodj
+msgid "http://www.radiodj.ro/"
+msgstr ""
+
+#. translators: plugin header field 'Description'
+#: radiodj.php:0
+#@ radiodj
+msgid "Display RadioDJ now playing songs, requests and statistics on a WordPress site. Based on previous work by Marius Vaida."
+msgstr ""
+
+#. translators: plugin header field 'Author'
+#: radiodj.php:0
+#@ radiodj
+msgid "Andis Grosšteins"
+msgstr ""
+
+#. translators: plugin header field 'AuthorURI'
+#: radiodj.php:0
+#@ radiodj
+msgid "http://axellence.lv/"
+msgstr ""
+
+#. translators: plugin header field 'Version'
+#: radiodj.php:0
+#@ radiodj
+msgid "0.6.0-dev"
+msgstr ""
+
+#: views/config.php:11
+#@ radiodj
+msgid "Database settings"
+msgstr ""
+
+#: views/config.php:16
+#@ radiodj
+msgid "RadioDJ Server"
+msgstr ""
+
+#: views/config.php:18
+#@ radiodj
+msgid "localhost:3306"
+msgstr ""
+
+#: views/config.php:19
+#@ radiodj
+msgid "IP address or hostname of RadioDJ database server. If you are uning non-standard port number, it should be specified after IP address separated by colon \":\""
+msgstr ""
+
+#: views/config.php:23
+#: views/config.php:25
+#@ radiodj
+msgid "Username"
+msgstr ""
+
+#: views/config.php:29
+#: views/config.php:31
+#@ radiodj
+msgid "Password"
+msgstr ""
+
+#: views/config.php:35
+#: views/config.php:37
+#@ radiodj
+msgid "Database name"
+msgstr ""
+
+#: views/config.php:38
+#@ radiodj
+msgid "Same database name as used by RadioDJ"
+msgstr ""
+
+#: views/config.php:44
+#@ radiodj
+msgid "Verify database settings"
+msgstr ""
+
+#: views/config.php:49
+#@ radiodj
+msgid "Offline Message"
+msgstr ""
+
+#: views/config.php:52
+#@ default
+msgid "Displayed on page with shortcode, if plubin cannot connect to RadioDJ database."
+msgstr ""
+
+#: views/config.php:57
+#@ radiodj
+msgid "RadioDJ Timezone"
+msgstr ""
+
+#: views/config.php:62
+#@ default
+msgid "Set this to timezone of your RadioDJ station location. It is used for displaying correct timestamps."
+msgstr ""
+
+#: views/config.php:67
+#: views/config.php:152
+#@ radiodj
+msgid "Save Settings"
+msgstr ""
+
+#: views/config.php:68
+#@ radiodj
+msgid "Now Playing Options"
+msgstr ""
+
+#: views/config.php:71
+#@ radiodj
+msgid "Upcoming Items"
+msgstr ""
+
+#: views/config.php:77
+#@ radiodj
+msgid "AJAX Refresh"
+msgstr ""
+
+#: views/config.php:82
+#@ radiodj
+msgid "Update now playing info every 10 seconds"
+msgstr ""
+
+#: views/config.php:87
+#@ radiodj
+msgid "Shuffle Upcoming"
+msgstr ""
+
+#: views/config.php:92
+#@ radiodj
+msgid "Shuffle upcoming songs"
+msgstr ""
+
+#: views/config.php:97
+#@ radiodj
+msgid "History Items"
+msgstr ""
+
+#: views/config.php:103
+#@ radiodj
+msgid "Top Tracks and Albums Display Options"
+msgstr ""
+
+#: views/config.php:106
+#@ radiodj
+msgid "Top Tracks Items"
+msgstr ""
+
+#: views/config.php:112
+#@ radiodj
+msgid "Top Albums Items"
+msgstr ""
+
+#: views/config.php:118
+#@ radiodj
+msgid "Days To Build The Top"
+msgstr ""
+
+#: views/config.php:124
+#@ radiodj
+msgid "Requests Options"
+msgstr ""
+
+#: views/config.php:127
+#@ radiodj
+msgid "Items per Page"
+msgstr ""
+
+#: views/config.php:133
+#@ default
+msgid "Minimum Track Repeat"
+msgstr ""
+
+#: views/config.php:135
+#: views/config.php:141
+#@ default
+msgid "minutes"
+msgstr ""
+
+#: views/config.php:139
+#@ default
+msgid "Minimum Artist Repeat"
+msgstr ""
+
+#: views/config.php:145
+#@ default
+msgid "Daily Request Limit"
+msgstr ""
+
+#: views/config.php:148
+#@ default
+msgid "Daily allowed requests per IP address"
+msgstr ""
+
+#: views/config.php:154
+#@ radiodj
+msgid "RadioDJ shortcodes"
+msgstr ""
+
+#: views/config.php:157
+#: views/nowplaying.php:10
+#@ radiodj
+msgid "Now Playing"
+msgstr ""
+
+#: views/config.php:158
+#@ radiodj
+msgid "Top Played Tracks"
+msgstr ""
+
+#: views/config.php:159
+#@ radiodj
+msgid "Top Played Albums"
+msgstr ""
+
+#: views/config.php:160
+#@ radiodj
+msgid "Top Played Artists"
+msgstr ""
+
+#: views/config.php:161
+#@ radiodj
+msgid "Request Section"
+msgstr ""
+
+#: views/config.php:162
+#@ radiodj
+msgid "Top Requests"
+msgstr ""
+
+#: views/nowplaying.php:24
+#@ radiodj
+msgid "Coming Soon"
+msgstr ""
+
+#: views/nowplaying.php:36
+#@ radiodj
+msgid "Recently Played Songs"
+msgstr ""
+
+#: views/request-form.php:8
+#, php-format
+#@ default
+msgid "You are about to request <b>%s</b> by <b>%s</b>"
+msgstr ""
+
+#: views/request-form.php:11
+#@ radiodj
+msgid "Please enter request details below"
+msgstr ""
+
+#: views/request-form.php:13
+#@ radiodj
+msgid "Your Name"
+msgstr ""
+
+#: views/request-form.php:17
+#@ radiodj
+msgid "Message (optional)"
+msgstr ""
+
+#: views/request-form.php:22
+#@ radiodj
+msgid "Submit your request"
+msgstr ""
+
+#: views/request-table.php:10
+#@ radiodj
+msgid "Use this form to search for artist or title"
+msgstr ""
+
+#: views/request-table.php:12
+#@ radiodj
+msgid "Search artist or title"
+msgstr ""
+
+#: views/request-table.php:14
+#@ radiodj
+msgid "Search"
+msgstr ""
+
+#: views/request-table.php:28
+#: views/topalbums.php:10
+#: views/topartists.php:10
+#: views/toprequests.php:11
+#: views/toptracks.php:11
+#@ radiodj
+msgctxt "table header"
+msgid "#"
+msgstr ""
+
+#: views/request-table.php:31
+#: views/topalbums.php:13
+#: views/topartists.php:13
+#: views/toprequests.php:14
+#: views/toptracks.php:14
+#@ radiodj
+msgid "Artist"
+msgstr ""
+
+#: views/request-table.php:34
+#: views/topalbums.php:16
+#: views/toprequests.php:17
+#: views/toptracks.php:17
+#@ radiodj
+msgid "Title"
+msgstr ""
+
+#: views/request-table.php:37
+#@ radiodj
+msgid "Duration"
+msgstr ""
+
+#: views/request-table.php:40
+#@ radiodj
+msgid "Request"
+msgstr ""
+
+#: views/request-table.php:65
+#@ radiodj
+msgctxt "action button"
+msgid "Request this track"
+msgstr ""
+
+#: views/request-table.php:66
+#@ radiodj
+msgctxt "action button"
+msgid "Request"
+msgstr ""
+
+#: views/request-table.php:71
+#@ radiodj
+msgctxt "indicates status"
+msgid "Requested"
+msgstr ""
+
+#: views/request-table.php:71
+#@ radiodj
+msgctxt "action button"
+msgid "This track cannot be requested"
+msgstr ""
+
+#: views/request-table.php:86
+#@ default
+msgid "No track was found by give search query. Please try different search phrase."
+msgstr ""
+
+#: views/topalbums.php:19
+#: views/topartists.php:16
+#: views/toprequests.php:20
+#: views/toptracks.php:20
+#@ radiodj
+msgid "Count"
+msgstr ""
+

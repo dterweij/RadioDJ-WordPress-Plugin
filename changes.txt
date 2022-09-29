@@ -1,0 +1,45 @@
+This file is here for tracking changes in development versions
+
+2014-07-28
+* Added connection timing to database connection verification
+* Plugin now connects to database only when parsing shortcodes/responding to ajax hooks to reduce page load times
+* Settings verification button is disabled during ajax request to avoid subsequent requests when given MySQL host takes long time to respond
+
+2014-07-29
+* Added few missing CSS class names to shortcodes HTML
+
+2014-09-29
+* Added option to override radiodj.css by copying it to current theme's or child themes root
+	Now the plugin checks if radiodj.css exists in theme or child theme and loads that instead
+
+2014-10-05
+* Bugfix: Add stripcslashes for input variables in database verification
+
+2015-04-23
+* Enhancement: Better caching for data in shortcode
+* Bugfix: Connect to database only if cached data not available
+
+2015-04-26
+* Fix: Removed invalid <h3> tags from table headings
+* Enhancement: Separator hiphen between artist and title wrapped in <span class="separator"> so it can be hidden/styled using CSS
+* Enhancement: Added option to display song titles of upcoming tracks
+
+2015-11-23
+* Bugfix: Replace deprecated like_escape function with radiodj_db::esc_like method
+
+2016-09-01
+* Enhancement: Added reCAPTCHA for submission verification
+* Enhancement: Make sure tracks in playlist queue can't be requested
+* Enhancement: Added option to disable name input field for requests
+
+2016-09-02
+* Enhancement: Added option for request per-IP-address limit duration
+* Fix: Check request limit using selected time interval rather than comparing date
+* Enhancement: Added options to disable request submission and display a message
+
+2016-09-03
+* Enhancement: Option to control track types available for requests
+* Enhancement: Option to control track types displayed by [now-playing] shortcode
+
+2016-09-04
+* Enhancement: Display a dismissible notification when request submission is disabled
