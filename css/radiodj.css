@@ -1,66 +1,99 @@
 /*
-/// Now playing info
+/// RadioDJ Styles
 */
 
-body {
-font-size: 9pt;
+.rdj-main-table {
+	
 }
 
-#nptable {
+#rdj-table {
 	padding: 0;
 	margin: auto;
-	border: 1px solid #DDD;
+	border: 0px solid #DDD;
 	width: 100%;
 }
 
-#nptable h3 {
+#rdj-table h3 {
 	padding: 0;
 	margin: 0;
 	color: white;
-	font-size: 1em;
+	font-size: 9pt;
 }
 
-#nptable td {
+#rdj-table td {
 	padding: 5px;
 	margin: 0;
 	text-align: left;
-font-size: 9pt;
+    font-size: 9pt;
 }
 
-#nptable td.Arequest-col {
+#rdj-table td.rdj-request-col {
 	text-align: center;
 }
 
-#nptable .odd {
+#rdj-table img.rdj-request-col {
+	border: 0px solid #000;
+}
+
+#rdj-table .odd {
 	background: #CCD6E0;
 }
 
-.Acurrent-track td span {
-	font-weight: bold;
+
+.rdj-current-track > tr {
+	
 }
 
-.Arequests-not-accepted {
-	padding: 2em;
+.rdj-playing-track > div {
+text-align: center;	
+}
+
+.rdj-comming-soon > tr {
+	
+}
+.rdj-recent-tracks > tr {
+	
+}
+
+.rdj-top-tracks {
+	
+}
+.rdj-top-albums {
+	
+}
+.rdj-top-artists {
+	
+}
+
+.rdj-top-requests {
+	
+}
+
+.rdj-requests {
+	
+}
+.rdj-requestcontainer { 
+	padding: 5px;
+}
+.rdj-requests-not-accepted {
+	padding: 5px;
 	text-align: center;
 	border: 1px solid #ddd;
 }
 
-.Arequest-form {
+.rdj-request-form {
 	padding: 0;
 	margin: auto;
 	width: 100%;
 }
 
-.Arequest-form fieldset > p,
-.Arequest-form fieldset > div {
-	margin-bottom: 1em;
-}
 
-
-.header_live {
+.rdj-header-live {
 	background-color: #849DB3;
-	color: white;
+	color: #FFF;
 	text-align: center;
+	font-size: 9pt;
+	padding: 5px;
 }
 
 .errordiv,
@@ -102,6 +135,7 @@ font-size: 9pt;
 	padding: 3px;
 	margin: 3px;
 	text-align: center;
+	color: #000;
 }
 
 .paginate a {
@@ -128,117 +162,128 @@ font-size: 9pt;
 .paginate .disabled {
 	padding: 2px 5px;
 	margin: 2px;
-	border: 1px solid #eee;
-	color: #ccc;
+	border: 1px solid #999;
+	color: #616161;
 }
 
-.searchbox {
+.rdj-searchbox {
 	padding: 5px 0;
 	margin: 5px auto;
 }
 
-div#albumart {
-	width: 200px;
-	height: 200px;
-	padding: 0;
-	margin: 0;
-	border: 1px solid #000;
-}
-
-#albumart div {
-	color: #fff;
-	background: #CCC;
-	background: rgb(54, 25, 25);
-	background: rgba(54, 25, 25, .7);
-	width: 100%;
-}
-
-#albumart div.Aartist {
-	position: relative;
-	font-weight: bold;
-	text-align: center;
-	top: 150px;
-}
-#albumart div.Atitle {
-	position: relative;
-	font-size: 9pt;
-	text-align: center;
-	top: 150px;
-}
-#albumart div.Aduration {
-	font-size: 9pt;
-	text-align: left;
-}
-
-.Aartist {
+.rdj-artist {
 	font-size: 10pt;
 	text-align: left;
-color: #000;
-font-weight: bold;
-
+	color: #000;
+	font-weight: bold;
 }
-.Atitle {
+
+.rdj-separator {
+	font-size: 9pt;
+color: #000;
+}
+
+.rdj-title {
 	font-size: 9pt;
 	text-align: left;
-color: #000;
-
-}
-.Aduration {
-	font-size: 9pt;
-	text-align: left;
-color: #000;
-
+	color: #000;
 }
 
-.Atimestamp {
-	font-size: 9pt;
-	text-align: left;
-color: #000;
-
-}
-.Aposition {
+.rdj-duration {
 	font-size: 9pt;
 	text-align: left;
 color: #000;
 
 }
 
-.Aseparator {
+.rdj-timestamp {
 	font-size: 9pt;
+	text-align: left;
 color: #000;
+
 }
-.Aentry_no {
+.rdj-header-position {
+	font-size: 9pt;
+	text-align: right !important;
+color: #000;
+padding: 5px;
+	width: 5%;
+}
+.rdj-position {
+	font-size: 9pt;
+	text-align: right !important;
+color: #000;
+	padding: 5px;
+	width: 5%;
+}
+
+.rdj-header-artist {
 color: #000; 
-	width: 10px;
 	text-align: left;
 font-size: 9pt;
+	padding: 5px;
+	width: 30%;
 }
-
-.Acount_played {
+.rdj-header-title {
 color: #000; 
 	text-align: left;
 font-size: 9pt;
+padding: 5px;
+	width: 40%;
 }
 
-.Aalbum-title {
+.rdj-header-count-played {
+color: #000; 
+	text-align: left;
+font-size: 9pt;
+	padding: 5px;
+	width: 5%;
+}
+
+.rdj-header-duration {
+color: #000; 
+	text-align: left;
+font-size: 9pt;
+	padding: 5px;
+	width: 5%;
+}
+
+.rdj-header-request-col {
+color: #000; 
+	text-align: left;
+font-size: 9pt;
+	padding: 5px;
+	width: 5%;
+}
+
+.rdj-count-played {
+color: #000; 
+	text-align: left;
+font-size: 9pt;
+	padding: 5px;
+		width: 5%;
+}
+
+.rdj-album-title {
 	font-size: 9pt;
 	text-align: left;
 color: #000;
 
 }
 
-#nptable td.Aposition {
-width: 10px;
-}
-#nptable td.Acount_played {
-width: 10px;
-}
-#nptable td.Aartist {
-width: 30%;
-}
 
-legend.Ascreenreader-text {
+
+
+.rdj-request-form-text {
 	font-size: 9pt;
 	text-align: left;
-color: #000;
+    color: #000;
+	padding-left: 5px;
+}
+
+.rdj-request-form-title {
+	font-size: 12pt;
+	text-align: left;
+    color: #000;
+	padding-left: 5px;
 }

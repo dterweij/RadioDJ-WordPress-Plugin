@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RadioDJ Plugin v0.7.0-dev\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-25 00:57+0200\n"
-"PO-Revision-Date: 2022-09-25 01:04+0200\n"
+"POT-Creation-Date: 2022-09-30 18:12+0200\n"
+"PO-Revision-Date: 2022-09-30 18:16+0200\n"
 "Last-Translator: Andis Grosšteins <andis.grossteins@gmail.com>\n"
 "Language-Team: SUPERSTAR\n"
 "Language: nl_NL\n"
@@ -134,29 +134,29 @@ msgstr ""
 
 #: lib/radiodj.class.php:204 lib/radiodj.class.php:255
 #: lib/radiodj.class.php:296 lib/radiodj.class.php:337
-#: lib/radiodj.class.php:535 lib/radiodj.class.php:671
+#: lib/radiodj.class.php:536 lib/radiodj.class.php:672
 msgid "Empty output from ob_get_clean()"
 msgstr ""
 
 #: lib/radiodj.class.php:247 lib/radiodj.class.php:288
-#: lib/radiodj.class.php:329 lib/radiodj.class.php:663
+#: lib/radiodj.class.php:329 lib/radiodj.class.php:664
 msgid "Currently there are no results to display."
 msgstr "Geen resultaten beschikbaar."
 
-#: lib/radiodj.class.php:406 lib/radiodj.class.php:588
+#: lib/radiodj.class.php:406 lib/radiodj.class.php:589
 msgid "Sorry, you've reached the request limit. Please try again later."
 msgstr ""
 "Sorry, maar je hebt de verzoeklimiet bereikt. Probeer later nog een keer."
 
 #: lib/radiodj.class.php:406 lib/radiodj.class.php:409
-#: lib/radiodj.class.php:415 lib/radiodj.class.php:556
-#: lib/radiodj.class.php:568 lib/radiodj.class.php:588
-#: lib/radiodj.class.php:592 lib/radiodj.class.php:599
-#: lib/radiodj.class.php:601
+#: lib/radiodj.class.php:415 lib/radiodj.class.php:557
+#: lib/radiodj.class.php:569 lib/radiodj.class.php:589
+#: lib/radiodj.class.php:593 lib/radiodj.class.php:600
+#: lib/radiodj.class.php:602
 msgid "Return to list of tracks"
 msgstr "Terug naar lijst met nummers"
 
-#: lib/radiodj.class.php:409 lib/radiodj.class.php:592
+#: lib/radiodj.class.php:409 lib/radiodj.class.php:593
 msgid ""
 "The selected track is already requested. Please try again later, or select "
 "another track."
@@ -164,31 +164,35 @@ msgstr ""
 "Het geselecteerde nummer is al recent gedraaid. Probeer het later opnieuw of "
 "selecteer een ander nummer."
 
-#: lib/radiodj.class.php:415 lib/radiodj.class.php:568
+#: lib/radiodj.class.php:415 lib/radiodj.class.php:569
 msgid "The selected track was not found"
 msgstr "Nummer niet gevonden"
 
-#: lib/radiodj.class.php:455 lib/radiodj.class.php:457
+#: lib/radiodj.class.php:446
+msgid "..."
+msgstr "<->"
+
+#: lib/radiodj.class.php:456 lib/radiodj.class.php:458
 msgid "Previous"
 msgstr "Terug"
 
-#: lib/radiodj.class.php:522 lib/radiodj.class.php:524
+#: lib/radiodj.class.php:523 lib/radiodj.class.php:525
 msgid "Next"
 msgstr "Volgende"
 
-#: lib/radiodj.class.php:555
+#: lib/radiodj.class.php:556
 msgid "reCAPTCHA validation failed. Are you really a human?"
 msgstr ""
 
-#: lib/radiodj.class.php:572
+#: lib/radiodj.class.php:573
 msgid "Please enter your name in order to send the request."
 msgstr "Vul a.u.b. uw naam in om de aanvraag te versturen."
 
-#: lib/radiodj.class.php:599
+#: lib/radiodj.class.php:600
 msgid "Your request was succesfully placed."
 msgstr "Je verzoek is verzonden."
 
-#: lib/radiodj.class.php:601
+#: lib/radiodj.class.php:602
 msgid "Unknown error occured. Please try again."
 msgstr "Er is een onbekende fout opgetreden. Probeer het opnieuw."
 
@@ -274,24 +278,22 @@ msgstr "Gebruik dit formulier om naar artiest of titel te zoeken"
 
 #: views/request-table.php:18
 msgid "Search artist or title"
-msgstr "Zoek artiest of titel"
+msgstr "Zoek een artiest of titel"
 
 #: views/request-table.php:20
 msgid "Search"
 msgstr "Zoek"
 
-#: views/request-table.php:34 views/topalbums.php:11 views/topartists.php:11
-#: views/toprequests.php:11
-msgctxt "table header"
+#: views/request-table.php:34 views/toprequests.php:12 views/toptracks.php:11
 msgid "#"
 msgstr "#"
 
 #: views/request-table.php:37 views/topalbums.php:14 views/topartists.php:14
-#: views/toprequests.php:14 views/toptracks.php:14
+#: views/toprequests.php:15 views/toptracks.php:14
 msgid "Artist"
 msgstr "Artiest"
 
-#: views/request-table.php:40 views/toprequests.php:17 views/toptracks.php:17
+#: views/request-table.php:40 views/toprequests.php:18 views/toptracks.php:17
 msgid "Title"
 msgstr "Titel"
 
@@ -299,29 +301,36 @@ msgstr "Titel"
 msgid "Duration"
 msgstr "Duur"
 
-#: views/request-table.php:46
+#: views/request-table.php:46 views/request-table.php:73
+#: views/request-table.php:74
 msgid "Request"
 msgstr "Verzoek"
 
-#: views/request-table.php:94
+# @ radiodj
+#: views/request-table.php:79
+msgid "This track cannot be requested"
+msgstr "Dit nummer kan niet aangevraagd worden"
+
+#: views/request-table.php:95
 msgid ""
 "No track was found using your search query. Please try different search "
 "phrase."
 msgstr ""
 "Er is geen nummer gevonden door je zoekopdracht. Probeer een andere zoekterm."
 
+#: views/topalbums.php:11 views/topartists.php:11
+msgctxt "table header"
+msgid "#"
+msgstr "#"
+
 #: views/topalbums.php:17
 msgid "Album"
 msgstr "Album"
 
-#: views/topalbums.php:20 views/topartists.php:17 views/toprequests.php:20
+#: views/topalbums.php:20 views/topartists.php:20 views/toprequests.php:21
 #: views/toptracks.php:20
 msgid "Count"
 msgstr "Aantal"
-
-#: views/toptracks.php:11
-msgid "#"
-msgstr "#"
 
 # @ radiodj
 #~ msgid "RadioDJ Plugin (new)"
@@ -363,8 +372,3 @@ msgstr "#"
 #~ msgctxt "indicates status"
 #~ msgid "Requested"
 #~ msgstr "Aangevraagd"
-
-# @ radiodj
-#~ msgctxt "action button"
-#~ msgid "This track cannot be requested"
-#~ msgstr "Dit nummer kan niet aangevraagd worden"

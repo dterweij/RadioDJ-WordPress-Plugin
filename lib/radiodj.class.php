@@ -352,7 +352,7 @@ class RadioDJ {
 		}
 
 		if( (int)get_option('rdj_allow_requests', 1) == 0 ) {
-			return '<div class="requests-not-accepted">' . get_option('rdj_requests_message') . '</div>';
+			return '<div class="rdj-requests-not-accepted">' . get_option('rdj_requests_message') . '</div>';
 		}
 
 		$limit = (int)get_option('pg_results');
@@ -443,7 +443,8 @@ class RadioDJ {
 			$LastPagem1 = $lastpage - 1;
 
 			$paginate = '';
-
+            $paginate_seperator = _e('...', 'radiodj');
+			
 			// TODO: Pagination should be moved to template
 			if($lastpage > 1) {
 
@@ -479,7 +480,7 @@ class RadioDJ {
 							}
 						}
 
-						$paginate.= '...';
+						$paginate.= $paginate_seperator;
 						$paginate.= '<a href="' . self::paging_url($LastPagem1, $searchterm) . '">' . $LastPagem1 . '</a>';
 						$paginate.= '<a href="' . self::paging_url($lastpage, $searchterm) . '">' . $lastpage . '</a>';
 
@@ -487,7 +488,7 @@ class RadioDJ {
 
 						$paginate.= '<a href="' . self::paging_url(1, $searchterm) . '">1</a>';
 						$paginate.= '<a href="' . self::paging_url(2, $searchterm) . '">2</a>';
-						$paginate.= '...';
+						$paginate.= $paginate_seperator;
 
 						for ($counter = $page - $stages; $counter <= $page + $stages; $counter++) {
 							if ($counter == $page) {
@@ -497,7 +498,7 @@ class RadioDJ {
 							}
 						}
 
-						$paginate.= '...';
+						$paginate.= $paginate_seperator;
 						$paginate.= '<a href="' . self::paging_url($LastPagem1, $searchterm) . '">' . $LastPagem1 . '</a>';
 						$paginate.= '<a href="' . self::paging_url($lastpage, $searchterm) . '">' . $lastpage . '</a>';
 
@@ -505,7 +506,7 @@ class RadioDJ {
 
 						$paginate.= '<a href="' . self::paging_url(1, $searchterm) . '">1</a>';
 						$paginate.= '<a href="' . self::paging_url(2, $searchterm) . '">2</a>';
-						$paginate.= '...';
+						$paginate.= $paginate_seperator;
 
 						for ($counter = $lastpage - (2 + ($stages * 2)); $counter <= $lastpage; $counter++) {
 							if ($counter == $page) {
@@ -565,7 +566,7 @@ class RadioDJ {
 		$sql = $DB->prepare( "SELECT `artist`, `title` FROM `songs` WHERE `ID` = %d", $request_songID );
 		$track = $DB->get_row( $sql );
 		if( empty($track) ) {
-			return '<div class="errordiv">' . __('The selected track was not found', 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks')).'</p>';
+			return '<div class="errordiv">' . __('The selected track was not found', 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks', 'radiodj')).'</p>';
 		}
 
 		if( empty($request_name) && get_option('rdj_request_name_field') ) {
@@ -589,16 +590,16 @@ class RadioDJ {
 		}
 
 		if( $request_state->already_requested ) {
-			return '<div class="errordiv">' . __("The selected track is already requested. Please try again later, or select another track.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks')).'</p>';
+			return '<div class="errordiv">' . __("The selected track is already requested. Please try again later, or select another track.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks', 'radiodj')).'</p>';
 		}
 
 		$sql = $DB->prepare("INSERT INTO `requests` SET `songID` = %d, `username` = %s, `userIP` = %s, `message` = %s, `requested` = NOW()", $request_songID, $request_name, $request_IP, $request_msg);
 		$result = $DB->query( $sql );
 
 		if( $result ) {
-			return '<div class="noticediv">' . __("Your request was succesfully placed.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks')).'</p>';
+			return '<div class="noticediv">' . __("Your request was succesfully placed.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks', 'radiodj')).'</p>';
 		} else {
-			return '<div class="errordiv">' . __("Unknown error occured. Please try again.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks')).'</p>';
+			return '<div class="errordiv">' . __("Unknown error occured. Please try again.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks', 'radiodj')).'</p>';
 		}
 	}
 
@@ -668,7 +669,7 @@ class RadioDJ {
 		$output = ob_get_clean();
 
 		if( empty($output) ) {
-			return '<div class="noticediv">'._e( 'Empty output from ob_get_clean()' ).'</div><pre>$output = '.print_r($output, true).'</pre>';
+			return '<div class="noticediv">'._e('Empty output from ob_get_clean()', 'radiodj' ).'</div><pre>$output = '.print_r($output, true).'</pre>';
 		}
 
 		return $output;

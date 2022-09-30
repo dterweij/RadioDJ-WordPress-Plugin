@@ -3,20 +3,20 @@ if ( !function_exists( 'add_action' ) ) {
 	exit;
 }
 ?>
-<div class="rdj-wrap top-tracks">
-	<table class="main_table" id="nptable">
+<div class="rdj-wrap rdj-top-tracks">
+	<table class="rdj-main-table" id="rdj-table">
 		<thead>
-			<tr class="header_live">
-				<th class="Aentry_no Aposition">
+			<tr class="rdj-header-live">
+				<th class="rdj-header-position">
 					<?php _e('#', 'table header', 'radiodj'); ?>
 				</th>
-				<th class="Aartist">
+				<th class="rdj-header-artist">
 					<?php _e('Artist', 'radiodj'); ?>
 				</th>
-				<th class="Atitle">
+				<th class="rdj-header-title">
 					<?php _e('Title', 'radiodj'); ?>
 				</th>
-				<th class="Aentry_no Acount-played">
+				<th class="rdj-header-count-played">
 					<?php _e('Count', 'radiodj'); ?>
 				</th>
 			</tr>
@@ -28,10 +28,10 @@ if ( !function_exists( 'add_action' ) ) {
 				$td_class = ($counter++) % 2 ? 'odd' : 'even';
 			?>
 			<tr class="<?php echo $td_class; ?>">
-				<td class="Aposition"><?php echo $counter.'.'; ?></td>
-				<td class="Aartist"><?php echo htmlspecialchars( $song->artist, ENT_QUOTES ); ?></td>
-				<td class="Atitle"><?php echo htmlspecialchars( $song->title, ENT_QUOTES ); ?></td>
-				<td class="Acount-played"><?php echo $song->count_played; ?></td>
+				<td class="rdj-position"><?php echo $counter.'.'; ?></td>
+				<td class="rdj-artist"><?php echo htmlspecialchars( $song->artist, ENT_QUOTES ); ?></td>
+				<td class="rdj-title"><?php echo htmlspecialchars( $song->title, ENT_QUOTES ); ?></td>
+				<td class="rdj-count-played"><?php echo $song->count_played; ?></td>
 				</td>
 			</tr>
 			<?php
