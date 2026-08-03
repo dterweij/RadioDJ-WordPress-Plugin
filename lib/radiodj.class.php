@@ -1,4 +1,5 @@
 <?php
+setlocale(LC_TIME, 'nl_NL.UTF-8'); // Zorg dat Nederlandse locale actief is
 /**
  * RadioDJ class
  *
@@ -116,6 +117,10 @@ class RadioDJ {
 		return self::$DB;
 	}
 
+	
+	
+	
+	
 	/**
 	 * Now playing info shortcode
 	 *
@@ -123,7 +128,7 @@ class RadioDJ {
 	 */
 	public static function nowplaying() {
 
-		$upcoming = array();
+		$upcoming = array();		
 		$nowplaying = array();
 		$nowplaying_cache = get_transient( 'rdj_nowplaying' );
 
@@ -153,18 +158,28 @@ class RadioDJ {
 
 				$upcoming_show_titles = (bool)get_option('rdj_upcoming_show_titles');
 				if($upcoming_show_titles) {
-					$sql = $DB->prepare( "SELECT songs.artist, songs.title FROM songs, queuelist WHERE songs.song_type IN ($song_types) AND songs.ID=queuelist.songID " .
+					$sql = $DB->prepare( 
+    				"SELECT songs.artist, songs.title, songs.ID, songs.date_played, songs.date_added, queuelist.songID 
+     				FROM songs 
+     				JOIN queuelist ON songs.ID = queuelist.songID 
+     				WHERE songs.song_type IN ($song_types) 
+     				ORDER BY $order 
+     				LIMIT 0, %d", 
+    				$upcoming_items 
+				);
+				$upcoming = $DB->get_results( $sql );
+
+
+				} else {
+					$sql = $DB->prepare( "SELECT songs.artist, songs.ID, queuelist.songID FROM songs, queuelist WHERE songs.song_type IN ($song_types) AND songs.ID=queuelist.songID " .
 							"ORDER BY " . $order . " LIMIT 0,%d", $upcoming_items );
 					$upcoming = $DB->get_results( $sql );
-				} else {
-					$sql = $DB->prepare( "SELECT songs.artist FROM songs, queuelist WHERE songs.song_type IN ($song_types) AND songs.ID=queuelist.songID " .
-							"ORDER BY " . $order . " LIMIT 0,%d", $upcoming_items );
-					$upcoming = $DB->get_col( $sql );
 				}
+				
 			}
 
 			$history_items = intval( get_option( 'history_items' ) ) + 1;
-			$sql = $DB->prepare("SELECT date_played, artist, title, duration, TIMESTAMPDIFF(SECOND, date_played, NOW()) AS since_played FROM history WHERE song_type IN ($song_types) ORDER BY date_played DESC LIMIT 0, %d", $history_items);
+			$sql = $DB->prepare("SELECT `date_played`, `artist`, `title`, `duration`, TIMESTAMPDIFF(SECOND, `date_played`, NOW()) AS `since_played` FROM `history` WHERE `song_type` IN ($song_types) ORDER BY `date_played` DESC LIMIT 0, %d", $history_items);
 			$nowplaying = $DB->get_results( $sql );
 
 			if( !empty( $nowplaying ) ) {
@@ -190,8 +205,10 @@ class RadioDJ {
 		}
 
 		$current = array();
+
 		if(is_array($nowplaying) && !empty($nowplaying)){
 			$current = array_shift( $nowplaying );
+		
 		}
 
 		ob_start();
@@ -233,8 +250,8 @@ class RadioDJ {
 
 			$num_days = (int)get_option('top_days');
 			$num_tracks = (int)get_option('top_tracks');
-			$sql = $DB->prepare( "SELECT `artist`, `title`, COUNT(*) AS `count_played` FROM `history` WHERE TIMESTAMPDIFF(DAY, `date_played`, NOW()) <= %d" .
-			" AND `song_type` = 0 GROUP BY `title`, `artist` ORDER BY `count_played` DESC LIMIT 0,%d", $num_days, $num_tracks );
+			$sql = $DB->prepare( "SELECT `artist`, `title`, `count_played`, `date_played` FROM `songs`" .
+			" WHERE `song_type` = 0 ORDER BY `count_played` DESC LIMIT 0,%d", $num_tracks );
 			$toptracks = $DB->get_results( $sql );
 			if( !empty($toptracks) ) {
 				set_transient(  'rdj_top_tracks', $toptracks, 600 );
@@ -274,7 +291,7 @@ class RadioDJ {
 
 			$num_days = (int)get_option('top_days');
 			$num_albums = (int)get_option('top_tracks');
-			$sql = $DB->prepare( "SELECT `artist`, `album`, COUNT( * ) AS `count_played` FROM `history` WHERE CHAR_LENGTH(`album`) > 0 AND TIMESTAMPDIFF(DAY, `date_played` , NOW()) <= %d" .
+			$sql = $DB->prepare( "SELECT `artist`, `album`, COUNT( * ) AS `count_played` FROM `history` WHERE TIMESTAMPDIFF(DAY, `date_played` , NOW()) <= %d" .
 			" AND `song_type` = 0 GROUP BY `artist`, `album` ORDER BY `count_played` DESC LIMIT 0,%d", $num_days, $num_albums );
 			$topalbums = $DB->get_results( $sql );
 			if( !empty($topalbums) ) {
@@ -315,8 +332,8 @@ class RadioDJ {
 
 			$num_days = (int)get_option('top_days');
 			$num_artists = (int)get_option('top_tracks');
-			$sql = $DB->prepare( "SELECT `artist`, COUNT( * ) AS `count_played` FROM `history` WHERE TIMESTAMPDIFF(DAY, `date_played` , NOW()) <= %d" .
-			" AND `song_type` = 0 GROUP BY `artist` ORDER BY `count_played` DESC LIMIT 0,%d", $num_days, $num_artists );
+			$sql = $DB->prepare( "SELECT `artist`, `count_played` FROM `songs` " .
+			" WHERE `song_type` = 0 GROUP BY `artist` ORDER BY `count_played` DESC LIMIT 0,%d", $num_artists );
 			$topartists = $DB->get_results( $sql );
 			if( !empty($topartists) ) {
 				set_transient( 'rdj_top_artists', $topartists, 600 );
@@ -352,7 +369,7 @@ class RadioDJ {
 		}
 
 		if( (int)get_option('rdj_allow_requests', 1) == 0 ) {
-			return '<div class="rdj-requests-not-accepted">' . get_option('rdj_requests_message') . '</div>';
+			return '<div class="requests-not-accepted">' . get_option('rdj_requests_message') . '</div>';
 		}
 
 		$limit = (int)get_option('pg_results');
@@ -403,16 +420,16 @@ class RadioDJ {
 			$request_state = $DB->get_row( $sql );
 
 			if( $request_state->userlimit >= $request_limit ) {
-				return '<div class="errordiv">' . __("Sorry, you've reached the request limit. Please try again later.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks', 'radiodj')).'</p>';
+				return '<div class="errordiv">' . __("Sorry, you've reached the request limit. Please try again later.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks')).'</p>';
 			}
 			if( $request_state->already_requested ) {
-				return '<div class="errordiv">' . __("The selected track is already requested. Please try again later, or select another track.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks', 'radiodj')).'</p>';
+				return '<div class="errordiv">' . __("The selected track is already requested. Please try again later, or select another track.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks')).'</p>';
 			}
 
 			$sql = $DB->prepare( "SELECT `artist`, `title` FROM `songs` WHERE `ID` = %d AND `song_type` IN(" . implode(',', $allowed_types) . ")", $requestid );
 			$track = $DB->get_row( $sql );
 			if( empty($track) ) {
-				return '<div class="errordiv">' . __('The selected track was not found', 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks', 'radiodj')).'</p>';
+				return '<div class="errordiv">' . __('The selected track was not found', 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks')).'</p>';
 			}
 			require_once(RDJ_PLUGIN_DIR . 'views/request-form.php');
 
@@ -436,96 +453,90 @@ class RadioDJ {
 			$tracks = $DB->get_results($sql);
 
 			// Initial page num setup
-			$page = ($page < 1)? 1 : $page;
-			$prev = $page - 1;
-			$next = $page + 1;
-			$lastpage = ceil($total_pages/$limit);
-			$LastPagem1 = $lastpage - 1;
+$page = ($page < 1) ? 1 : $page;
+$prev = $page - 1;
+$next = $page + 1;
+$lastpage = ceil($total_pages / $limit);
+$LastPagem1 = $lastpage - 1;
 
-			$paginate = '';
-            $paginate_seperator = _e('...', 'radiodj');
-			
-			// TODO: Pagination should be moved to template
-			if($lastpage > 1) {
+$paginate = '';
 
-				$stages = 3; //how to split the pagination
+if ($lastpage > 1) {
+    $stages = 3;
 
-				$paginate .= '<div class="paginate">' . "\n";
-				// Previous
-				if ($page > 1) {
-					$paginate.= '<a href="' . self::paging_url($prev, $searchterm) . '">' . __('Previous', 'radiodj') . "</a>";
-				} else {
-					$paginate.= '<span class="disabled">' . __('Previous', 'radiodj') . '</span>';
-				}
+    $paginate .= '<div class="paginate">' . "\n";
 
-				// Pages
+    // Vorige
+    if ($page > 1) {
+        $paginate .= '<a class="paginate-prev" href="' . self::paging_url($prev, $searchterm) . '">' . __('Terug', 'radiodj') . '</a>';
+    } else {
+        $paginate .= '<span class="paginate-disabled paginate-prev">' . __('Terug', 'radiodj') . '</span>';
+    }
 
-				if ($lastpage < 7 + ($stages * 2)) {
-					for ($counter = 1; $counter <= $lastpage; $counter++) {
-						if ($counter == $page){
-							$paginate.= '<span class="current">' . $counter . '</span>';
-						} else {
-							$paginate.= '<a href="' . self::paging_url($counter, $searchterm) . '">' . $counter . '</a>';
-						}
-					}
-				} elseif($lastpage > 5 + ($stages * 2)) {
+    // Pagina-nummers
+    if ($lastpage < 7 + ($stages * 2)) {
+        for ($counter = 1; $counter <= $lastpage; $counter++) {
+            if ($counter == $page) {
+                $paginate .= '<span class="paginate-current">' . $counter . '</span>';
+            } else {
+                $paginate .= '<a class="paginate-link" href="' . self::paging_url($counter, $searchterm) . '">' . $counter . '</a>';
+            }
+        }
+    } elseif ($lastpage > 5 + ($stages * 2)) {
+        if ($page < 1 + ($stages * 2)) {
+            for ($counter = 1; $counter < 4 + ($stages * 2); $counter++) {
+                if ($counter == $page) {
+                    $paginate .= '<span class="paginate-current">' . $counter . '</span>';
+                } else {
+                    $paginate .= '<a class="paginate-link" href="' . self::paging_url($counter, $searchterm) . '">' . $counter . '</a>';
+                }
+            }
+            $paginate .= '<span class="paginate-ellipsis">...</span>';
+            $paginate .= '<a class="paginate-link" href="' . self::paging_url($LastPagem1, $searchterm) . '">' . $LastPagem1 . '</a>';
+            $paginate .= '<a class="paginate-link" href="' . self::paging_url($lastpage, $searchterm) . '">' . $lastpage . '</a>';
 
-					// Beginning only hide later pages
-					if($page < 1 + ($stages * 2)) {
-						for ($counter = 1; $counter < 4 + ($stages * 2); $counter++) {
-							if ($counter == $page) {
-								$paginate.= '<span class="current">'.$counter.'</span>';
-							} else {
-								$paginate.= '<a href="' . self::paging_url($counter, $searchterm) . '">' . $counter . '</a>';
-							}
-						}
+        } elseif ($lastpage - ($stages * 2) > $page && $page > ($stages * 2)) {
+            $paginate .= '<a class="paginate-link" href="' . self::paging_url(1, $searchterm) . '">1</a>';
+            $paginate .= '<a class="paginate-link" href="' . self::paging_url(2, $searchterm) . '">2</a>';
+            $paginate .= '<span class="paginate-ellipsis">...</span>';
 
-						$paginate.= $paginate_seperator;
-						$paginate.= '<a href="' . self::paging_url($LastPagem1, $searchterm) . '">' . $LastPagem1 . '</a>';
-						$paginate.= '<a href="' . self::paging_url($lastpage, $searchterm) . '">' . $lastpage . '</a>';
+            for ($counter = $page - $stages; $counter <= $page + $stages; $counter++) {
+                if ($counter == $page) {
+                    $paginate .= '<span class="paginate-current">' . $counter . '</span>';
+                } else {
+                    $paginate .= '<a class="paginate-link" href="' . self::paging_url($counter, $searchterm) . '">' . $counter . '</a>';
+                }
+            }
 
-					} elseif($lastpage - ($stages * 2) > $page && $page > ($stages * 2)) {
+            $paginate .= '<span class="paginate-ellipsis">...</span>';
+            $paginate .= '<a class="paginate-link" href="' . self::paging_url($LastPagem1, $searchterm) . '">' . $LastPagem1 . '</a>';
+            $paginate .= '<a class="paginate-link" href="' . self::paging_url($lastpage, $searchterm) . '">' . $lastpage . '</a>';
 
-						$paginate.= '<a href="' . self::paging_url(1, $searchterm) . '">1</a>';
-						$paginate.= '<a href="' . self::paging_url(2, $searchterm) . '">2</a>';
-						$paginate.= $paginate_seperator;
+        } else {
+            $paginate .= '<a class="paginate-link" href="' . self::paging_url(1, $searchterm) . '">1</a>';
+            $paginate .= '<a class="paginate-link" href="' . self::paging_url(2, $searchterm) . '">2</a>';
+            $paginate .= '<span class="paginate-ellipsis">...</span>';
 
-						for ($counter = $page - $stages; $counter <= $page + $stages; $counter++) {
-							if ($counter == $page) {
-								$paginate.= '<span class="current">' . $counter . '</span>';
-							} else {
-								$paginate.= '<a href="' . self::paging_url($counter, $searchterm) . '">' . $counter . '</a>';
-							}
-						}
+            for ($counter = $lastpage - (2 + ($stages * 2)); $counter <= $lastpage; $counter++) {
+                if ($counter == $page) {
+                    $paginate .= '<span class="paginate-current">' . $counter . '</span>';
+                } else {
+                    $paginate .= '<a class="paginate-link" href="' . self::paging_url($counter, $searchterm) . '">' . $counter . '</a>';
+                }
+            }
+        }
+    }
 
-						$paginate.= $paginate_seperator;
-						$paginate.= '<a href="' . self::paging_url($LastPagem1, $searchterm) . '">' . $LastPagem1 . '</a>';
-						$paginate.= '<a href="' . self::paging_url($lastpage, $searchterm) . '">' . $lastpage . '</a>';
+    // Volgende
+    if ($page < $counter - 1) {
+        $paginate .= '<a class="paginate-next" href="' . self::paging_url($next, $searchterm) . '">' . __('Volgende', 'radiodj') . '</a>' . "\n";
+    } else {
+        $paginate .= '<span class="paginate-disabled paginate-next">' . __('Volgende', 'radiodj') . '</span>' . "\n";
+    }
 
-					} else {
+    $paginate .= "</div>\n";
+}
 
-						$paginate.= '<a href="' . self::paging_url(1, $searchterm) . '">1</a>';
-						$paginate.= '<a href="' . self::paging_url(2, $searchterm) . '">2</a>';
-						$paginate.= $paginate_seperator;
-
-						for ($counter = $lastpage - (2 + ($stages * 2)); $counter <= $lastpage; $counter++) {
-							if ($counter == $page) {
-								$paginate.= '<span class="current">' . $counter . '</span>';
-							} else {
-								$paginate.= '<a href="' . self::paging_url($counter, $searchterm) . '">' . $counter . '</a>';
-							}
-						}
-					}
-				}
-
-				// Next
-				if ($page < $counter - 1) {
-					$paginate.= '<a href="' . self::paging_url($next, $searchterm) . '">' . __('Next', 'radiodj') . '</a>' . "\n";
-				} else {
-					$paginate.= '<span class="disabled">' . __('Next', 'radiodj') . '</span>' . "\n";
-				}
-				$paginate.= "</div>" . "\n";
-			}
 
 			require_once(RDJ_PLUGIN_DIR . 'views/request-table.php');
 
@@ -566,7 +577,7 @@ class RadioDJ {
 		$sql = $DB->prepare( "SELECT `artist`, `title` FROM `songs` WHERE `ID` = %d", $request_songID );
 		$track = $DB->get_row( $sql );
 		if( empty($track) ) {
-			return '<div class="errordiv">' . __('The selected track was not found', 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks', 'radiodj')).'</p>';
+			return '<div class="errordiv">' . __('The selected track was not found', 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks')).'</p>';
 		}
 
 		if( empty($request_name) && get_option('rdj_request_name_field') ) {
@@ -590,16 +601,16 @@ class RadioDJ {
 		}
 
 		if( $request_state->already_requested ) {
-			return '<div class="errordiv">' . __("The selected track is already requested. Please try again later, or select another track.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks', 'radiodj')).'</p>';
+			return '<div class="errordiv">' . __("The selected track is already requested. Please try again later, or select another track.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks')).'</p>';
 		}
 
 		$sql = $DB->prepare("INSERT INTO `requests` SET `songID` = %d, `username` = %s, `userIP` = %s, `message` = %s, `requested` = NOW()", $request_songID, $request_name, $request_IP, $request_msg);
 		$result = $DB->query( $sql );
 
 		if( $result ) {
-			return '<div class="noticediv">' . __("Your request was succesfully placed.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks', 'radiodj')).'</p>';
+			return '<div class="noticediv">' . __("Your request was succesfully placed.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks')).'</p>';
 		} else {
-			return '<div class="errordiv">' . __("Unknown error occured. Please try again.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks', 'radiodj')).'</p>';
+			return '<div class="errordiv">' . __("Unknown error occured. Please try again.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks')).'</p>';
 		}
 	}
 
@@ -669,7 +680,7 @@ class RadioDJ {
 		$output = ob_get_clean();
 
 		if( empty($output) ) {
-			return '<div class="noticediv">'._e('Empty output from ob_get_clean()', 'radiodj' ).'</div><pre>$output = '.print_r($output, true).'</pre>';
+			return '<div class="noticediv">'._e( 'Empty output from ob_get_clean()' ).'</div><pre>$output = '.print_r($output, true).'</pre>';
 		}
 
 		return $output;
@@ -684,6 +695,29 @@ class RadioDJ {
 	 */
 	public static function track_duration( $seconds ) {
 		return gmdate('H:i:s', round($seconds));
+	}
+
+	/**
+	 * Format a timestamp as "j F Y" (e.g. "10 april 2024") in the site's
+	 * configured date locale (nl_NL by default). Replaces strftime(), which
+	 * is deprecated since PHP 8.1 and removed in PHP 9.
+	 *
+	 * @since 0.7.1
+	 *
+	 * @param int $timestamp Unix timestamp
+	 * @return string Formatted date
+	 */
+	public static function format_date( $timestamp ) {
+		if ( class_exists( 'IntlDateFormatter' ) ) {
+			$formatter = new IntlDateFormatter( 'nl_NL', IntlDateFormatter::NONE, IntlDateFormatter::NONE, null, null, 'd MMMM yyyy' );
+			$formatted = $formatter->format( $timestamp );
+			if ( $formatted !== false ) {
+				return $formatted;
+			}
+		}
+
+		// Fallback if intl extension isn't available: WordPress date_i18n() with its own locale.
+		return date_i18n( 'j F Y', $timestamp );
 	}
 
 	/**

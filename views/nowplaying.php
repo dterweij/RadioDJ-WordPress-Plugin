@@ -3,56 +3,71 @@ if ( !function_exists( 'add_action' ) ) {
 	exit;
 }
 ?>
-<div class="rdj-wrap rdj-now-playing">
-	<table class="rdj-main-table" id="rdj-table">
+<div class="rdj-wrap now-playing">
+	<table class="main_table" id="nptable">
 		<tr>
-			<th class="rdj-header-live">
-				<b><?php _e('Now Playing', 'radiodj'); ?></b>
+			<th class="header_live">
+				<b><?php _e('Nu:', 'radiodj'); ?></b>
 			</th>
 		</tr>
 <?php if(!empty($current)) { ?>
-		<tr class="rdj-current-track">
-			<td class="rdj-playing-track">
-				<div class="rdj-artist"><?php echo htmlspecialchars($current->artist, ENT_QUOTES) ?></div>
-                        </td>
-		</tr>
-		<tr class="rdj-current-track">
-			<td class="rdj-playing-track">
-				<div class="rdj-title"><?php echo htmlspecialchars($current->title, ENT_QUOTES) ?></div>
+		<tr class="current-track">
+			<td class="playing_track">
+				<span class="artist"><?php echo htmlspecialchars($current->artist, ENT_QUOTES) ?></span><span class="separator"> - </span>
+				<span class="title"><?php echo htmlspecialchars($current->title, ENT_QUOTES) ?></span>
+
 			</td>
 		</tr>
-
 <?php } ?>
 
 <?php if( !empty($upcoming) ) { ?>
-		<tr class="rdj-coming-soon">
-			<th class="rdj-header-live">
-				<b><?php _e('Coming Soon', 'radiodj'); ?></b>
+		<tr class="coming-soon">
+			<th class="header_live">
+				<b><?php _e('Straks:', 'radiodj'); ?></b>
 			</th>
 		</tr>
 <?php	if(  is_string($upcoming[0]) ) { ?>
 		<tr>
-			<td class="rdj-comming-soon">
+			<td class="coming-soon">
 				<?php echo implode( ", ", $upcoming ); ?>
 			</td>
 		</tr>
 <?php	} else {
-			foreach($upcoming as $song) { ?>
-		<tr class="rdj-comming-soon">
-			<td>
-				<span class="rdj-artist"><?php echo htmlspecialchars( $song->artist, ENT_QUOTES ); ?></span>
-				<span class="rdj-separator">-</span>
-				<span class="rdj-title"><?php echo htmlspecialchars( $song->title, ENT_QUOTES ); ?></span>
-			</td>
-		</tr>
+			foreach($upcoming as $song) { 
+				$date_added = strtotime($song->date_added);
+				$date_played_raw = $song->date_played; // bijvoorbeeld: "2002-01-01 00:00:00"
+
+				if (substr($date_played_raw, 0, 10) === '2002-01-01') {
+    				$date_played = 'nooit';
+				} else {
+    				$timestamp = strtotime($date_played_raw);
+					$date_played = RadioDJ::format_date( $timestamp ); // bijv. "10 april 2024"
+				}
+		?>
+<tr class="coming-soon">
+    <td>
+        <div class="track-info">
+            <div class="track-left">
+                <span class="artist"><?php echo htmlspecialchars($song->artist, ENT_QUOTES); ?></span>
+                <span class="separator">–</span>
+                <span class="title"><?php echo htmlspecialchars($song->title, ENT_QUOTES); ?></span>
+
+            </div>
+            <div class="track-right">
+                <div class="meta-line">Laatst gespeeld op: <strong><?php echo $date_played; ?></strong></div>
+                <div class="meta-line">Toegevoegd in de database op: <strong><?php echo RadioDJ::format_date( $date_added ); ?></strong></div>
+            </div>
+        </div>
+    </td>
+</tr>
 <?php		}
 		}
 } ?>
 
 <?php if( !empty($nowplaying) ) { ?>
 		<tr>
-			<th class="rdj-header-live">
-				<b><?php _e('Recently Played Songs', 'radiodj'); ?></b>
+			<th class="header_live">
+				<b><?php _e('Recent afgespeeld:', 'radiodj'); ?></b>
 			</th>
 		</tr>
 <?php
@@ -60,13 +75,18 @@ if ( !function_exists( 'add_action' ) ) {
 			foreach($nowplaying as $song){
 				$td_class = ($counter++) % 2 ? 'odd' : 'even';
 ?>
-		<tr class="rdj-recent-tracks">
-			<td class="<?php echo $td_class; ?>">
-				<span class="rdj-timestamp"><?php echo date( 'H:i:s', strtotime( $song->date_played ) ); ?></span>
-				<span class="rdj-artist"><?php echo htmlspecialchars( $song->artist, ENT_QUOTES ); ?></span><span class="rdj-separator"> - </span>
-				<span class="rdj-title"><?php echo htmlspecialchars( $song->title, ENT_QUOTES ); ?></span>
-				</td>
-		</tr>
+<tr class="recent-tracks">
+    <td class="<?php echo $td_class; ?>">
+        <span class="timestamp"><?php echo date( 'H:i:s', strtotime( $song->date_played ) ); ?></span>
+        <span class="track-info">
+            <span class="artist"><?php echo htmlspecialchars( $song->artist, ENT_QUOTES ); ?></span>
+            <span class="separator"> - </span>
+            <span class="title"><?php echo htmlspecialchars( $song->title, ENT_QUOTES ); ?></span>
+        </span>
+        <span class="duration">[<?php echo RadioDJ::track_duration( $song->duration ); ?>]</span>
+    </td>
+</tr>
+
 <?php
 			}
 		}

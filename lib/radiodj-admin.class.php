@@ -147,6 +147,7 @@ class RadioDJ_Admin {
 			wp_register_style('radiodj-admin', RDJ_PLUGIN_URL . 'css/admin.css');
 			wp_enqueue_style('radiodj-admin');
 			wp_enqueue_script( 'radiodj-admin', RDJ_PLUGIN_URL . 'js/radiodj-admin.js', array( 'jquery' ) );
+			wp_localize_script( 'radiodj-admin', 'RadioDJAdmin', array( 'nonce' => wp_create_nonce( self::NONCE ) ) );
 		}
 	}
 
@@ -186,8 +187,41 @@ class RadioDJ_Admin {
 		return $options;
 	}
 
+	/**
+	 * Option names that should be stored as plain non-negative integers.
+	 *
+	 * @since 0.7.1
+	 */
+	private static $int_options = array(
+		'upcoming_items', 'history_items', 'top_tracks', 'top_albums', 'top_days',
+		'pg_results', 'track_rep', 'artist_rep', 'req_limit', 'rdj_request_limit_time',
+	);
+
+	/**
+	 * Option names that are simple checkbox booleans (stored as 0/1).
+	 *
+	 * @since 0.7.1
+	 */
+	private static $bool_options = array(
+		'rdj_upcoming_show_titles', 'shuffle_next', 'rdj_ajax_updates',
+		'rdj_request_name_field', 'rdj_request_realip', 'rdj_allow_requests',
+		'rdj_use_recaptcha',
+	);
+
+	/**
+	 * Option names that hold an array of integer track-type IDs.
+	 *
+	 * @since 0.7.1
+	 */
+	private static $int_array_options = array(
+		'rdj_nowplaying_track_types', 'rdj_request_track_types',
+	);
+
 	public static function save_options() {
 		if ( !isset($_POST['_wpnonce']) || !wp_verify_nonce( $_POST['_wpnonce'], self::NONCE ) )
+			return false;
+
+		if ( ! current_user_can( 'manage_options' ) )
 			return false;
 
 		// Delete transients
@@ -217,9 +251,27 @@ class RadioDJ_Admin {
 			delete_option('rdj_requests_notice_dismissed');
 		}
 
-		// TODO: add option validation
 		foreach(self::$default_options as $option => $default) {
-			update_option( $option, isset( $_POST[$option] ) ? $_POST[$option] : $default );
+			if ( ! isset( $_POST[$option] ) ) {
+				update_option( $option, in_array( $option, self::$bool_options, true ) ? 0 : $default );
+				continue;
+			}
+
+			$value = wp_unslash( $_POST[$option] );
+
+			if ( in_array( $option, self::$int_options, true ) ) {
+				$value = absint( $value );
+			} elseif ( in_array( $option, self::$bool_options, true ) ) {
+				$value = $value ? 1 : 0;
+			} elseif ( in_array( $option, self::$int_array_options, true ) ) {
+				$value = is_array( $value ) ? array_map( 'absint', $value ) : $default;
+			} elseif ( 'rdj_error' === $option || 'rdj_requests_message' === $option ) {
+				$value = sanitize_textarea_field( $value );
+			} else {
+				$value = sanitize_text_field( $value );
+			}
+
+			update_option( $option, $value );
 		}
 		self::$options_saved = true;
 	}
@@ -241,7 +293,14 @@ class RadioDJ_Admin {
 	 *
 	 */
 	public static function dismiss_notice() {
-		$notice = isset($_POST['notice']) ? $_POST['notice'] : null;
+		if ( ! current_user_can( 'manage_options' ) ) {
+			echo '{"error":"Insufficient permissions"}';
+			die();
+		}
+
+		check_ajax_referer( self::NONCE, '_wpnonce' );
+
+		$notice = isset($_POST['notice']) ? sanitize_key( $_POST['notice'] ) : null;
 		if( empty($notice) ) {
 			echo '{"error":"Empty notice param"}';
 			die();
@@ -257,6 +316,12 @@ class RadioDJ_Admin {
 	 *
 	 */
 	public static function verify_database() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die();
+		}
+
+		check_ajax_referer( self::NONCE, '_wpnonce' );
+
 		$rdj_server = isset($_POST['rdj_server']) ? stripcslashes($_POST['rdj_server']) : null;
 		$rdj_db = isset($_POST['rdj_db']) ? stripcslashes($_POST['rdj_db']) : null;
 		$rdj_user = isset($_POST['rdj_user']) ? stripcslashes($_POST['rdj_user']) : null;
@@ -279,8 +344,6 @@ class RadioDJ_Admin {
 		if( empty($rdj_server) || empty($rdj_db) || empty($rdj_user) || empty($rdj_pass) ) {
 			exit;
 		}
-
-		check_ajax_referer( self::NONCE, '_wpnonce' );
 
 		$timing_start = microtime(true);
 

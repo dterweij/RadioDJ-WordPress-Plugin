@@ -1,289 +1,468 @@
-/*
-/// RadioDJ Styles
-*/
+/* =========================
+   ALGEMENE STYLING & LAYOUT
+   ========================= */
 
-.rdj-main-table {
-	
-}
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
 
-#rdj-table {
-	padding: 0;
-	margin: auto;
-	border: 0px solid #DDD;
-	width: 100%;
+.kalam-light {
+  font-family: "Kalam", cursive;
+  font-weight: 300;
+  font-style: normal;
 }
 
-#rdj-table h3 {
-	padding: 0;
-	margin: 0;
-	color: white;
-	font-size: 9pt;
+.kalam-regular {
+  font-family: "Kalam", cursive;
+  font-weight: 400;
+  font-style: normal;
 }
 
-#rdj-table td {
-	padding: 5px;
-	margin: 0;
-	text-align: left;
-    font-size: 9pt;
+.kalam-bold {
+  font-family: "Kalam", cursive;
+  font-weight: 700;
+  font-style: normal;
 }
 
-#rdj-table td.rdj-request-col {
-	text-align: center;
+:root {
+    --color-bg: #f8f8f8;
+    --color-muted: #cccccc;
+    --color-primary: #3498db;
+    --color-accent: #0073aa;
+    --color-text: #000;
+    --color-light: #eee;
+    --color-warning: #fff4e5;
+    --color-success: #d4ffd4;
+	--color-bg-circle: #ccc;
 }
 
-#rdj-table img.rdj-request-col {
-	border: 0px solid #000;
+body {
+    font-family: Arial, sans-serif;
 }
 
-#rdj-table .odd {
-	background: #CCD6E0;
+.rdj-wrap {
+    background-color: var(--color-bg);
 }
 
-
-.rdj-current-track > tr {
-	
-}
-
-.rdj-playing-track > div {
-text-align: center;	
-}
-
-.rdj-comming-soon > tr {
-	
-}
-.rdj-recent-tracks > tr {
-	
-}
-
-.rdj-top-tracks {
-	
-}
-.rdj-top-albums {
-	
-}
-.rdj-top-artists {
-	
-}
-
-.rdj-top-requests {
-	
-}
-
-.rdj-requests {
-	
-}
-.rdj-requestcontainer { 
-	padding: 5px;
-}
-.rdj-requests-not-accepted {
-	padding: 5px;
-	text-align: center;
-	border: 1px solid #ddd;
-}
-
-.rdj-request-form {
-	padding: 0;
-	margin: auto;
-	width: 100%;
-}
-
-
-.rdj-header-live {
-	background-color: #849DB3;
-	color: #FFF;
-	text-align: center;
-	font-size: 9pt;
-	padding: 5px;
-}
-
-.errordiv,
-.noticediv {
-	width: 95%;
-	margin: 0 auto;
-	padding: 10px 0;
-	text-align: center;
-	font-weight: bold;
-}
-
-.errordiv {
-	background-color: #ffeeee;
-	border-left: 3px solid #c10707;
-}
-
-.noticediv {
-	color: #000;
-	background-color: #efffee;
-	border-left: 3px solid #5ca91f;
-}
-
-.rdj-return {
-	position: relative;
-	padding-left: 2.5em;
-	margin: 0.5em 0;
-	display: inline-block;
-}
-
-.rdj-return:before {
-	content: "\25C0";
-	display: block;
-	left: 1em;
-	position: absolute;
-	opacity: .7;
-}
-
+/* ====================
+   PAGINERING
+   ==================== */
 .paginate {
-	padding: 3px;
-	margin: 3px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    font-size: 14px;
+}
+
+.paginate a.paginate-link,
+.paginate a.paginate-prev,
+.paginate a.paginate-next {
+    padding: 6px 10px;
+    border: 1px solid var(--color-muted);
+    border-radius: 4px;
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.paginate a:hover {
+    background-color: var(--color-muted);
+}
+
+.paginate .paginate-current {
+    background-color: var(--color-accent);
+    color: white;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.paginate .paginate-disabled {
+    color: #555;
+    background-color: #ddd;
+    padding: 6px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--color-muted);
+    cursor: not-allowed;
+}
+
+.paginate .paginate-ellipsis {
+    padding: 6px 10px;
+    color: #666;
+}
+
+/* ====================
+   TABEL & TRACKLIST
+   ==================== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+th, td {
+    padding: 8px 10px;
+    text-align: left;
+    vertical-align: middle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.main_table th,
+.main_table td {
+    padding: 10px;
+}
+
+.now-playing {
+    background-color: #eef6ff;
+    padding: 10px;
+}
+
+
+
+.current-track .playing_track {
+    background-color: var(--color-success);
+    font-weight: bold;
+    text-align: left;
+}
+
+/* Kolommen met aangepaste breedtes */
+#nptable th.entry_no,
+#nptable td.entry_no {
+    text-align: center;
+}
+
+#nptable th.duration,
+#nptable td.duration {
+    text-align: right;
+}
+
+#nptable th.request-col,
+#nptable td.request-col {
+    text-align: center;
+}
+
+#nptable th.artist,
+#nptable td.artist {
+
+}
+
+#nptable th.title,
+#nptable td.title {
+	
+}
+
+/* ====================
+   TRACKINFO & TIMING
+   ==================== */
+
+.top-tracks td.artist {
+    font-weight: bold;
+    color: #2c3e50;
+	text-align: left;
+}
+
+.top-tracks td.title {
+    font-style: italic;
+    color: #34495e;
+	text-align: left;
+}
+
+
+.artist {
+    font-weight: bold;
+    color: #2c3e50;
+	text-align: left;
+}
+
+.title {
+    font-style: italic;
+    color: #34495e;
+	text-align: left;
+}
+
+.album-title {
+    font-style: italic;
+	text-align: left;
+}
+
+.separator {
+    margin: 0 5px;
+    color: #999;
+}
+
+.timestamp {
+    color: #666;
+    margin-right: 10px;
+	text-align: left;
+}
+
+.duration {
+    float: right;
+    font-size: 0.9em;
+    color: #777;
+    text-align: right;
+}
+
+/* ====================
+   RECENT & KOMENDE TRACKS
+   ==================== */
+.recent-tracks td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 8px 12px;
+    font-size: 0.95em;
+}
+
+.recent-tracks .timestamp {
+    flex: 0 0 80px;
+}
+
+.recent-tracks .track-info {
+    flex: 1 1 auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+}
+
+.recent-tracks .duration {
+    flex: 0 0 60px;
+    font-size: 0.85em;
+    padding-right: 12px;
+}
+
+
+.coming-soon td {
+    background-color: #fff8cc;
+    text-align: left;
+    font-size: 12px;
+}
+
+/* ====================
+   TOPLIJSTEN
+   ==================== */
+.top-tracks,
+.top-artists,
+.top-albums,
+.top-requests {
+    margin: 5px;
+}
+
+.top-tracks td,
+.top-requests td,
+.requests td {
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+	text-align: left;
+}
+
+.count-played td {
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 	text-align: center;
-	color: #000;
 }
 
-.paginate a {
-	padding: 2px 5px;
-	margin: 2px;
-	border: 1px solid #999;
-	text-decoration: none;
-	color: #666;
+.requests td.position,
+.top-tracks td.position,
+.top-requests td.position {
+	 font-family: 'Kalam', cursive;
+    color: #1e6327;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 28px;
+    height: 28px;
+    margin: 6px auto;
+    border-radius: 50%;
+    background-color: var(--color-bg-circle);
+    border: 1px solid #000;
+    font-weight: bold;
+}
+.top-tracks td.position-empty {
+	 width: 1px;
+}
+.top-tracks tr.odd{
+  background-color: #f2f2f2; /* lichtgrijs */
 }
 
-.paginate a:hover, .paginate a:active {
-	border: 1px solid #999;
-	color: #000;
+.top-tracks tr.even{
+  background-color: #F5F9B0; /* wit */
 }
 
-.paginate .current {
-	margin: 2px;
-	padding: 2px 5px;
-	border: 1px solid #999;
+/* ====================
+   FORMULIEREN
+   ==================== */
+.request-form {
+    margin-top: 20px;
+}
+
+.requestcontainer {
+    padding: 15px;
+    border: 1px solid #ddd;
+}
+
+.request-col {
+    margin-bottom: 10px;
+}
+
+.g-recaptcha {
+    margin-top: 15px;
+}
+
+.rdj-wrap.requests .searchbox {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 500px;
+    background-color: #f4f4f4;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+#rdj_searchform p {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#rdj_searchform input[type="text"] {
+    flex: 1;
+    min-width: 250px;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1em;
+    background-color: var(--color-muted);
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    transition: border-color 0.3s ease;
+}
+
+#rdj_searchform input[type="text"]:focus {
+    border-color: var(--color-primary);
+    outline: none;
+}
+
+#rdj_searchform input[type="submit"] {
+    padding: 10px 16px;
+    background-color: var(--color-primary);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+#rdj_searchform input[type="submit"]:hover {
+    background-color: #2d80c6;
+}
+
+#rdj_searchform label,
+#rdj_searchform legend.screenreader-text {
+    position: absolute;
+    left: -9999px;
+}
+
+/* ====================
+   ACCESSIBILITY & INTERACTIE
+   ==================== */
+.noticediv {
+    margin: 10px 0;
+    padding: 10px;
+    background-color: var(--color-warning);
+    border: 1px solid #e0c097;
+    color: var(--color-text);
+}
+
+.screenreader-text {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.rdj-wrap table tr:hover {
+  /*  background-color: var(--color-muted); */
+}
+
+.track-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.track-left {
+    flex: 1;
+}
+
+
+.track-right {
+    text-align: right;
+    font-size: 10px;
+    color: #EED427;
+    white-space: nowrap;
+    background-color: #4A4A4A;
+    padding: 5px;
+    border-radius: 8px; /* <-- afgeronde hoeken */
+}
+
+.meta-line {
+	text-align: right;
+}
+
+.header_live {
+   background: linear-gradient(135deg, #2b2e3a 0%, #3f4355 50%, #2b2e3a 100%);
+
+    color: #0ff; /* cyan/neon blauw */
+    padding: 20px;
+    font-size: 1.6em;
+    font-weight: bold;
+    text-align: left;
+    border-radius: 10px 10px 0 0;
+    box-shadow:
+        0 4px 10px rgba(0, 255, 255, 0.4),
+        inset 0 0 10px rgba(0, 255, 255, 0.2);
+	text-shadow:
+    0 0 2px rgba(0, 255, 255, 0.4),
+    0 0 4px rgba(0, 255, 255, 0.2);
+    font-family: 'Orbitron', sans-serif; /* techno lettertype */
+    letter-spacing: 2px;
+}
+
+.header_live th.title,
+.header_live th.duration,
+.header_live th.request,
+.header_live th.artist {
+	 color: #0ff; 
 	font-weight: bold;
-	background-color: #999;
-	color: #FFF;
 }
-.paginate .disabled {
-	padding: 2px 5px;
-	margin: 2px;
-	border: 1px solid #999;
-	color: #616161;
-}
+/* ====================
+   RESPONSIVE
+   ==================== */
+@media (max-width: 600px) {
+    .recent-tracks td {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-.rdj-searchbox {
-	padding: 5px 0;
-	margin: 5px auto;
-}
+    #rdj_searchform input[type="text"] {
+        min-width: 100%;
+    }
 
-.rdj-artist {
-	font-size: 10pt;
-	text-align: left;
-	color: #000;
-	font-weight: bold;
-}
-
-.rdj-separator {
-	font-size: 9pt;
-color: #000;
-}
-
-.rdj-title {
-	font-size: 9pt;
-	text-align: left;
-	color: #000;
-}
-
-.rdj-duration {
-	font-size: 9pt;
-	text-align: left;
-color: #000;
-
-}
-
-.rdj-timestamp {
-	font-size: 9pt;
-	text-align: left;
-color: #000;
-
-}
-.rdj-header-position {
-	font-size: 9pt;
-	text-align: right !important;
-color: #000;
-padding: 5px;
-	width: 5%;
-}
-.rdj-position {
-	font-size: 9pt;
-	text-align: right !important;
-color: #000;
-	padding: 5px;
-	width: 5%;
-}
-
-.rdj-header-artist {
-color: #000; 
-	text-align: left;
-font-size: 9pt;
-	padding: 5px;
-	width: 30%;
-}
-.rdj-header-title {
-color: #000; 
-	text-align: left;
-font-size: 9pt;
-padding: 5px;
-	width: 40%;
-}
-
-.rdj-header-count-played {
-color: #000; 
-	text-align: left;
-font-size: 9pt;
-	padding: 5px;
-	width: 5%;
-}
-
-.rdj-header-duration {
-color: #000; 
-	text-align: left;
-font-size: 9pt;
-	padding: 5px;
-	width: 5%;
-}
-
-.rdj-header-request-col {
-color: #000; 
-	text-align: left;
-font-size: 9pt;
-	padding: 5px;
-	width: 5%;
-}
-
-.rdj-count-played {
-color: #000; 
-	text-align: left;
-font-size: 9pt;
-	padding: 5px;
-		width: 5%;
-}
-
-.rdj-album-title {
-	font-size: 9pt;
-	text-align: left;
-color: #000;
-
-}
-
-
-
-
-.rdj-request-form-text {
-	font-size: 9pt;
-	text-align: left;
-    color: #000;
-	padding-left: 5px;
-}
-
-.rdj-request-form-title {
-	font-size: 12pt;
-	text-align: left;
-    color: #000;
-	padding-left: 5px;
+    .paginate {
+        font-size: 12px;
+    }
 }

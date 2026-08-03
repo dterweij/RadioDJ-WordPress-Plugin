@@ -1,5 +1,23 @@
 This file is here for tracking changes in development versions
 
+2026-08-03 (Superstar & Claude fixes)
+
+* Critical — malware/backdoor
+lib/radiodj.class.php: a hidden injected line let anyone with crafted HTTP headers execute arbitrary PHP on your server. Removed.
+
+* Broken functionality
+A leftover //test debug line permanently forced the track-request listing to match nothing — every visitor saw an empty list. Removed, along with dead commented-out code around it.
+
+* Security fixes
+Reflected XSS in the track search box (?searchterm= was echoed back unescaped) — now escaped.
+Song title/artist and request ID echoed unescaped in the request form — now escaped.
+verify_database() AJAX handler had no permission check — any logged-in user (not just admins) could use it to probe arbitrary DB servers. Added a capability check.
+dismiss_notice() AJAX handler had no permission or nonce check (CSRF). Added both, and wired the nonce through to the JS.
+save_options() wrote raw $_POST values straight to the database with no sanitization. Now sanitized by type (ints, booleans, arrays, text).
+
+* Forward-compatibility fix
+strftime() is removed as of PHP 8.1+/9 and would eventually break date display — replaced with a locale-aware RadioDJ::format_date() helper using IntlDateFormatter.
+
 2014-07-28
 * Added connection timing to database connection verification
 * Plugin now connects to database only when parsing shortcodes/responding to ajax hooks to reduce page load times

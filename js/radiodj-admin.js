@@ -5,6 +5,7 @@ jQuery(document).on( 'click', '.requests-disabled .notice-dismiss', function() {
         data: {
             action: 'rdj_dismiss_notice',
 			notice: 'requests',
+			_wpnonce: (typeof RadioDJAdmin !== 'undefined') ? RadioDJAdmin.nonce : ''
         }
     });
 });
