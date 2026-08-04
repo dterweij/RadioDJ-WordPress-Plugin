@@ -1,5 +1,4 @@
 <?php
-setlocale(LC_TIME, 'nl_NL.UTF-8'); // Zorg dat Nederlandse locale actief is
 /**
  * RadioDJ class
  *
@@ -218,7 +217,7 @@ class RadioDJ {
 		$output = ob_get_clean();
 
 		if( empty($output) ) {
-			return '<div class="noticediv">'._e( 'Empty output from ob_get_clean()' ).'</div><pre>$output = '.print_r($output, true).'</pre>';
+			return '<div class="noticediv">'.__( 'Empty output from ob_get_clean()', 'radiodj' ).'</div><pre>$output = '.print_r($output, true).'</pre>';
 		}
 
 		return $output;
@@ -269,7 +268,7 @@ class RadioDJ {
 		$output = ob_get_clean();
 
 		if( empty($output) ) {
-			return '<div class="noticediv">'._e( 'Empty output from ob_get_clean()' ).'</div><pre>$output = '.print_r($output, true).'</pre>';
+			return '<div class="noticediv">'.__( 'Empty output from ob_get_clean()', 'radiodj' ).'</div><pre>$output = '.print_r($output, true).'</pre>';
 		}
 
 		return $output;
@@ -310,7 +309,7 @@ class RadioDJ {
 		$output = ob_get_clean();
 
 		if( empty($output) ) {
-			return '<div class="noticediv">'._e( 'Empty output from ob_get_clean()' ).'</div><pre>$output = '.print_r($output, true).'</pre>';
+			return '<div class="noticediv">'.__( 'Empty output from ob_get_clean()', 'radiodj' ).'</div><pre>$output = '.print_r($output, true).'</pre>';
 		}
 
 		return $output;
@@ -351,7 +350,7 @@ class RadioDJ {
 		$output = ob_get_clean();
 
 		if( empty($output) ) {
-			return '<div class="noticediv">'._e( 'Empty output from ob_get_clean()' ).'</div><pre>$output = '.print_r($output, true).'</pre>';
+			return '<div class="noticediv">'.__( 'Empty output from ob_get_clean()', 'radiodj' ).'</div><pre>$output = '.print_r($output, true).'</pre>';
 		}
 
 		return $output;
@@ -420,16 +419,16 @@ class RadioDJ {
 			$request_state = $DB->get_row( $sql );
 
 			if( $request_state->userlimit >= $request_limit ) {
-				return '<div class="errordiv">' . __("Sorry, you've reached the request limit. Please try again later.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks')).'</p>';
+				return '<div class="errordiv">' . __("Sorry, you've reached the request limit. Please try again later.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks', 'radiodj')).'</p>';
 			}
 			if( $request_state->already_requested ) {
-				return '<div class="errordiv">' . __("The selected track is already requested. Please try again later, or select another track.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks')).'</p>';
+				return '<div class="errordiv">' . __("The selected track is already requested. Please try again later, or select another track.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks', 'radiodj')).'</p>';
 			}
 
 			$sql = $DB->prepare( "SELECT `artist`, `title` FROM `songs` WHERE `ID` = %d AND `song_type` IN(" . implode(',', $allowed_types) . ")", $requestid );
 			$track = $DB->get_row( $sql );
 			if( empty($track) ) {
-				return '<div class="errordiv">' . __('The selected track was not found', 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks')).'</p>';
+				return '<div class="errordiv">' . __('The selected track was not found', 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks', 'radiodj')).'</p>';
 			}
 			require_once(RDJ_PLUGIN_DIR . 'views/request-form.php');
 
@@ -471,14 +470,14 @@ if ($lastpage > 1) {
 
     $paginate .= '<div class="paginate">' . "\n";
 
-    // Vorige
+    // Previous
     if ($page > 1) {
-        $paginate .= '<a class="paginate-prev" href="' . self::paging_url($prev, $searchterm) . '">' . __('Terug', 'radiodj') . '</a>';
+        $paginate .= '<a class="paginate-prev" href="' . self::paging_url($prev, $searchterm) . '">' . __('Previous', 'radiodj') . '</a>';
     } else {
-        $paginate .= '<span class="paginate-disabled paginate-prev">' . __('Terug', 'radiodj') . '</span>';
+        $paginate .= '<span class="paginate-disabled paginate-prev">' . __('Previous', 'radiodj') . '</span>';
     }
 
-    // Pagina-nummers
+    // Page numbers
     if ($lastpage < 7 + ($stages * 2)) {
         for ($counter = 1; $counter <= $lastpage; $counter++) {
             if ($counter == $page) {
@@ -532,11 +531,11 @@ if ($lastpage > 1) {
         }
     }
 
-    // Volgende
+    // Next
     if ($page < $counter - 1) {
-        $paginate .= '<a class="paginate-next" href="' . self::paging_url($next, $searchterm) . '">' . __('Volgende', 'radiodj') . '</a>' . "\n";
+        $paginate .= '<a class="paginate-next" href="' . self::paging_url($next, $searchterm) . '">' . __('Next', 'radiodj') . '</a>' . "\n";
     } else {
-        $paginate .= '<span class="paginate-disabled paginate-next">' . __('Volgende', 'radiodj') . '</span>' . "\n";
+        $paginate .= '<span class="paginate-disabled paginate-next">' . __('Next', 'radiodj') . '</span>' . "\n";
     }
 
     $paginate .= "</div>\n";
@@ -550,7 +549,7 @@ if ($lastpage > 1) {
 		$output = ob_get_clean();
 
 		if( empty($output) ) {
-			return '<div class="noticediv">'._e( 'Empty output from ob_get_clean()' ).'</div><pre>$output = '.print_r($output, true).'</pre>';
+			return '<div class="noticediv">'.__( 'Empty output from ob_get_clean()', 'radiodj' ).'</div><pre>$output = '.print_r($output, true).'</pre>';
 		}
 
 		return $output;
@@ -571,7 +570,7 @@ if ($lastpage > 1) {
 
 		if( get_option('rdj_use_recaptcha') && '' != get_option('rdj_recaptcha_secret') && !self::verify_recaptcha() ) {
 			return '<div class="errordiv">' . __('reCAPTCHA validation failed. Are you really a human?', 'radiodj') . '</div>'
-					.'<p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks')).'</p>';
+					.'<p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks', 'radiodj')).'</p>';
 		}
 
 		$request_name = isset($_POST['requsername']) ? wp_unslash($_POST['requsername']) : '';
@@ -583,7 +582,7 @@ if ($lastpage > 1) {
 		$sql = $DB->prepare( "SELECT `artist`, `title` FROM `songs` WHERE `ID` = %d", $request_songID );
 		$track = $DB->get_row( $sql );
 		if( empty($track) ) {
-			return '<div class="errordiv">' . __('The selected track was not found', 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks')).'</p>';
+			return '<div class="errordiv">' . __('The selected track was not found', 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks', 'radiodj')).'</p>';
 		}
 
 		if( empty($request_name) && get_option('rdj_request_name_field') ) {
@@ -603,20 +602,20 @@ if ($lastpage > 1) {
 		$request_state = $DB->get_row( $sql );
 
 		if( $request_state->userlimit >= $request_limit ) {
-			return '<div class="errordiv">' . __("Sorry, you've reached the request limit. Please try again later.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks')).'</p>';
+			return '<div class="errordiv">' . __("Sorry, you've reached the request limit. Please try again later.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks', 'radiodj')).'</p>';
 		}
 
 		if( $request_state->already_requested ) {
-			return '<div class="errordiv">' . __("The selected track is already requested. Please try again later, or select another track.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks')).'</p>';
+			return '<div class="errordiv">' . __("The selected track is already requested. Please try again later, or select another track.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks', 'radiodj')).'</p>';
 		}
 
 		$sql = $DB->prepare("INSERT INTO `requests` SET `songID` = %d, `username` = %s, `userIP` = %s, `message` = %s, `requested` = NOW()", $request_songID, $request_name, $request_IP, $request_msg);
 		$result = $DB->query( $sql );
 
 		if( $result ) {
-			return '<div class="noticediv">' . __("Your request was succesfully placed.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks')).'</p>';
+			return '<div class="noticediv">' . __("Your request was succesfully placed.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks', 'radiodj')).'</p>';
 		} else {
-			return '<div class="errordiv">' . __("Unknown error occured. Please try again.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks')).'</p>';
+			return '<div class="errordiv">' . __("Unknown error occured. Please try again.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks', 'radiodj')).'</p>';
 		}
 	}
 
@@ -686,7 +685,7 @@ if ($lastpage > 1) {
 		$output = ob_get_clean();
 
 		if( empty($output) ) {
-			return '<div class="noticediv">'._e( 'Empty output from ob_get_clean()' ).'</div><pre>$output = '.print_r($output, true).'</pre>';
+			return '<div class="noticediv">'.__( 'Empty output from ob_get_clean()', 'radiodj' ).'</div><pre>$output = '.print_r($output, true).'</pre>';
 		}
 
 		return $output;
@@ -704,9 +703,9 @@ if ($lastpage > 1) {
 	}
 
 	/**
-	 * Format a timestamp as "j F Y" (e.g. "10 april 2024") in the site's
-	 * configured date locale (nl_NL by default). Replaces strftime(), which
-	 * is deprecated since PHP 8.1 and removed in PHP 9.
+	 * Format a timestamp as "j F Y" (e.g. "10 April 2024") using the
+	 * WordPress site's configured locale. Replaces strftime(), which is
+	 * deprecated since PHP 8.1 and removed in PHP 9.
 	 *
 	 * @since 0.7.1
 	 *
@@ -715,7 +714,8 @@ if ($lastpage > 1) {
 	 */
 	public static function format_date( $timestamp ) {
 		if ( class_exists( 'IntlDateFormatter' ) ) {
-			$formatter = new IntlDateFormatter( 'nl_NL', IntlDateFormatter::NONE, IntlDateFormatter::NONE, null, null, 'd MMMM yyyy' );
+			$locale = str_replace( '_', '-', get_locale() );
+			$formatter = new IntlDateFormatter( $locale, IntlDateFormatter::NONE, IntlDateFormatter::NONE, null, null, 'd MMMM yyyy' );
 			$formatted = $formatter->format( $timestamp );
 			if ( $formatted !== false ) {
 				return $formatted;

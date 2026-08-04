@@ -11,13 +11,13 @@ if ( !function_exists( 'add_action' ) ) {
 					<?php _ex('#', 'table header', 'radiodj'); ?>
 				</th>
 				<th class="artist">
-					<?php _e('Artiest', 'radiodj'); ?>
+					<?php _e('Artist', 'radiodj'); ?>
 				</th>
 				<th class="title">
-					<?php _e('Titel', 'radiodj'); ?>
+					<?php _e('Title', 'radiodj'); ?>
 				</th>
 				<th class="entry_no count-played">
-					<?php _e('Aantal', 'radiodj'); ?>
+					<?php _e('Count', 'radiodj'); ?>
 				</th>
 			</tr>
 		</thead>

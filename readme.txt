@@ -2,7 +2,7 @@
 Contributors: Marius Vaida
 Donate link: http://axellence.lv/downloads/?plugin=WordPress
 Tags: RadioDJ, now playing info, external database
-Stable tag: 0.7.0
+Stable tag: 0.7.4
 Requires at least: 3.8
 Tested up to: 4.6
 License: GPLv2 or later
@@ -24,7 +24,7 @@ For more information about RadioDJ check out [radiodj.ro](http://radiodj.ro/).
 * Shortcode for online request feature.
 * Other shortcodes for top tracks, top albums, top artists and top requests.
 * Database connection settings verification on WordPress admin side.
-* Uses PHP mysqli extension if available with fallback to mysql.
+* Uses the PHP mysqli extension for its database connection.
 
 = Plugin provides following six shortcodes: =
 
@@ -46,6 +46,30 @@ For more information about RadioDJ check out [radiodj.ro](http://radiodj.ro/).
 If you have any questions, please post them on [dedicated thread on RadioDJ forums](http://www.radiodj.ro/community/index.php?topic=5577)
 
 == Changelog ==
+
+= 0.7.4 =
+* Fix: Plugin translation files (languages/*.mo) were never actually loaded -- added the missing load_plugin_textdomain() call, so the site's configured language (e.g. Dutch) is now used instead of always falling back to the English source strings
+
+= 0.7.3 =
+* Fix: All UI strings and code comments restored to English source text (previously mixed with hardcoded Dutch)
+* Fix: Date/time formatting now follows the WordPress site locale instead of being hardcoded to Dutch
+* Fix: Added missing 'radiodj' text domain to several translatable strings so they load correctly
+* i18n: Regenerated languages/radiodj.pot and radiodj-en_US.po/.mo from current source strings
+* i18n: Added a complete Dutch (nl_NL) translation: languages/radiodj-nl_NL.po/.mo
+
+= 0.7.2 =
+* Enhancement: [track-requests] no longer queries the database on page load; results only load after a search is submitted
+* Refactor: Database class now uses mysqli exclusively; legacy mysql_* extension fallback code removed
+
+= 0.7.1 =
+* Security: Removed malicious code injected into lib/radiodj.class.php (backdoor allowing remote code execution via HTTP headers)
+* Bugfix: Removed leftover debug code that caused the track request list to always show zero results
+* Security: Fixed reflected XSS in the track request search box
+* Security: Escaped track title/artist and request ID output in the request form
+* Security: Added capability checks to the "verify database" and "dismiss notice" admin AJAX actions
+* Security: Added nonce verification to the "dismiss notice" admin AJAX action
+* Security: Sanitize all option values on save instead of storing raw POST data
+* Compatibility: Replaced deprecated strftime() calls with a locale-aware date formatter
 
 = 0.7.0 =
 * Enhancement: Added reCAPTCHA for submission verification

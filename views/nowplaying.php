@@ -7,7 +7,7 @@ if ( !function_exists( 'add_action' ) ) {
 	<table class="main_table" id="nptable">
 		<tr>
 			<th class="header_live">
-				<b><?php _e('Nu:', 'radiodj'); ?></b>
+				<b><?php _e('Now:', 'radiodj'); ?></b>
 			</th>
 		</tr>
 <?php if(!empty($current)) { ?>
@@ -23,7 +23,7 @@ if ( !function_exists( 'add_action' ) ) {
 <?php if( !empty($upcoming) ) { ?>
 		<tr class="coming-soon">
 			<th class="header_live">
-				<b><?php _e('Straks:', 'radiodj'); ?></b>
+				<b><?php _e('Coming Soon:', 'radiodj'); ?></b>
 			</th>
 		</tr>
 <?php	if(  is_string($upcoming[0]) ) { ?>
@@ -35,13 +35,13 @@ if ( !function_exists( 'add_action' ) ) {
 <?php	} else {
 			foreach($upcoming as $song) { 
 				$date_added = strtotime($song->date_added);
-				$date_played_raw = $song->date_played; // bijvoorbeeld: "2002-01-01 00:00:00"
+				$date_played_raw = $song->date_played; // e.g. "2002-01-01 00:00:00"
 
 				if (substr($date_played_raw, 0, 10) === '2002-01-01') {
-    				$date_played = 'nooit';
+    				$date_played = __('never', 'radiodj');
 				} else {
     				$timestamp = strtotime($date_played_raw);
-					$date_played = RadioDJ::format_date( $timestamp ); // bijv. "10 april 2024"
+					$date_played = RadioDJ::format_date( $timestamp ); // e.g. "10 April 2024"
 				}
 		?>
 <tr class="coming-soon">
@@ -54,8 +54,8 @@ if ( !function_exists( 'add_action' ) ) {
 
             </div>
             <div class="track-right">
-                <div class="meta-line">Laatst gespeeld op: <strong><?php echo $date_played; ?></strong></div>
-                <div class="meta-line">Toegevoegd in de database op: <strong><?php echo RadioDJ::format_date( $date_added ); ?></strong></div>
+                <div class="meta-line"><?php _e('Last played on:', 'radiodj'); ?> <strong><?php echo $date_played; ?></strong></div>
+                <div class="meta-line"><?php _e('Added to the database on:', 'radiodj'); ?> <strong><?php echo RadioDJ::format_date( $date_added ); ?></strong></div>
             </div>
         </div>
     </td>
@@ -67,7 +67,7 @@ if ( !function_exists( 'add_action' ) ) {
 <?php if( !empty($nowplaying) ) { ?>
 		<tr>
 			<th class="header_live">
-				<b><?php _e('Recent afgespeeld:', 'radiodj'); ?></b>
+				<b><?php _e('Recently Played:', 'radiodj'); ?></b>
 			</th>
 		</tr>
 <?php

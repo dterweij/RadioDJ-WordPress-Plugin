@@ -1,278 +1,517 @@
+# English (United States) translations for RadioDJ Plugin (new).
+# Copyright (C) 2026 ORGANIZATION
+# This file is distributed under the same license as the RadioDJ Plugin
+# (new) project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: RadioDJ Plugin (new) v0.6.0-dev\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-20 02:02+0200\n"
-"PO-Revision-Date: 2015-04-20 02:06+0200\n"
-"Last-Translator: Andis Grosšteins <andis.grossteins@gmail.com>\n"
-"Language-Team: \n"
+"Project-Id-Version: RadioDJ Plugin (new) 0.7.2\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-08-04 03:22+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en_US\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.7.5\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
-"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
-"X-Poedit-Basepath: ../\n"
-"X-Textdomain-Support: yes\n"
-"X-Poedit-SearchPath-0: .\n"
-
-#: lib/radiodj-admin.class.php:78
-msgid "RadioDJ Options"
-msgstr ""
-
-#: lib/radiodj-admin.class.php:82
-msgid "Options"
-msgstr ""
-
-#: lib/radiodj-admin.class.php:99
-msgid "Settings saved"
-msgstr ""
-
-#: lib/radiodj-admin.class.php:163
-msgid "Please specify server address"
-msgstr ""
-
-#: lib/radiodj-admin.class.php:166
-msgid "Please specify database name"
-msgstr ""
-
-#: lib/radiodj-admin.class.php:169
-msgid "Please specify username"
-msgstr ""
-
-#: lib/radiodj-admin.class.php:172
-msgid "Please specify password"
-msgstr ""
-
-#: lib/radiodj-admin.class.php:187
-#, php-format
-msgid "Using %s client to connect"
-msgstr ""
-
-#: lib/radiodj-admin.class.php:190
-msgid "Successfully connected to RadioDJ database"
-msgstr ""
-
-#: lib/radiodj-admin.class.php:191
-#, php-format
-msgid "Database version: %s"
-msgstr ""
-
-#: lib/radiodj-admin.class.php:194
-#, php-format
-msgid "Connection took %s seconds"
-msgstr ""
-
-#: lib/radiodj-admin.class.php:197
-msgid "Error connecting to RadioDJ database: "
-msgstr ""
-
-#: lib/radiodj-admin.class.php:202
-#, php-format
-msgid ""
-"Please check your password and verify that user <code>%s</code> is allowed "
-"to connect to specified database remotely."
-msgstr ""
-
-#: lib/radiodj-admin.class.php:207
-msgid "Please make sure that you are using correct IP address and port number."
-msgstr ""
-
-#: lib/radiodj-admin.class.php:208
-msgid ""
-"Either your webhost is blocking outgoing MySQL connections or MySQL is not "
-"listening on given IP address and port."
-msgstr ""
-
-#: lib/radiodj-admin.class.php:211
-msgid ""
-"Unknown errno (9999) or no error description available because of existing "
-"mysql connection."
-msgstr ""
-
-#: lib/radiodj-admin.class.php:214
-msgid "Unknown mysql error occured"
-msgstr ""
-
-#: lib/radiodj-admin.class.php:220
-msgid "Error selecting database: "
-msgstr ""
-
-#: lib/radiodj-admin.class.php:221
-msgid "Please verify that you are using correct database name"
-msgstr ""
-
-#: lib/radiodj-admin.class.php:229
-#, php-format
-msgid ""
-"Error querying last played song. Probably <code>%s</code> is not RadioDJ "
-"database."
-msgstr ""
-
-#: lib/radiodj-admin.class.php:231
-msgid "Could not get last played song. Have you enabled history in RadioDJ?"
-msgstr ""
-
-#: lib/radiodj-admin.class.php:232
-msgid ""
-"Now playing, top tracks and top albums won't function if history is disabled."
-msgstr ""
-
-#: lib/radiodj-admin.class.php:236
-#, php-format
-msgid "Last played song: %s at %s"
-msgstr ""
-
-#: lib/radiodj.class.php:184 lib/radiodj.class.php:219
-#: lib/radiodj.class.php:253 lib/radiodj.class.php:498
-msgid "Currently there are no results to display."
-msgstr ""
-
-#: lib/radiodj.class.php:301 lib/radiodj.class.php:461
-#, php-format
-msgid "Sorry, but you've reached the request limit of %d requests for one day."
-msgstr ""
-
-#: lib/radiodj.class.php:304 lib/radiodj.class.php:464
-msgid ""
-"The selected track is already requested. Please try again later, or select "
-"another track."
-msgstr ""
-
-#: lib/radiodj.class.php:310 lib/radiodj.class.php:448
-msgid "The selected track was not found"
-msgstr ""
-
-#: lib/radiodj.class.php:346 lib/radiodj.class.php:348
-msgid "Previous"
-msgstr ""
-
-#: lib/radiodj.class.php:413 lib/radiodj.class.php:415
-msgid "Next"
-msgstr ""
-
-#: lib/radiodj.class.php:458
-msgid "Please enter your name in order to send the request."
-msgstr ""
-
-#: lib/radiodj.class.php:471
-msgid "Your request was succesfully placed."
-msgstr ""
-
-#: lib/radiodj.class.php:473
-msgid "Unknown error occured. Please try again."
-msgstr ""
-
-#: views/config.php:38
-msgid "Same database name as used by RadioDJ"
-msgstr ""
-
-#: views/config.php:67 views/config.php:152
-msgid "Save Settings"
-msgstr ""
-
-#: views/config.php:135 views/config.php:141
-msgid "minutes"
-msgstr ""
-
-#: views/config.php:157 views/nowplaying.php:10
-msgid "Now Playing"
-msgstr ""
-
-#: views/config.php:158
-msgid "Top Played Tracks"
-msgstr ""
-
-#: views/config.php:159
-msgid "Top Played Albums"
-msgstr ""
-
-#: views/config.php:160
-msgid "Top Played Artists"
-msgstr ""
-
-#: views/config.php:161
-msgid "Request Section"
-msgstr ""
-
-#: views/config.php:162
-msgid "Top Requests"
-msgstr ""
-
-#: views/nowplaying.php:23
-msgid "Coming Soon"
-msgstr ""
-
-#: views/nowplaying.php:35
-msgid "Recently Played Songs"
-msgstr ""
-
-#: views/request-form.php:8
-#, php-format
-msgid "You are about to request <b>%s</b> by <b>%s</b>"
-msgstr ""
-
-#: views/request-form.php:11
-msgid "Please enter request details below"
-msgstr ""
-
-#: views/request-form.php:13
-msgid "Your Name"
-msgstr ""
-
-#: views/request-form.php:17
-msgid "Message (optional)"
-msgstr ""
-
-#: views/request-form.php:22
-msgid "Submit your request"
-msgstr ""
-
-#: views/request-table.php:16
-msgid "Use this form to search for artist or title"
-msgstr ""
-
-#: views/request-table.php:18
-msgid "Search artist or title"
-msgstr ""
-
-#: views/request-table.php:20
-msgid "Search"
-msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: views/request-table.php:34 views/topalbums.php:11 views/topartists.php:11
 #: views/toprequests.php:11 views/toptracks.php:11
 msgctxt "table header"
 msgid "#"
-msgstr ""
+msgstr "#"
+
+#: views/config.php:85
+msgid "AJAX Refresh"
+msgstr "AJAX Refresh"
+
+#: views/config.php:158
+msgid "Accept requests"
+msgstr "Accept requests"
+
+#: views/nowplaying.php:58
+msgid "Added to the database on:"
+msgstr "Added to the database on:"
+
+#: views/config.php:153
+msgid "Allow Request Submission"
+msgstr "Allow Request Submission"
+
+#: views/config.php:231
+msgid "Allow and require visitors to enter their name"
+msgstr "Allow and require visitors to enter their name"
+
+#: views/config.php:229
+msgid "Allow submission of name"
+msgstr "Allow submission of name"
+
+#: views/config.php:114
+msgid "Allowed Track Types"
+msgstr "Allowed Track Types"
 
 #: views/request-table.php:37 views/topalbums.php:14 views/topartists.php:14
 #: views/toprequests.php:14 views/toptracks.php:14
 msgid "Artist"
+msgstr "Artist"
+
+#: views/nowplaying.php:26
+msgid "Coming Soon:"
+msgstr "Coming Soon:"
+
+#: lib/radiodj-admin.class.php:361
+#, python-format
+msgid "Connection took %s seconds"
+msgstr "Connection took %s seconds"
+
+#: lib/radiodj-admin.class.php:398
+msgid "Could not get last played song. Have you enabled history in RadioDJ?"
+msgstr "Could not get last played song. Have you enabled history in RadioDJ?"
+
+#: views/topalbums.php:20 views/toprequests.php:20
+msgid "Count"
+msgstr "Count"
+
+#: lib/radiodj.class.php:680
+msgid "Currently there are no results to display."
+msgstr "Currently there are no results to display."
+
+#: views/config.php:35 views/config.php:37
+msgid "Database name"
+msgstr "Database name"
+
+#: views/config.php:38
+msgid "Database name used by RadioDJ"
+msgstr "Database name used by RadioDJ"
+
+#: views/config.php:11
+msgid "Database settings"
+msgstr "Database settings"
+
+#: lib/radiodj-admin.class.php:358
+#, python-format
+msgid "Database version: %s"
+msgstr "Database version: %s"
+
+#: views/config.php:143
+msgid "Days To Build The Top"
+msgstr "Days To Build The Top"
+
+#: views/config.php:79
+msgid "Display artist and title of upcoming tracks"
+msgstr "Display artist and title of upcoming tracks"
+
+#: views/request-table.php:43
+msgid "Duration"
+msgstr "Duration"
+
+#: lib/radiodj-admin.class.php:375
+msgid ""
+"Either your webhost is blocking outgoing MySQL connections or MySQL is "
+"not listening on given IP address and port."
 msgstr ""
+"Either your webhost is blocking outgoing MySQL connections or MySQL is "
+"not listening on given IP address and port."
+
+#: lib/radiodj.class.php:220 lib/radiodj.class.php:271
+#: lib/radiodj.class.php:312 lib/radiodj.class.php:353
+#: lib/radiodj.class.php:552 lib/radiodj.class.php:688
+msgid "Empty output from ob_get_clean()"
+msgstr "Empty output from ob_get_clean()"
+
+#: lib/radiodj-admin.class.php:364
+msgid "Error connecting to RadioDJ database: "
+msgstr "Error connecting to RadioDJ database: "
+
+#: lib/radiodj-admin.class.php:396
+#, python-format
+msgid ""
+"Error querying last played song. Probably <code>%s</code> is not RadioDJ "
+"database."
+msgstr ""
+"Error querying last played song. Probably <code>%s</code> is not RadioDJ "
+"database."
+
+#: lib/radiodj-admin.class.php:387
+msgid "Error selecting database: "
+msgstr "Error selecting database: "
+
+#: views/config.php:107
+msgid "History Items"
+msgstr "History Items"
+
+#: views/config.php:19
+msgid ""
+"IP address or hostname of RadioDJ database server. If you are uning non-"
+"standard port number, it should be specified after IP address separated "
+"by a colon \":\""
+msgstr ""
+"IP address or hostname of RadioDJ database server. If you are uning non-"
+"standard port number, it should be specified after IP address separated "
+"by a colon \":\""
+
+#: views/config.php:185
+msgid "Items per Page"
+msgstr "Items per Page"
+
+#: views/nowplaying.php:57
+msgid "Last played on:"
+msgstr "Last played on:"
+
+#: lib/radiodj-admin.class.php:403
+#, python-format
+msgid "Last played song: %s at %s"
+msgstr "Last played song: %s at %s"
+
+#: views/toptracks.php:43
+msgid "Last played:"
+msgstr "Last played:"
+
+#: views/request-form.php:19
+msgid "Message (optional)"
+msgstr "Message (optional)"
+
+#: lib/radiodj.class.php:536 lib/radiodj.class.php:538
+msgid "Next"
+msgstr "Next"
+
+#: views/request-table.php:94
+msgid ""
+"No track was found by give search query. Please try different search "
+"phrase."
+msgstr ""
+"No track was found by give search query. Please try different search "
+"phrase."
+
+#: views/config.php:278
+msgid "Now Playing"
+msgstr "Now Playing"
+
+#: views/config.php:69
+msgid "Now Playing Options"
+msgstr "Now Playing Options"
+
+#: lib/radiodj-admin.class.php:399
+msgid ""
+"Now playing, top tracks and top albums won't function if history is "
+"disabled."
+msgstr ""
+"Now playing, top tracks and top albums won't function if history is "
+"disabled."
+
+#: views/nowplaying.php:10
+msgid "Now:"
+msgstr "Now:"
+
+#: views/config.php:49
+msgid "Offline Message"
+msgstr "Offline Message"
+
+#: lib/radiodj-admin.class.php:140
+msgid "Options"
+msgstr "Options"
+
+#: views/config.php:29 views/config.php:31
+msgid "Password"
+msgstr "Password"
+
+#: lib/radiodj-admin.class.php:369
+#, python-format
+msgid ""
+"Please check your password and verify that user <code>%s</code> is "
+"allowed to connect to specified database remotely."
+msgstr ""
+"Please check your password and verify that user <code>%s</code> is "
+"allowed to connect to specified database remotely."
+
+#: views/request-table.php:98
+msgid "Please enter an artist or title to search."
+msgstr "Please enter an artist or title to search."
+
+#: views/request-form.php:11
+msgid "Please enter request details below"
+msgstr "Please enter request details below"
+
+#: lib/radiodj.class.php:589
+msgid "Please enter your name in order to send the request."
+msgstr "Please enter your name in order to send the request."
+
+#: lib/radiodj-admin.class.php:374
+msgid "Please make sure that you are using correct IP address and port number."
+msgstr "Please make sure that you are using correct IP address and port number."
+
+#: lib/radiodj-admin.class.php:388
+msgid "Please verify that you are using correct database name"
+msgstr "Please verify that you are using correct database name"
+
+#: lib/radiodj.class.php:475 lib/radiodj.class.php:477
+msgid "Previous"
+msgstr "Previous"
+
+#: lib/radiodj-admin.class.php:136 views/config.php:8
+msgid "RadioDJ Options"
+msgstr "RadioDJ Options"
+
+#: views/config.php:16
+msgid "RadioDJ Server"
+msgstr "RadioDJ Server"
+
+#: views/config.php:57
+msgid "RadioDJ Timezone"
+msgstr "RadioDJ Timezone"
+
+#: lib/radiodj-admin.class.php:104
+msgid ""
+"RadioDJ requests submission is disabled. <a href=\"#rdj_requests\">Check "
+"settings</a>"
+msgstr ""
+"RadioDJ requests submission is disabled. <a href=\"#rdj_requests\">Check "
+"settings</a>"
+
+#: views/config.php:275
+msgid "RadioDJ shortcodes"
+msgstr "RadioDJ shortcodes"
+
+#: views/nowplaying.php:70
+msgid "Recently Played:"
+msgstr "Recently Played:"
+
+#: views/request-table.php:46
+msgid "Request"
+msgstr "Request"
+
+#: views/request-table.php:73
+msgctxt "action button"
+msgid "Request"
+msgstr "Request"
+
+#: views/config.php:282
+msgid "Request Section"
+msgstr "Request Section"
+
+#: views/request-table.php:72
+msgctxt "action button"
+msgid "Request this track"
+msgstr "Request this track"
+
+#: views/request-table.php:78
+msgctxt "indicates status"
+msgid "Requested"
+msgstr "Requested"
+
+#: views/config.php:150
+msgid "Requests Options"
+msgstr "Requests Options"
+
+#: views/config.php:164
+msgid "Requests not accepted Message"
+msgstr "Requests not accepted Message"
+
+#: lib/radiodj.class.php:422 lib/radiodj.class.php:425
+#: lib/radiodj.class.php:431 lib/radiodj.class.php:573
+#: lib/radiodj.class.php:585 lib/radiodj.class.php:605
+#: lib/radiodj.class.php:609 lib/radiodj.class.php:616
+#: lib/radiodj.class.php:618
+msgid "Return to list of tracks"
+msgstr "Return to list of tracks"
+
+#: views/config.php:67 views/config.php:273
+msgid "Save Settings"
+msgstr "Save Settings"
+
+#: views/request-table.php:20
+msgid "Search"
+msgstr "Search"
+
+#: views/request-table.php:18
+msgid "Search artist or title"
+msgstr "Search artist or title"
+
+#: lib/radiodj-admin.class.php:159
+msgid "Settings saved"
+msgstr "Settings saved"
+
+#: views/config.php:96
+msgid "Shuffle Upcoming"
+msgstr "Shuffle Upcoming"
+
+#: views/config.php:101
+msgid "Shuffle upcoming songs"
+msgstr "Shuffle upcoming songs"
+
+#: lib/radiodj.class.php:422 lib/radiodj.class.php:605
+msgid "Sorry, you've reached the request limit. Please try again later."
+msgstr "Sorry, you've reached the request limit. Please try again later."
+
+#: views/request-form.php:27
+msgid "Submit your request"
+msgstr "Submit your request"
+
+#: lib/radiodj-admin.class.php:357
+msgid "Successfully connected to RadioDJ database"
+msgstr "Successfully connected to RadioDJ database"
+
+#: lib/radiodj.class.php:425 lib/radiodj.class.php:609
+msgid ""
+"The selected track is already requested. Please try again later, or "
+"select another track."
+msgstr ""
+"The selected track is already requested. Please try again later, or "
+"select another track."
+
+#: lib/radiodj.class.php:431 lib/radiodj.class.php:585
+msgid "The selected track was not found"
+msgstr "The selected track was not found"
+
+#: views/config.php:243
+msgid ""
+"This might be needed if many site visitors are using a proxy server but "
+"can allow IP address spoofing to avoid imposed request limits"
+msgstr ""
+"This might be needed if many site visitors are using a proxy server but "
+"can allow IP address spoofing to avoid imposed request limits"
+
+#: views/request-table.php:78
+msgctxt "action button"
+msgid "This track cannot be requested"
+msgstr "This track cannot be requested"
+
+#: views/toptracks.php:42
+msgid "Times played:"
+msgstr "Times played:"
 
 #: views/request-table.php:40 views/topalbums.php:17 views/toprequests.php:17
 #: views/toptracks.php:17
 msgid "Title"
-msgstr ""
+msgstr "Title"
 
-#: views/request-table.php:43
-msgid "Duration"
-msgstr ""
+#: views/config.php:137
+msgid "Top Albums Items"
+msgstr "Top Albums Items"
 
-#: views/request-table.php:46
-msgid "Request"
-msgstr ""
+#: views/config.php:280
+msgid "Top Played Albums"
+msgstr "Top Played Albums"
 
-#: views/request-table.php:94
+#: views/config.php:281
+msgid "Top Played Artists"
+msgstr "Top Played Artists"
+
+#: views/config.php:279
+msgid "Top Played Tracks"
+msgstr "Top Played Tracks"
+
+#: views/config.php:283
+msgid "Top Requests"
+msgstr "Top Requests"
+
+#: views/config.php:131
+msgid "Top Tracks Items"
+msgstr "Top Tracks Items"
+
+#: views/config.php:128
+msgid "Top Tracks and Albums Display Options"
+msgstr "Top Tracks and Albums Display Options"
+
+#: views/config.php:172
+msgid "Track Types to Allow in Requests"
+msgstr "Track Types to Allow in Requests"
+
+#: views/config.php:241
+msgid "Try to detect real IP address of visitors behind proxy"
+msgstr "Try to detect real IP address of visitors behind proxy"
+
+#: lib/radiodj-admin.class.php:378
 msgid ""
-"No track was found by give search query. Please try different search phrase."
+"Unknown errno (9999) or no error description available because of "
+"existing mysql connection."
 msgstr ""
+"Unknown errno (9999) or no error description available because of "
+"existing mysql connection."
 
-#: views/topalbums.php:20 views/topartists.php:17 views/toprequests.php:20
-#: views/toptracks.php:20
-msgid "Count"
+#: lib/radiodj.class.php:618
+msgid "Unknown error occured. Please try again."
+msgstr "Unknown error occured. Please try again."
+
+#: lib/radiodj-admin.class.php:381
+msgid "Unknown mysql error occured"
+msgstr "Unknown mysql error occured"
+
+#: views/config.php:72
+msgid "Upcoming Items"
+msgstr "Upcoming Items"
+
+#: views/config.php:90
+msgid "Update now playing info every 10 seconds without reloading page"
+msgstr "Update now playing info every 10 seconds without reloading page"
+
+#: views/config.php:253
+msgid "Use reCAPTCHA to verify request submission"
+msgstr "Use reCAPTCHA to verify request submission"
+
+#: views/request-table.php:16
+msgid "Use this form to search for artist or title"
+msgstr "Use this form to search for artist or title"
+
+#: views/config.php:23 views/config.php:25
+msgid "Username"
+msgstr "Username"
+
+#: lib/radiodj-admin.class.php:354
+#, python-format
+msgid "Using %s client to connect"
+msgstr "Using %s client to connect"
+
+#: views/config.php:44
+msgid "Verify database settings"
+msgstr "Verify database settings"
+
+#: views/config.php:166
+msgid "We are not accepting requests right now. Please come back later."
+msgstr "We are not accepting requests right now. Please come back later."
+
+#: views/config.php:255
+#, python-format
+msgid ""
+"You have to <a href=\"%s\">get site and secret key from Google</a> and "
+"enter them below to use reCAPTCHA."
 msgstr ""
+"You have to <a href=\"%s\">get site and secret key from Google</a> and "
+"enter them below to use reCAPTCHA."
+
+#: views/request-form.php:14
+msgid "Your Name"
+msgstr "Your Name"
+
+#: lib/radiodj.class.php:616
+msgid "Your request was succesfully placed."
+msgstr "Your request was succesfully placed."
+
+#: views/config.php:18
+msgid "[IP address or hostname]:[port]"
+msgstr "[IP address or hostname]:[port]"
+
+#: views/nowplaying.php:41 views/toptracks.php:29
+msgid "never"
+msgstr "never"
+
+#: views/config.php:268
+msgid "reCAPTCHA secret"
+msgstr "reCAPTCHA secret"
+
+#: views/config.php:266
+msgid "reCAPTCHA secret key"
+msgstr "reCAPTCHA secret key"
+
+#: views/config.php:260 views/config.php:262
+msgid "reCAPTCHA site key"
+msgstr "reCAPTCHA site key"
+
+#: lib/radiodj.class.php:572
+msgid "reCAPTCHA validation failed. Are you really a human?"
+msgstr "reCAPTCHA validation failed. Are you really a human?"
+

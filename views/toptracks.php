@@ -11,10 +11,10 @@ if ( !function_exists( 'add_action' ) ) {
 					<?php _ex('#', 'table header', 'radiodj'); ?>
 				</th>
 				<th class="artist">
-					<?php _e('Artiest', 'radiodj'); ?>
+					<?php _e('Artist', 'radiodj'); ?>
 				</th>
 				<th class="title">
-					<?php _e('Titel', 'radiodj'); ?>
+					<?php _e('Title', 'radiodj'); ?>
 				</th>
 			</tr>
 		</thead>
@@ -23,13 +23,13 @@ if ( !function_exists( 'add_action' ) ) {
 			$counter = 0;
 			foreach($toptracks as $song){
 				$td_class = ($counter++) % 2 ? 'odd' : 'even';
-				$date_played_raw = $song->date_played; // bijvoorbeeld: "2002-01-01 00:00:00"
+				$date_played_raw = $song->date_played; // e.g. "2002-01-01 00:00:00"
 
 				if (substr($date_played_raw, 0, 10) === '2002-01-01') {
-    				$date_played = 'nooit';
+    				$date_played = __('never', 'radiodj');
 				} else {
     				$timestamp = strtotime($date_played_raw);
-					$date_played = RadioDJ::format_date( $timestamp ); // bijv. "10 april 2024"
+					$date_played = RadioDJ::format_date( $timestamp ); // e.g. "10 April 2024"
 				}
 			?>
 			<tr class="<?php echo $td_class; ?>">
@@ -39,8 +39,8 @@ if ( !function_exists( 'add_action' ) ) {
 			</tr>
 			<tr class="<?php echo $td_class; ?>">
 				<td class="positon-empty"></td>
-				<td class="count-played">Aantal keer gespeeld: <?php echo $song->count_played; ?></td>
-				<td class="count-played">Laatst gespeeld: <?php echo $date_played; ?></td>
+				<td class="count-played"><?php _e('Times played:', 'radiodj'); ?> <?php echo $song->count_played; ?></td>
+				<td class="count-played"><?php _e('Last played:', 'radiodj'); ?> <?php echo $date_played; ?></td>
 				
 			</tr>
 			<?php

@@ -11,7 +11,7 @@
 * Plugin Name: RadioDJ Plugin (new)
 * Plugin URI: http://www.radiodj.ro/community/index.php?topic=5577&NOTE=THIS_URL_IS_TEMPORARY
 * Description: Display RadioDJ now playing songs, requests and statistics on a WordPress site. Based on previous work by Marius Vaida.
-* Version: 0.7.3
+* Version: 0.7.4
 * Author: Andis Grosšteins
 * Author URI: http://axellence.lv/
 * License: GPL2+
@@ -45,13 +45,28 @@ if ( !function_exists( 'add_action' ) ) {
 	exit;
 }
 
-define( 'RDJ_VERSION', '0.7.0' );
+define( 'RDJ_VERSION', '0.7.4' );
 define( 'RDJ_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'RDJ_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'RDJ_LIB_DIR', RDJ_PLUGIN_DIR . 'lib/' );
 
 require_once( RDJ_LIB_DIR . 'radiodj_db.class.php' );
 require_once( RDJ_LIB_DIR . 'radiodj.class.php' );
+
+/**
+ * Load the plugin's translation file (e.g. languages/radiodj-nl_NL.mo)
+ * based on the site's configured language. Declaring "Text Domain" and
+ * "Domain Path" in the plugin header above is not enough by itself for
+ * a self-hosted plugin -- WordPress only auto-loads translations that
+ * way for plugins hosted on WordPress.org. Everything else needs an
+ * explicit load_plugin_textdomain() call.
+ *
+ * @since 0.7.4
+ */
+function radiodj_load_textdomain() {
+	load_plugin_textdomain( 'radiodj', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+}
+add_action( 'init', 'radiodj_load_textdomain' );
 
 add_action( 'init', array( 'RadioDJ', 'init' ) );
 

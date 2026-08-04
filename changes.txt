@@ -1,23 +1,5 @@
 This file is here for tracking changes in development versions
 
-2026-08-03 (Superstar & Claude fixes)
-
-* Critical — malware/backdoor
-lib/radiodj.class.php: a hidden injected line let anyone with crafted HTTP headers execute arbitrary PHP on your server. Removed.
-
-* Broken functionality
-A leftover //test debug line permanently forced the track-request listing to match nothing — every visitor saw an empty list. Removed, along with dead commented-out code around it.
-
-* Security fixes
-Reflected XSS in the track search box (?searchterm= was echoed back unescaped) — now escaped.
-Song title/artist and request ID echoed unescaped in the request form — now escaped.
-verify_database() AJAX handler had no permission check — any logged-in user (not just admins) could use it to probe arbitrary DB servers. Added a capability check.
-dismiss_notice() AJAX handler had no permission or nonce check (CSRF). Added both, and wired the nonce through to the JS.
-save_options() wrote raw $_POST values straight to the database with no sanitization. Now sanitized by type (ints, booleans, arrays, text).
-
-* Forward-compatibility fix
-strftime() is removed as of PHP 8.1+/9 and would eventually break date display — replaced with a locale-aware RadioDJ::format_date() helper using IntlDateFormatter.
-
 2014-07-28
 * Added connection timing to database connection verification
 * Plugin now connects to database only when parsing shortcodes/responding to ajax hooks to reduce page load times
@@ -61,3 +43,25 @@ strftime() is removed as of PHP 8.1+/9 and would eventually break date display �
 
 2016-09-04
 * Enhancement: Display a dismissible notification when request submission is disabled
+
+2026-08-04
+* Security: Removed malicious code injected into lib/radiodj.class.php (backdoor allowing remote code execution via HTTP headers)
+* Bugfix: Removed leftover debug code that caused the track request list to always show zero results
+* Security: Fixed reflected XSS in the track request search box
+* Security: Escaped track title/artist and request ID output in the request form
+* Security: Added capability checks to the verify-database and dismiss-notice admin AJAX actions
+* Security: Added nonce verification to the dismiss-notice admin AJAX action
+* Security: Sanitize all option values on save instead of storing raw POST data
+* Compatibility: Replaced deprecated strftime() calls with a locale-aware date formatter
+* Enhancement: [track-requests] no longer queries the database on page load; results only load after a search is submitted
+* Refactor: Database class now uses mysqli exclusively; legacy mysql_* extension fallback code removed
+
+2026-08-04
+* Fix: All UI strings and code comments restored to English source text (previously mixed with hardcoded Dutch)
+* Fix: Date/time formatting now follows the WordPress site locale instead of being hardcoded to Dutch
+* Fix: Added missing radiodj text domain to several translatable strings so they load correctly
+* i18n: Regenerated languages/radiodj.pot and radiodj-en_US.po/.mo from current source strings
+* i18n: Added a complete Dutch (nl_NL) translation: languages/radiodj-nl_NL.po/.mo
+
+2026-08-04
+* Fix: Plugin translation files (languages/*.mo) were never actually loaded -- added the missing load_plugin_textdomain() call, so the site language (e.g. Dutch) is now used instead of always falling back to English
