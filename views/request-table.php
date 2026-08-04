@@ -13,11 +13,11 @@ if ( !function_exists( 'add_action' ) ) {
 			}
 			?>
 			<fieldset>
-				<legend class="screenreader-text"><?php _e('Zoek een Artiest of Titel', 'radiodj'); ?></legend>
+				<legend class="screenreader-text"><?php _e('Use this form to search for artist or title', 'radiodj'); ?></legend>
 				<p>
-					<label for="searchterm"><?php _e('Zoek een Artiest of Titel', 'radiodj'); ?></label>
+					<label for="searchterm"><?php _e('Search artist or title', 'radiodj'); ?></label>
 					<input type="text" value="<?php echo esc_attr( $searchterm ); ?>" name="searchterm" id="searchterm" />
-					<input type="submit" value="<?php _e('Zoek', 'radiodj'); ?>" />
+					<input type="submit" value="<?php esc_attr_e('Search', 'radiodj'); ?>" />
 				</p>
 			</fieldset>
 		</form>
@@ -34,16 +34,16 @@ if ( !function_exists( 'add_action' ) ) {
 					<?php _ex('#', 'table header', 'radiodj'); ?>
 				</th>
 				<th class="artist">
-					<?php _e('Artiest', 'radiodj'); ?>
+					<?php _e('Artist', 'radiodj'); ?>
 				</th>
 				<th class="title">
-					<?php _e('Titel', 'radiodj'); ?>
+					<?php _e('Title', 'radiodj'); ?>
 				</th>
 				<th class="entry_no duration">
-					<?php _e('Lengte', 'radiodj'); ?>
+					<?php _e('Duration', 'radiodj'); ?>
 				</th>
 				<th class="entry_no request-col">
-					<?php _e('Verzoek', 'radiodj'); ?>
+					<?php _e('Request', 'radiodj'); ?>
 				</th>
 			</tr>
 		</thead>
@@ -89,9 +89,13 @@ if ( !function_exists( 'add_action' ) ) {
 	</table>
 	<?php echo $paginate ?>
 	<?php
+	} elseif ( ! empty( $has_searched ) ) {
+	?>
+		<div class="noticediv"><?php _e('No track was found by give search query. Please try different search phrase.', 'radiodj'); ?></div>
+	<?php
 	} else {
 	?>
-		<div class="noticediv"><?php _e('Geen track gevonden of voer een zoekopdracht in'); ?></div>
+		<div class="noticediv rdj-search-prompt"><?php _e('Please enter an artist or title to search.', 'radiodj'); ?></div>
 	<?php
 	}
 	?>
