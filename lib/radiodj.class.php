@@ -434,32 +434,37 @@ class RadioDJ {
 			require_once(RDJ_PLUGIN_DIR . 'views/request-form.php');
 
 		} else {
-			$sql = "SELECT COUNT(*) AS `pages` FROM `songs` AS s WHERE s.enabled = 1 $where_search AND s.song_type = 0";
-			$total_pages = $DB->get_var($sql);
 
-			$sql = "SELECT s.`ID`, s.`artist`, s.`title`, s.`duration`, s.`date_played`, s.`artist_played`,
-			TIMESTAMPDIFF(MINUTE, s.`date_played`, NOW()) AS `played_minutes`,
-			TIMESTAMPDIFF(MINUTE, s.`artist_played`, NOW()) AS `artist_played_minutes`,
-			(CASE WHEN r.played = 0 THEN r.requested END) AS requested,
-			TIMESTAMPDIFF(MINUTE, r.requested, NOW()) AS `requested_minutes`,
-			q.songID AS in_queue
-			FROM `songs` AS s
-			LEFT JOIN `requests` AS r ON( s.ID = r.songID )
-			LEFT JOIN `queuelist` AS q ON ( s.ID = q.songID )
-			WHERE s.enabled = 1 $where_search
-			AND s.song_type IN(" . implode(',', $allowed_types) . ")
-			ORDER BY s.artist, s.title ASC
-			LIMIT $start, $limit";
-			$tracks = $DB->get_results($sql);
+			$has_searched = !empty( $searchterm );
+			$tracks = array();
+			$paginate = '';
 
-			// Initial page num setup
+			if ( $has_searched ) {
+
+				$sql = "SELECT COUNT(*) AS `pages` FROM `songs` AS s WHERE s.enabled = 1 $where_search AND s.song_type = 0";
+				$total_pages = $DB->get_var($sql);
+
+				$sql = "SELECT s.`ID`, s.`artist`, s.`title`, s.`duration`, s.`date_played`, s.`artist_played`,
+				TIMESTAMPDIFF(MINUTE, s.`date_played`, NOW()) AS `played_minutes`,
+				TIMESTAMPDIFF(MINUTE, s.`artist_played`, NOW()) AS `artist_played_minutes`,
+				(CASE WHEN r.played = 0 THEN r.requested END) AS requested,
+				TIMESTAMPDIFF(MINUTE, r.requested, NOW()) AS `requested_minutes`,
+				q.songID AS in_queue
+				FROM `songs` AS s
+				LEFT JOIN `requests` AS r ON( s.ID = r.songID )
+				LEFT JOIN `queuelist` AS q ON ( s.ID = q.songID )
+				WHERE s.enabled = 1 $where_search
+				AND s.song_type IN(" . implode(',', $allowed_types) . ")
+				ORDER BY s.artist, s.title ASC
+				LIMIT $start, $limit";
+				$tracks = $DB->get_results($sql);
+
+				// Initial page num setup
 $page = ($page < 1) ? 1 : $page;
 $prev = $page - 1;
 $next = $page + 1;
 $lastpage = ceil($total_pages / $limit);
 $LastPagem1 = $lastpage - 1;
-
-$paginate = '';
 
 if ($lastpage > 1) {
     $stages = 3;
@@ -537,6 +542,7 @@ if ($lastpage > 1) {
     $paginate .= "</div>\n";
 }
 
+			}
 
 			require_once(RDJ_PLUGIN_DIR . 'views/request-table.php');
 

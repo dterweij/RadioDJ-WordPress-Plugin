@@ -3,8 +3,7 @@
  * RadioDJ DB class
  *
  * Extends WordPress wpdb class to avoid some of its limitations.
- * Some methods and variables are copied unmodified from WordPress 3.9.0
- * to have mysqli compatibility in older verions
+ * Connects to the RadioDJ database using mysqli only.
  *
  * @package RadioDJ
  * @subpackage Database
@@ -53,13 +52,15 @@ class radiodj_db extends wpdb {
 		'STRICT_TRANS_TABLES', 'STRICT_ALL_TABLES', 'TRADITIONAL' );
 
 	/**
-	 * Whether to use mysqli over mysql.
+	 * Always true. Kept for backwards compatibility with code (including the
+	 * admin "Verify database settings" screen) that reads $DB->use_mysqli.
+	 * This class only ever connects via mysqli.
 	 *
 	 * @since 3.9.0
 	 * @access private
 	 * @var bool
 	 */
-	protected $use_mysqli = false;
+	protected $use_mysqli = true;
 
 	/**
 	 * Whether we've managed to successfully connect at some point
@@ -71,7 +72,7 @@ class radiodj_db extends wpdb {
 	private $has_connected = false;
 
 	/**
-	 * mysql/myslqi error number
+	 * mysqli error number
 	 *
 	 * @since 0.6.0
 	 * @access public
@@ -80,7 +81,7 @@ class radiodj_db extends wpdb {
 	var $errno = 0;
 
 	/**
-	 * mysql/myslqi error string
+	 * mysqli error string
 	 *
 	 * @since 0.6.0
 	 * @access public
@@ -102,26 +103,6 @@ class radiodj_db extends wpdb {
 		register_shutdown_function( array( $this, '__destruct' ) );
 
 		$this->show_errors();
-
-		/* Use ext/mysqli if it exists and:
-		 *  - WP_USE_EXT_MYSQL is defined as false, or
-		 *  - We are a development version of WordPress, or
-		 *  - We are running PHP 5.5 or greater, or
-		 *  - ext/mysql is not loaded.
-		 */
-		if ( function_exists( 'mysqli_connect' ) ) {
-			if ( defined( 'WP_USE_EXT_MYSQL' ) ) {
-				$this->use_mysqli = ! WP_USE_EXT_MYSQL;
-			} elseif ( version_compare( phpversion(), '5.5', '>=' ) || ! function_exists( 'mysql_connect' ) ) {
-				$this->use_mysqli = true;
-			} elseif ( version_compare( $GLOBALS['wp_version'], '3.9.0', '<' ) ) {
-				//$this->use_mysqli = false;
-			}
-		}
-
-		// Override privete variable use_mysqli in wpdb
-		parent::__set('use_mysqli', $this->use_mysqli);
-
 
 		$this->init_charset();
 
@@ -145,7 +126,7 @@ class radiodj_db extends wpdb {
 	}
 
 	/**
-	 * Connect to and select database.
+	 * Connect to and select database, using mysqli.
 	 *
 	 * If $allow_bail is false, the lack of database connection will need
 	 * to be handled manually.
@@ -159,11 +140,10 @@ class radiodj_db extends wpdb {
 
 		$this->is_mysql = true;
 
-		$new_link = defined( 'MYSQL_NEW_LINK' ) ? MYSQL_NEW_LINK : true;
 		$client_flags = defined( 'MYSQL_CLIENT_FLAGS' ) ? MYSQL_CLIENT_FLAGS : 0;
 
-		// mysqli_real_connect doesn't support the host param including a port or socket
-		// like mysql_connect does. This duplicates how mysql_connect detects a port and/or socket file.
+		// mysqli_real_connect doesn't support the host param including a port or socket.
+		// This duplicates how mysql_connect used to detect a port and/or socket file.
 		$port = null;
 		$socket = null;
 		$host = $this->dbhost;
@@ -184,94 +164,35 @@ class radiodj_db extends wpdb {
 
 		$this->port = $port ? $port : 3306;
 
-		if ( $this->use_mysqli ) {
-			$this->dbh = mysqli_init();
-			if(defined('MYSQLI_OPT_CONNECT_TIMEOUT'))
-				mysqli_options($this->dbh, MYSQLI_OPT_CONNECT_TIMEOUT, 10);
+		$this->dbh = mysqli_init();
+		if ( defined( 'MYSQLI_OPT_CONNECT_TIMEOUT' ) )
+			mysqli_options( $this->dbh, MYSQLI_OPT_CONNECT_TIMEOUT, 10 );
 
-			if ( WP_DEBUG ) {
-				mysqli_real_connect( $this->dbh, $host, $this->dbuser, $this->dbpassword, null, $port, $socket, $client_flags );
-			} else {
-				@mysqli_real_connect( $this->dbh, $host, $this->dbuser, $this->dbpassword, null, $port, $socket, $client_flags );
-			}
-
-			if ( $this->dbh->connect_errno ) {
-				$this->error = mysqli_connect_error();
-				$this->errno = mysqli_connect_errno();
-
-				$this->dbh = null;
-
-				/* It's possible ext/mysqli is misconfigured. Fall back to ext/mysql if:
-		 		 *  - We haven't previously connected, and
-		 		 *  - WP_USE_EXT_MYSQL isn't set to false, and
-		 		 *  - ext/mysql is loaded.
-		 		 */
-				$attempt_fallback = true;
-
-				if ( $this->has_connected ) {
-					$attempt_fallback = false;
-				} else if ( defined( 'WP_USE_EXT_MYSQL' ) && ! WP_USE_EXT_MYSQL ) {
-					$attempt_fallback = false;
-				} else if ( ! function_exists( 'mysql_connect' ) ) {
-					$attempt_fallback = false;
-				}
-
-				if ( $attempt_fallback ) {
-					$this->use_mysqli = false;
-					// Override privete variable use_mysqli in wpdb
-					parent::__set('use_mysqli', $this->use_mysqli);
-					$this->db_connect( $allow_bail );
-				}
-			}
+		if ( WP_DEBUG ) {
+			mysqli_real_connect( $this->dbh, $host, $this->dbuser, $this->dbpassword, null, $this->port, $socket, $client_flags );
 		} else {
-
-			// Catch mysql error hackity-hack
-			// Paradoxically, mysql_error returns error only from last *successful* connection only.
-			// If second connection fails, mysql_error returns empty string because first connection is still ok.
-			$e_level = error_reporting();
-			$display_errors = ini_get('display_errors');
-			ini_set('display_errors', 1);
-			ini_set('mysql.connect_timeout', '10');
-			ob_start();
-			error_reporting(E_ERROR | E_WARNING | E_NOTICE);
-
-			// Need the error if it occurs no matter what
-			$this->dbh = mysql_connect( $this->dbhost, $this->dbuser, $this->dbpassword, $new_link, $client_flags );
-
-			// Get the error from output buffer
-			$error = $this->parse_error_hack( ob_get_clean() );
-			if( !$this->dbh && !empty($error) ){
-				$this->error = $error;
-				$this->errno = 9999;
-			}
-			// Return to previous values
-			ini_set('display_errors', $display_errors);
-			error_reporting($e_level);
-
-			if( !$this->dbh ) {
-				// mysql_error and mysql_error return blanks if there are more than one mysql connection
-				$mysql_error = mysql_error();
-				$mysql_errno = mysql_errno();
-
-				$this->error = !empty($mysql_error) ? $mysql_error : $this->error;
-				$this->errno = $mysql_error ? $mysql_error : $this->errno;
-			}
+			@mysqli_real_connect( $this->dbh, $host, $this->dbuser, $this->dbpassword, null, $this->port, $socket, $client_flags );
 		}
+
+		if ( $this->dbh->connect_errno ) {
+			$this->error = mysqli_connect_error();
+			$this->errno = mysqli_connect_errno();
+			$this->dbh = null;
+		}
+
 		if ( ! $this->dbh ) {
 			return false;
-		} else if ( $this->dbh ) {
-			$this->has_connected = true;
-			// Override private variable in wpdb
-			parent::__set('has_connected', $this->has_connected);
-			$this->set_charset( $this->dbh );
-			$this->set_sql_mode();
-			$this->ready = true;
-			$this->select( $this->dbname, $this->dbh );
-
-			return true;
 		}
 
-		return false;
+		$this->has_connected = true;
+		// Override private variable in wpdb
+		parent::__set('has_connected', $this->has_connected);
+		$this->set_charset( $this->dbh );
+		$this->set_sql_mode();
+		$this->ready = true;
+		$this->select( $this->dbname, $this->dbh );
+
+		return true;
 	}
 
 	/**
@@ -346,13 +267,13 @@ class radiodj_db extends wpdb {
 	}
 
 	/**
-	 * Sets the connection's character set.
+	 * Sets the connection's character set, using mysqli.
 	 *
 	 * @since 3.1.0
 	 *
-	 * @param resource $dbh     The resource given by mysql_connect
-	 * @param string   $charset The character set (optional)
-	 * @param string   $collate The collation (optional)
+	 * @param mysqli $dbh     The connection returned by mysqli_init()/mysqli_real_connect()
+	 * @param string $charset The character set (optional)
+	 * @param string $collate The collation (optional)
 	 */
 	function set_charset( $dbh, $charset = null, $collate = null ) {
 		if ( ! isset( $charset ) )
@@ -360,24 +281,13 @@ class radiodj_db extends wpdb {
 		if ( ! isset( $collate ) )
 			$collate = $this->collate;
 		if ( $this->has_cap( 'collation' ) && ! empty( $charset ) ) {
-			if ( $this->use_mysqli ) {
-				if ( function_exists( 'mysqli_set_charset' ) && $this->has_cap( 'set_charset' ) ) {
-					mysqli_set_charset( $dbh, $charset );
-				} else {
-					$query = $this->prepare( 'SET NAMES %s', $charset );
-					if ( ! empty( $collate ) )
-						$query .= $this->prepare( ' COLLATE %s', $collate );
-					mysqli_query( $query, $dbh );
-				}
+			if ( function_exists( 'mysqli_set_charset' ) && $this->has_cap( 'set_charset' ) ) {
+				mysqli_set_charset( $dbh, $charset );
 			} else {
-				if ( function_exists( 'mysql_set_charset' ) && $this->has_cap( 'set_charset' ) ) {
-					mysql_set_charset( $charset, $dbh );
-				} else {
-					$query = $this->prepare( 'SET NAMES %s', $charset );
-					if ( ! empty( $collate ) )
-						$query .= $this->prepare( ' COLLATE %s', $collate );
-					mysql_query( $query, $dbh );
-				}
+				$query = $this->prepare( 'SET NAMES %s', $charset );
+				if ( ! empty( $collate ) )
+					$query .= $this->prepare( ' COLLATE %s', $collate );
+				mysqli_query( $dbh, $query );
 			}
 		}
 	}
@@ -394,25 +304,17 @@ class radiodj_db extends wpdb {
 	 */
 	function set_sql_mode( $modes = array() ) {
 		if ( empty( $modes ) ) {
-			if ( $this->use_mysqli ) {
-				$res = mysqli_query( $this->dbh, 'SELECT @@SESSION.sql_mode' );
-			} else {
-				$res = mysql_query( 'SELECT @@SESSION.sql_mode', $this->dbh );
-			}
+			$res = mysqli_query( $this->dbh, 'SELECT @@SESSION.sql_mode' );
 
 			if ( empty( $res ) ) {
 				return;
 			}
 
-			if ( $this->use_mysqli ) {
-				$modes_array = mysqli_fetch_array( $res );
-				if ( empty( $modes_array[0] ) ) {
-					return;
-				}
-				$modes_str = $modes_array[0];
-			} else {
-				$modes_str = mysql_result( $res, 0 );
+			$modes_array = mysqli_fetch_array( $res );
+			if ( empty( $modes_array[0] ) ) {
+				return;
 			}
+			$modes_str = $modes_array[0];
 
 			if ( empty( $modes_str ) ) {
 				return;
@@ -442,11 +344,7 @@ class radiodj_db extends wpdb {
 
 		$modes_str = implode( ',', $modes );
 
-		if ( $this->use_mysqli ) {
-			mysqli_query( $this->dbh, "SET SESSION sql_mode='$modes_str'" );
-		} else {
-			mysql_query( "SET SESSION sql_mode='$modes_str'", $this->dbh );
-		}
+		mysqli_query( $this->dbh, "SET SESSION sql_mode='$modes_str'" );
 	}
 
 	/**
@@ -458,26 +356,17 @@ class radiodj_db extends wpdb {
 	 * @since 0.71
 	 *
 	 * @param string $db MySQL database name
-	 * @param resource $dbh Optional link identifier.
+	 * @param mysqli $dbh Optional link identifier.
 	 * @return null Always null.
 	 */
 	function select( $db, $dbh = null ) {
 		if ( is_null($dbh) )
 			$dbh = $this->dbh;
 
-		if ( $this->use_mysqli ) {
-			$success = @mysqli_select_db( $dbh, $db );
-		} else {
-			$success = @mysql_select_db( $db, $dbh );
-		}
+		$success = @mysqli_select_db( $dbh, $db );
 		if ( ! $success ) {
-			if ( $this->use_mysqli ) {
-				$this->error = mysqli_error( $dbh );
-				$this->errno = mysqli_errno( $dbh );
-			} else {
-				$this->error = mysql_error();
-				$this->errno = mysql_errno();
-			}
+			$this->error = mysqli_error( $dbh );
+			$this->errno = mysqli_errno( $dbh );
 			$this->ready = false;
 			return;
 		}
@@ -499,14 +388,8 @@ class radiodj_db extends wpdb {
 	 */
 
 	function check_connection( $allow_bail = true ) {
-		if ( $this->use_mysqli ) {
-			if ( @mysqli_ping( $this->dbh ) ) {
-				return true;
-			}
-		} else {
-			if ( @mysql_ping( $this->dbh ) ) {
-				return true;
-			}
+		if ( @mysqli_ping( $this->dbh ) ) {
+			return true;
 		}
 
 		$error_reporting = false;
@@ -600,11 +483,7 @@ class radiodj_db extends wpdb {
 		// MySQL server has gone away, try to reconnect
 		$mysql_errno = 0;
 		if ( ! empty( $this->dbh ) ) {
-			if ( $this->use_mysqli ) {
-				$mysql_errno = mysqli_errno( $this->dbh );
-			} else {
-				$mysql_errno = mysql_errno( $this->dbh );
-			}
+			$mysql_errno = mysqli_errno( $this->dbh );
 		}
 
 		if ( empty( $this->dbh ) || 2006 == $mysql_errno ) {
@@ -617,10 +496,8 @@ class radiodj_db extends wpdb {
 		}
 
 		// If there is an error then take note of it..
-		if ( $this->use_mysqli ) {
+		if ( ! empty( $this->dbh ) ) {
 			$this->last_error = mysqli_error( $this->dbh );
-		} else {
-			$this->last_error = mysql_error( $this->dbh );
 		}
 
 		if ( $this->last_error ) {
@@ -635,33 +512,18 @@ class radiodj_db extends wpdb {
 		if ( preg_match( '/^\s*(create|alter|truncate|drop)\s/i', $query ) ) {
 			$return_val = $this->result;
 		} elseif ( preg_match( '/^\s*(insert|delete|update|replace)\s/i', $query ) ) {
-			if ( $this->use_mysqli ) {
-				$this->rows_affected = mysqli_affected_rows( $this->dbh );
-			} else {
-				$this->rows_affected = mysql_affected_rows( $this->dbh );
-			}
+			$this->rows_affected = mysqli_affected_rows( $this->dbh );
 			// Take note of the insert_id
 			if ( preg_match( '/^\s*(insert|replace)\s/i', $query ) ) {
-				if ( $this->use_mysqli ) {
-					$this->insert_id = mysqli_insert_id( $this->dbh );
-				} else {
-					$this->insert_id = mysql_insert_id( $this->dbh );
-				}
+				$this->insert_id = mysqli_insert_id( $this->dbh );
 			}
 			// Return number of rows affected
 			$return_val = $this->rows_affected;
 		} else {
 			$num_rows = 0;
-			if ( $this->use_mysqli ) {
-				while ( $row = @mysqli_fetch_object( $this->result ) ) {
-					$this->last_result[$num_rows] = $row;
-					$num_rows++;
-				}
-			} else {
-				while ( $row = @mysql_fetch_object( $this->result ) ) {
-					$this->last_result[$num_rows] = $row;
-					$num_rows++;
-				}
+			while ( $row = @mysqli_fetch_object( $this->result ) ) {
+				$this->last_result[$num_rows] = $row;
+				$num_rows++;
 			}
 
 			// Log number of rows the query returned
@@ -674,7 +536,7 @@ class radiodj_db extends wpdb {
 	}
 
 	/**
-	 * Internal function to perform the mysql_query() call.
+	 * Internal function to perform the mysqli_query() call.
 	 *
 	 * @since 3.9.0
 	 *
@@ -688,11 +550,7 @@ class radiodj_db extends wpdb {
 			$this->timer_start();
 		}
 
-		if ( $this->use_mysqli ) {
-			$this->result = @mysqli_query( $this->dbh, $query );
-		} else {
-			$this->result = @mysql_query( $query, $this->dbh );
-		}
+		$this->result = @mysqli_query( $this->dbh, $query );
 		$this->num_queries++;
 
 		if ( defined( 'SAVEQUERIES' ) && SAVEQUERIES ) {
@@ -719,29 +577,7 @@ class radiodj_db extends wpdb {
 	 * @since 0.6.0
 	 */
 	function get_server_info() {
-		if ( $this->use_mysqli ) {
-			$server_info = mysqli_get_server_info( $this->dbh );
-		} else {
-			$server_info = mysql_get_server_info( $this->dbh );
-		}
-		return $server_info;
-	}
-
-	/**
-	 * Parse errnofrom  hacked-caught error
-	 *
-	 * @since 0.6.0
-	 *
-	 * @param string $error
-	 */
-	function parse_error_hack( $error ) {
-		// get rid of html
-		$error = strip_tags($error);
-		// mysql_connect(): Access denied for user 'user'@'localhost' (using password: YES) in
-		if( preg_match('/mysql_.+\(\): (.+) in .*/i', $error, $matches) && isset($matches[1]) ) {
-			$error = $matches[1];
-		}
-		return $error;
+		return mysqli_get_server_info( $this->dbh );
 	}
 
 	/**
