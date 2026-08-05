@@ -3,7 +3,7 @@ if ( !function_exists( 'add_action' ) ) {
 	exit;
 }
 ?>
-<div class="wrap radiodj">
+<div class="wrap rdj-admin-settings">
 
 	<h2><?php esc_html_e( 'RadioDJ Options' , 'radiodj');?></h2>
 
@@ -274,7 +274,7 @@ if ( !function_exists( 'add_action' ) ) {
 	</form>
 	<h3><?php esc_html_e('RadioDJ shortcodes', 'radiodj'); ?></h3>
 	<p></p>
-	<ul class="ul-disc shortcodes">
+	<ul class="ul-disc rdj-shortcodes">
 		<li><?php _e('Now Playing', 'radiodj'); ?> <span>[now-playing]</span></li>
 		<li><?php _e('Top Played Tracks', 'radiodj'); ?> <span>[top-tracks]</span></li>
 		<li><?php _e('Top Played Albums', 'radiodj'); ?> <span>[top-albums]</span></li>
@@ -286,7 +286,7 @@ if ( !function_exists( 'add_action' ) ) {
 jQuery(document).ready(function($) {
 	$('button#rdj_verify').click(function(){
 
-		$('#rdj_verify_response').html('<div class="spinner" style="display:block; float:none;"><div>');
+		$('#rdj_verify_response').html('<div class="spinner rdj-spinner-active"></div>');
 		$('button#rdj_verify').attr('disabled', 'disabled');
 		var data = {
 			'debug': 'on',

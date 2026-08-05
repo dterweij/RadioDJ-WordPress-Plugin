@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RadioDJ Plugin (new) 0.7.2\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-08-04 03:23+0000\n"
+"POT-Creation-Date: 2026-08-05 18:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: nl_NL\n"
@@ -63,12 +63,12 @@ msgstr "Artiest"
 msgid "Coming Soon:"
 msgstr "Binnenkort:"
 
-#: lib/radiodj-admin.class.php:361
+#: lib/radiodj-admin.class.php:365
 #, python-format
 msgid "Connection took %s seconds"
 msgstr "Verbinding duurde %s seconden"
 
-#: lib/radiodj-admin.class.php:398
+#: lib/radiodj-admin.class.php:402
 msgid "Could not get last played song. Have you enabled history in RadioDJ?"
 msgstr ""
 "Kon het laatst afgespeelde nummer niet ophalen. Heb je geschiedenis "
@@ -94,7 +94,7 @@ msgstr "Databasenaam die door RadioDJ wordt gebruikt"
 msgid "Database settings"
 msgstr "Database-instellingen"
 
-#: lib/radiodj-admin.class.php:358
+#: lib/radiodj-admin.class.php:362
 #, python-format
 msgid "Database version: %s"
 msgstr "Database-versie: %s"
@@ -111,7 +111,7 @@ msgstr "Artiest en titel van aankomende tracks weergeven"
 msgid "Duration"
 msgstr "Lengte"
 
-#: lib/radiodj-admin.class.php:375
+#: lib/radiodj-admin.class.php:379
 msgid ""
 "Either your webhost is blocking outgoing MySQL connections or MySQL is "
 "not listening on given IP address and port."
@@ -125,11 +125,11 @@ msgstr ""
 msgid "Empty output from ob_get_clean()"
 msgstr "Lege uitvoer van ob_get_clean()"
 
-#: lib/radiodj-admin.class.php:364
+#: lib/radiodj-admin.class.php:368
 msgid "Error connecting to RadioDJ database: "
 msgstr "Fout bij verbinden met RadioDJ-database: "
 
-#: lib/radiodj-admin.class.php:396
+#: lib/radiodj-admin.class.php:400
 #, python-format
 msgid ""
 "Error querying last played song. Probably <code>%s</code> is not RadioDJ "
@@ -138,7 +138,7 @@ msgstr ""
 "Fout bij het opvragen van het laatst afgespeelde nummer. Waarschijnlijk "
 "is <code>%s</code> geen RadioDJ-database."
 
-#: lib/radiodj-admin.class.php:387
+#: lib/radiodj-admin.class.php:391
 msgid "Error selecting database: "
 msgstr "Fout bij selecteren van database: "
 
@@ -164,7 +164,7 @@ msgstr "Items per pagina"
 msgid "Last played on:"
 msgstr "Laatst gespeeld op:"
 
-#: lib/radiodj-admin.class.php:403
+#: lib/radiodj-admin.class.php:407
 #, python-format
 msgid "Last played song: %s at %s"
 msgstr "Laatst gespeelde nummer: %s om %s"
@@ -197,7 +197,7 @@ msgstr "Nu Speelt"
 msgid "Now Playing Options"
 msgstr "Instellingen voor Nu Speelt"
 
-#: lib/radiodj-admin.class.php:399
+#: lib/radiodj-admin.class.php:403
 msgid ""
 "Now playing, top tracks and top albums won't function if history is "
 "disabled."
@@ -213,7 +213,7 @@ msgstr "Nu:"
 msgid "Offline Message"
 msgstr "Offline-bericht"
 
-#: lib/radiodj-admin.class.php:140
+#: lib/radiodj-admin.class.php:141
 msgid "Options"
 msgstr "Instellingen"
 
@@ -221,7 +221,7 @@ msgstr "Instellingen"
 msgid "Password"
 msgstr "Wachtwoord"
 
-#: lib/radiodj-admin.class.php:369
+#: lib/radiodj-admin.class.php:373
 #, python-format
 msgid ""
 "Please check your password and verify that user <code>%s</code> is "
@@ -242,11 +242,11 @@ msgstr "Voer hieronder de verzoekgegevens in"
 msgid "Please enter your name in order to send the request."
 msgstr "Voer je naam in om het verzoek te versturen."
 
-#: lib/radiodj-admin.class.php:374
+#: lib/radiodj-admin.class.php:378
 msgid "Please make sure that you are using correct IP address and port number."
 msgstr "Zorg ervoor dat je het juiste IP-adres en poortnummer gebruikt."
 
-#: lib/radiodj-admin.class.php:388
+#: lib/radiodj-admin.class.php:392
 msgid "Please verify that you are using correct database name"
 msgstr "Controleer of je de juiste databasenaam gebruikt"
 
@@ -254,7 +254,7 @@ msgstr "Controleer of je de juiste databasenaam gebruikt"
 msgid "Previous"
 msgstr "Vorige"
 
-#: lib/radiodj-admin.class.php:136 views/config.php:8
+#: lib/radiodj-admin.class.php:137 views/config.php:8
 msgid "RadioDJ Options"
 msgstr "RadioDJ-instellingen"
 
@@ -333,7 +333,7 @@ msgstr "Zoeken"
 msgid "Search artist or title"
 msgstr "Zoek op artiest of titel"
 
-#: lib/radiodj-admin.class.php:159
+#: lib/radiodj-admin.class.php:160
 msgid "Settings saved"
 msgstr "Instellingen opgeslagen"
 
@@ -353,7 +353,7 @@ msgstr "Sorry, je hebt de verzoeklimiet bereikt. Probeer het later opnieuw."
 msgid "Submit your request"
 msgstr "Verzoek versturen"
 
-#: lib/radiodj-admin.class.php:357
+#: lib/radiodj-admin.class.php:361
 msgid "Successfully connected to RadioDJ database"
 msgstr "Succesvol verbonden met RadioDJ-database"
 
@@ -428,7 +428,7 @@ msgstr "Toegestane tracktypes voor verzoeken"
 msgid "Try to detect real IP address of visitors behind proxy"
 msgstr "Probeer het echte IP-adres van bezoekers achter een proxy te detecteren"
 
-#: lib/radiodj-admin.class.php:378
+#: lib/radiodj-admin.class.php:382
 msgid ""
 "Unknown errno (9999) or no error description available because of "
 "existing mysql connection."
@@ -440,7 +440,7 @@ msgstr ""
 msgid "Unknown error occured. Please try again."
 msgstr "Er is een onbekende fout opgetreden. Probeer het opnieuw."
 
-#: lib/radiodj-admin.class.php:381
+#: lib/radiodj-admin.class.php:385
 msgid "Unknown mysql error occured"
 msgstr "Onbekende mysql-fout opgetreden"
 
@@ -466,7 +466,7 @@ msgstr "Gebruik dit formulier om te zoeken op artiest of titel"
 msgid "Username"
 msgstr "Gebruikersnaam"
 
-#: lib/radiodj-admin.class.php:354
+#: lib/radiodj-admin.class.php:358
 #, python-format
 msgid "Using %s client to connect"
 msgstr "%s-client gebruikt om verbinding te maken"
@@ -478,6 +478,11 @@ msgstr "Database-instellingen controleren"
 #: views/config.php:166
 msgid "We are not accepting requests right now. Please come back later."
 msgstr "We accepteren momenteel geen verzoeken. Kom later terug."
+
+#: views/request-form.php:8
+#, python-format
+msgid "You are about to request <b>%s</b> by <b>%s</b>"
+msgstr "Je staat op het punt <b>%s</b> van <b>%s</b> aan te vragen"
 
 #: views/config.php:255
 #, python-format

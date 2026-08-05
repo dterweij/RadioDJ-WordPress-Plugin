@@ -101,7 +101,7 @@ class RadioDJ_Admin {
 
 		// Display a reminder message about disabled requests
 		if( 0 === (int)get_option('rdj_allow_requests') && 0 === (int)get_option('rdj_requests_notice_dismissed') ) {
-			self::$errors['requests-disabled'] = __('RadioDJ requests submission is disabled. <a href="#rdj_requests">Check settings</a>', 'radiodj');
+			self::$errors['rdj-requests-disabled'] = __('RadioDJ requests submission is disabled. <a href="#rdj_requests">Check settings</a>', 'radiodj');
 		}
 	}
 
@@ -129,7 +129,8 @@ class RadioDJ_Admin {
 	}
 
 	public static function admin_init() {
-		load_plugin_textdomain( 'radiodj', false, RDJ_PLUGIN_DIR . '/languages/' );
+		// Translation loading is handled by radiodj_load_textdomain() in
+		// radiodj.php on the 'init' hook, which fires before admin_init.
 	}
 
 	public static function load_menu() {
@@ -277,8 +278,11 @@ class RadioDJ_Admin {
 	}
 
 	public static function activate() {
-		// Needed for default error message
-		load_plugin_textdomain( 'radiodj', false, RDJ_PLUGIN_DIR . '/languages/' );
+		// Needed for default error message. Uses the same robust path
+		// pattern as radiodj_load_textdomain() in radiodj.php -- see the
+		// comment there for why plugin_basename()-based paths aren't used.
+		$locale = apply_filters( 'plugin_locale', get_locale(), 'radiodj' );
+		load_textdomain( 'radiodj', RDJ_PLUGIN_DIR . 'languages/radiodj-' . $locale . '.mo' );
 		foreach(self::$default_options as $option => $default) {
 			if( get_option( $option ) === false ){
 				update_option( $option, $default );

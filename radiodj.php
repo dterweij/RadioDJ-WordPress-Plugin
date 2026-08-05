@@ -11,7 +11,7 @@
 * Plugin Name: RadioDJ Plugin (new)
 * Plugin URI: http://www.radiodj.ro/community/index.php?topic=5577&NOTE=THIS_URL_IS_TEMPORARY
 * Description: Display RadioDJ now playing songs, requests and statistics on a WordPress site. Based on previous work by Marius Vaida.
-* Version: 0.7.4
+* Version: 0.7.5
 * Author: Andis Grosšteins
 * Author URI: http://axellence.lv/
 * License: GPL2+
@@ -45,7 +45,7 @@ if ( !function_exists( 'add_action' ) ) {
 	exit;
 }
 
-define( 'RDJ_VERSION', '0.7.4' );
+define( 'RDJ_VERSION', '0.7.5' );
 define( 'RDJ_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'RDJ_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'RDJ_LIB_DIR', RDJ_PLUGIN_DIR . 'lib/' );
@@ -59,12 +59,23 @@ require_once( RDJ_LIB_DIR . 'radiodj.class.php' );
  * "Domain Path" in the plugin header above is not enough by itself for
  * a self-hosted plugin -- WordPress only auto-loads translations that
  * way for plugins hosted on WordPress.org. Everything else needs an
- * explicit load_plugin_textdomain() call.
+ * explicit call.
  *
- * @since 0.7.4
+ * Deliberately built from plugin_dir_path( __FILE__ ) rather than
+ * load_plugin_textdomain()'s usual dirname( plugin_basename( __FILE__ ) )
+ * pattern. plugin_basename() tries to strip WP_PLUGIN_DIR out of the
+ * absolute path using string matching, which can silently fail on
+ * symlinked or non-standard mounted plugin directories and produce a
+ * broken path -- plugin_dir_path() just derives the folder from this
+ * file's own location, so it works regardless of how the plugin
+ * directory ended up on disk.
+ *
+ * @since 0.7.5
  */
 function radiodj_load_textdomain() {
-	load_plugin_textdomain( 'radiodj', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+	$locale = apply_filters( 'plugin_locale', get_locale(), 'radiodj' );
+	$mofile = plugin_dir_path( __FILE__ ) . 'languages/radiodj-' . $locale . '.mo';
+	load_textdomain( 'radiodj', $mofile );
 }
 add_action( 'init', 'radiodj_load_textdomain' );
 

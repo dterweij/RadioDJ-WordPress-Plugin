@@ -2,7 +2,7 @@
 Contributors: Marius Vaida
 Donate link: http://axellence.lv/downloads/?plugin=WordPress
 Tags: RadioDJ, now playing info, external database
-Stable tag: 0.7.4
+Stable tag: 0.7.5
 Requires at least: 3.8
 Tested up to: 4.6
 License: GPLv2 or later
@@ -46,6 +46,16 @@ For more information about RadioDJ check out [radiodj.ro](http://radiodj.ro/).
 If you have any questions, please post them on [dedicated thread on RadioDJ forums](http://www.radiodj.ro/community/index.php?topic=5577)
 
 == Changelog ==
+
+= 0.7.5 =
+* Fix: Translation loading now uses a path built directly from the plugin file's own location instead of plugin_basename(), which could silently fail (and return the wrong locale/never load the .mo file) on symlinked or non-standard mounted plugin directories
+* Fix: Removed a redundant, broken load_plugin_textdomain() call in the admin class that used an invalid path
+* Refactor: All custom CSS classes renamed with a consistent rdj- prefix across every template, stylesheet, and script, to avoid collisions with themes/other plugins
+* Refactor: Moved all hardcoded inline styles into css/admin.css and css/radiodj.css
+* Fix: Removed a shared id="nptable" that was duplicated across 6 different templates (invalid HTML if more than one shortcode appears on the same page); replaced with the rdj-main-table class
+* Fix: table/th/td CSS rules in radiodj.css were previously unscoped and could leak styling onto unrelated tables elsewhere on the site; now scoped under .rdj-wrap
+* Fix: A few small markup bugs found during cleanup -- stray orphaned </td> tags in topalbums.php and toprequests.php, a dead CSS selector that never matched any element, and a missing 'radiodj' text domain on the request-form's main string
+* i18n: Translated remaining Dutch comments in css/radiodj.css to English
 
 = 0.7.4 =
 * Fix: Plugin translation files (languages/*.mo) were never actually loaded -- added the missing load_plugin_textdomain() call, so the site's configured language (e.g. Dutch) is now used instead of always falling back to the English source strings

@@ -3,10 +3,10 @@ if ( !function_exists( 'add_action' ) ) {
 	exit;
 }
 ?>
-<div class="rdj-wrap requests">
-	<div class="requestcontainer">
-		<p><?php printf( __('You are about to request <b>%s</b> by <b>%s</b>'), esc_html( $track->title ), esc_html( $track->artist ) ); ?></p>
-		<form id="requestform" class="request-form" method="post" action="<?php the_permalink(); ?>">
+<div class="rdj-wrap rdj-requests">
+	<div class="rdj-request-container">
+		<p><?php printf( __('You are about to request <b>%s</b> by <b>%s</b>', 'radiodj'), esc_html( $track->title ), esc_html( $track->artist ) ); ?></p>
+		<form id="requestform" class="rdj-request-form" method="post" action="<?php the_permalink(); ?>">
 			<fieldset>
 				<legend><?php _e('Please enter request details below', 'radiodj'); ?></legend>
 				<?php if( get_option('rdj_request_name_field') ) { ?>

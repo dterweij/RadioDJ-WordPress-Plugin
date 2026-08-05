@@ -65,3 +65,13 @@ This file is here for tracking changes in development versions
 
 2026-08-04
 * Fix: Plugin translation files (languages/*.mo) were never actually loaded -- added the missing load_plugin_textdomain() call, so the site language (e.g. Dutch) is now used instead of always falling back to English
+
+2026-08-04
+* Fix: Translation loading now uses a path built directly from the plugin files own location instead of plugin_basename(), which could silently fail on symlinked or non-standard mounted plugin directories
+* Fix: Removed a redundant, broken load_plugin_textdomain() call in the admin class
+* Refactor: All custom CSS classes renamed with a consistent rdj- prefix across every template, stylesheet, and script
+* Refactor: Moved all hardcoded inline styles into css/admin.css and css/radiodj.css
+* Fix: Removed a shared id="nptable" duplicated across 6 templates; replaced with the rdj-main-table class
+* Fix: table/th/td CSS rules were unscoped and could leak onto unrelated tables; now scoped under .rdj-wrap
+* Fix: stray orphaned closing tags, a dead CSS selector, and a missing radiodj text domain found during cleanup
+* i18n: Translated remaining Dutch comments in css/radiodj.css to English

@@ -3,8 +3,8 @@ if ( !function_exists( 'add_action' ) ) {
 	exit;
 }
 ?>
-<div class="rdj-wrap requests">
-	<div class="searchbox">
+<div class="rdj-wrap rdj-requests">
+	<div class="rdj-searchbox">
 		<form id="rdj_searchform" method="get" action="<?php the_permalink() ?>">
 			<?php
 			// Hackity-hack for sites without pretty permalinks
@@ -27,22 +27,22 @@ if ( !function_exists( 'add_action' ) ) {
 	?>
 	<!-- pagination -->
 	<?php echo $paginate ?>
-	<table id="nptable">
+	<table class="rdj-main-table">
 		<thead>
-			<tr class="header_live">
-				<th class="entry_no position">
+			<tr class="rdj-header">
+				<th class="rdj-entry-no rdj-position">
 					<?php _ex('#', 'table header', 'radiodj'); ?>
 				</th>
-				<th class="artist">
+				<th class="rdj-artist">
 					<?php _e('Artist', 'radiodj'); ?>
 				</th>
-				<th class="title">
+				<th class="rdj-title">
 					<?php _e('Title', 'radiodj'); ?>
 				</th>
-				<th class="entry_no duration">
+				<th class="rdj-entry-no rdj-duration">
 					<?php _e('Duration', 'radiodj'); ?>
 				</th>
-				<th class="entry_no request-col">
+				<th class="rdj-entry-no rdj-request-col">
 					<?php _e('Request', 'radiodj'); ?>
 				</th>
 			</tr>
@@ -56,14 +56,14 @@ if ( !function_exists( 'add_action' ) ) {
 				$cnt = 1+($limit*$page)-$limit; //Results counter
 
 				foreach($tracks as $track) {
-					$td_class = ($counter++) % 2 ? 'odd' : 'even';
+					$td_class = ($counter++) % 2 ? 'rdj-odd' : 'rdj-even';
 			?>
 			<tr class="<?php echo $td_class; ?>" data-track="<?php echo esc_attr(json_encode($track)); ?>">
-				<td scope="row" class="entry_no position"><?php echo $cnt ?></td>
-				<td class="artist"><?php echo htmlspecialchars( $track->artist, ENT_QUOTES ); ?></td>
-				<td class="title"><?php echo htmlspecialchars( $track->title, ENT_QUOTES ); ?></td>
-				<td class="duration"><?php echo RadioDJ::track_duration( $track->duration ); ?></td>
-				<td class="entry_no request-col">
+				<td scope="row" class="rdj-entry-no rdj-position"><?php echo $cnt ?></td>
+				<td class="rdj-artist"><?php echo htmlspecialchars( $track->artist, ENT_QUOTES ); ?></td>
+				<td class="rdj-title"><?php echo htmlspecialchars( $track->title, ENT_QUOTES ); ?></td>
+				<td class="rdj-duration"><?php echo RadioDJ::track_duration( $track->duration ); ?></td>
+				<td class="rdj-entry-no rdj-request-col">
 				<?php
 				if(!$track->requested && $track->played_minutes > $track_rep && $track->artist_played_minutes > $artist_rep && !$track->in_queue) {
 					$arr_params = array( 'pg' => $page, 'requestid' => $track->ID );
@@ -91,11 +91,11 @@ if ( !function_exists( 'add_action' ) ) {
 	<?php
 	} elseif ( ! empty( $has_searched ) ) {
 	?>
-		<div class="noticediv"><?php _e('No track was found by give search query. Please try different search phrase.', 'radiodj'); ?></div>
+		<div class="rdj-notice"><?php _e('No track was found by give search query. Please try different search phrase.', 'radiodj'); ?></div>
 	<?php
 	} else {
 	?>
-		<div class="noticediv rdj-search-prompt"><?php _e('Please enter an artist or title to search.', 'radiodj'); ?></div>
+		<div class="rdj-notice rdj-search-prompt"><?php _e('Please enter an artist or title to search.', 'radiodj'); ?></div>
 	<?php
 	}
 	?>

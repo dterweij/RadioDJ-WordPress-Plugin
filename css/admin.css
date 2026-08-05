@@ -1,12 +1,12 @@
 /* admin.css */
 
-.radiodj .small-text,
-.radiodj .regular-text,
-.radiodj .code {
+.rdj-admin-settings .small-text,
+.rdj-admin-settings .regular-text,
+.rdj-admin-settings .code {
 	padding: 3px 5px;
 }
 
-.shortcodes li span {
+.rdj-shortcodes li span {
 	font-family: Consolas, Monaco, monospace;
 	padding: 3px 5px 2px 5px;
 	margin: 0 1px;
@@ -33,4 +33,10 @@
 
 :target .rdj-allow-requests {
 	background: #fff4f4;
+}
+
+/* "Verify database settings" loading indicator, replaces an inline style */
+.rdj-spinner-active {
+	display: block;
+	float: none;
 }

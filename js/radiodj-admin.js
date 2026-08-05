@@ -1,4 +1,4 @@
-jQuery(document).on( 'click', '.requests-disabled .notice-dismiss', function() {
+jQuery(document).on( 'click', '.rdj-requests-disabled .notice-dismiss', function() {
     jQuery.ajax({
         url: ajaxurl,
 		method: 'POST',
