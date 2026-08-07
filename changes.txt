@@ -75,3 +75,18 @@ This file is here for tracking changes in development versions
 * Fix: table/th/td CSS rules were unscoped and could leak onto unrelated tables; now scoped under .rdj-wrap
 * Fix: stray orphaned closing tags, a dead CSS selector, and a missing radiodj text domain found during cleanup
 * i18n: Translated remaining Dutch comments in css/radiodj.css to English
+
+2026-08-07
+* Redesign: Color palette reworked to match the site own dark teal/lime-green/orange look instead of a separately-invented scheme; replaced pale yellow/green highlight blocks with dark-tinted highlights and colored left borders, and fixed several dark-on-dark unreadable text colors
+* Enhancement: Coming Soon block now shows artist and title on separate rows so longer titles display in full, still truncating independently with an ellipsis if needed
+
+2026-08-07
+* Fix: Plugin background was made transparent in 0.7.6 assuming the dark page background would show through, but the theme applies its own light background to the content area specifically, making light text unreadable there and on every other plugin page (top tracks, top artists, requests, etc). Now uses its own solid dark background so it stays readable regardless of the surrounding theme.
+
+2026-08-07
+* Enhancement: Section headers now use the theme own header background image (img/header.png, child theme first then parent theme) instead of a plain gradient, falling back to the gradient if not found
+* Enhancement: Added real spacing between Now/Coming Soon/Recently Played sections by splitting into three separate tables
+* Tweak: Removed colored left border accent on now-playing/coming-soon highlights
+* Fix: Position badge circles now properly centered both directions, with a glowing teal ring
+* Fix: Removed leftover separator dash in Recently Played list
+* Housekeeping: Added Requires at least (5.0), Requires PHP (7.3), updated Tested up to (6.9)

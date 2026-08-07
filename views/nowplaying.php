@@ -19,8 +19,10 @@ if ( !function_exists( 'add_action' ) ) {
 			</td>
 		</tr>
 <?php } ?>
+	</table>
 
 <?php if( !empty($upcoming) ) { ?>
+	<table class="rdj-main-table">
 		<tr class="rdj-coming-soon">
 			<th class="rdj-header">
 				<b><?php _e('Coming Soon:', 'radiodj'); ?></b>
@@ -47,11 +49,9 @@ if ( !function_exists( 'add_action' ) ) {
 <tr class="rdj-coming-soon">
     <td>
         <div class="rdj-track-info">
-            <div class="rdj-track-left">
+            <div class="rdj-track-left rdj-track-left--stacked">
                 <span class="rdj-artist"><?php echo htmlspecialchars($song->artist, ENT_QUOTES); ?></span>
-                <span class="rdj-separator">–</span>
                 <span class="rdj-title"><?php echo htmlspecialchars($song->title, ENT_QUOTES); ?></span>
-
             </div>
             <div class="rdj-track-right">
                 <div class="rdj-meta-line"><?php _e('Last played on:', 'radiodj'); ?> <strong><?php echo $date_played; ?></strong></div>
@@ -62,9 +62,12 @@ if ( !function_exists( 'add_action' ) ) {
 </tr>
 <?php		}
 		}
-} ?>
+?>
+	</table>
+<?php } ?>
 
 <?php if( !empty($nowplaying) ) { ?>
+	<table class="rdj-main-table">
 		<tr>
 			<th class="rdj-header">
 				<b><?php _e('Recently Played:', 'radiodj'); ?></b>
@@ -80,7 +83,6 @@ if ( !function_exists( 'add_action' ) ) {
         <span class="rdj-timestamp"><?php echo date( 'H:i:s', strtotime( $song->date_played ) ); ?></span>
         <span class="rdj-track-info">
             <span class="rdj-artist"><?php echo htmlspecialchars( $song->artist, ENT_QUOTES ); ?></span>
-            <span class="rdj-separator"> - </span>
             <span class="rdj-title"><?php echo htmlspecialchars( $song->title, ENT_QUOTES ); ?></span>
         </span>
         <span class="rdj-duration">[<?php echo RadioDJ::track_duration( $song->duration ); ?>]</span>
@@ -89,7 +91,9 @@ if ( !function_exists( 'add_action' ) ) {
 
 <?php
 			}
-		}
 ?>
 	</table>
+<?php
+		}
+?>
 </div>

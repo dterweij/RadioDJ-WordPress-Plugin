@@ -63,9 +63,16 @@ class RadioDJ {
 		if( $user_style ) {
 			wp_register_style( 'radiodj-user-style', $user_style, null, RDJ_VERSION );
 			wp_enqueue_style( 'radiodj-user-style' );
+			$style_handle = 'radiodj-user-style';
 		} else {
 			wp_register_style( 'radiodj-style', RDJ_PLUGIN_URL . 'css/radiodj.css', null, RDJ_VERSION );
 			wp_enqueue_style( 'radiodj-style' );
+			$style_handle = 'radiodj-style';
+		}
+
+		$header_bg = self::get_theme_header_image_url();
+		if ( $header_bg ) {
+			wp_add_inline_style( $style_handle, '.rdj-wrap .rdj-header { background-image: url(' . esc_url( $header_bg ) . '); }' );
 		}
 
 		if( get_option('rdj_ajax_updates') || get_option('rdj_axaj_updates') ) {
@@ -75,6 +82,31 @@ class RadioDJ {
 
 		wp_register_script('recaptcha', 'https://www.google.com/recaptcha/api.js');
 		add_filter('script_loader_tag', array( 'RadioDJ', 'script_loader_tag_attributes' ), 10, 2);
+	}
+
+	/**
+	 * Resolve the theme's own "img/header.png" background image, used as
+	 * the background for the plugin's section headers (Now:, Coming
+	 * Soon:, Recently Played:) to match the theme's own header styling.
+	 * Checks the active child theme first, then falls back to the
+	 * parent theme, same as the radiodj.css override lookup above.
+	 *
+	 * @since 0.7.8
+	 *
+	 * @return string|false The image URL, or false if not found in either theme.
+	 */
+	public static function get_theme_header_image_url() {
+		$relative_path = 'img/header.png';
+
+		if ( is_child_theme() && file_exists( trailingslashit( get_stylesheet_directory() ) . $relative_path ) ) {
+			return trailingslashit( get_stylesheet_directory_uri() ) . $relative_path;
+		}
+
+		if ( file_exists( trailingslashit( get_template_directory() ) . $relative_path ) ) {
+			return trailingslashit( get_template_directory_uri() ) . $relative_path;
+		}
+
+		return false;
 	}
 
 	/**

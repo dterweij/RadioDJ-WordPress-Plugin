@@ -11,7 +11,10 @@
 * Plugin Name: RadioDJ Plugin (new)
 * Plugin URI: http://www.radiodj.ro/community/index.php?topic=5577&NOTE=THIS_URL_IS_TEMPORARY
 * Description: Display RadioDJ now playing songs, requests and statistics on a WordPress site. Based on previous work by Marius Vaida.
-* Version: 0.7.5
+* Version: 0.7.8
+* Requires at least: 5.0
+* Requires PHP: 7.3
+* Tested up to: 6.9
 * Author: Andis Grosšteins
 * Author URI: http://axellence.lv/
 * License: GPL2+
@@ -45,7 +48,7 @@ if ( !function_exists( 'add_action' ) ) {
 	exit;
 }
 
-define( 'RDJ_VERSION', '0.7.5' );
+define( 'RDJ_VERSION', '0.7.8' );
 define( 'RDJ_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'RDJ_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'RDJ_LIB_DIR', RDJ_PLUGIN_DIR . 'lib/' );

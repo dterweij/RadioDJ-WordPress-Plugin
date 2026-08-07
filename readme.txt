@@ -2,9 +2,10 @@
 Contributors: Marius Vaida
 Donate link: http://axellence.lv/downloads/?plugin=WordPress
 Tags: RadioDJ, now playing info, external database
-Stable tag: 0.7.5
-Requires at least: 3.8
-Tested up to: 4.6
+Stable tag: 0.7.8
+Requires at least: 5.0
+Requires PHP: 7.3
+Tested up to: 6.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,6 +47,21 @@ For more information about RadioDJ check out [radiodj.ro](http://radiodj.ro/).
 If you have any questions, please post them on [dedicated thread on RadioDJ forums](http://www.radiodj.ro/community/index.php?topic=5577)
 
 == Changelog ==
+
+= 0.7.8 =
+* Enhancement: Section headers (Now:, Coming Soon:, Recently Played:) now use the active theme's own header background image (img/header.png, checked in the child theme first, falling back to the parent theme) instead of a plain gradient, for closer visual match with the rest of the site. Falls back to the existing teal gradient if the theme doesn't have that file.
+* Enhancement: Added real spacing between the Now/Coming Soon/Recently Played sections by splitting what was one continuous table into three, since CSS margin has no effect between rows within a single table.
+* Tweak: Removed the colored left border accent on the "now playing" and "coming soon" highlights, keeping just the subtle tinted background.
+* Fix: Position badge circles (the numbered circles in top tracks/artists/albums/requests) are now properly centered both horizontally and vertically -- the Kalam font's uneven line-height was throwing off vertical centering -- and now have a glowing teal ring.
+* Fix: Removed the leftover " - " separator between artist and title in the Recently Played list.
+* Housekeeping: Added Requires at least (5.0), Requires PHP (7.3), and updated Tested up to (6.9) to the plugin header and readme.
+
+= 0.7.7 =
+* Fix: The 0.7.6 rework made the plugin's background transparent, assuming the dark page background would show through everywhere. It turned out the theme applies its own light background specifically to the content/article area, which made the light text unreadable there (and on every other page using the plugin -- top tracks, top artists, requests, etc., since they all share the same base styling). The plugin now uses its own solid dark background so it stays readable regardless of what the surrounding theme does.
+
+= 0.7.6 =
+* Redesign: Color palette reworked to match the site's own dark teal / lime-green / orange look instead of a separately-invented scheme. Replaced the pale yellow "coming soon" and pale green "now playing" highlight blocks (which clashed against the dark page background) with subtle dark-tinted highlights and colored left borders, and fixed several text colors that were dark-on-dark and effectively unreadable against the site's background.
+* Enhancement: In the "Coming Soon" block, artist and title are now shown on separate rows instead of squeezed onto one line, so longer titles display in full. Each still truncates independently with an ellipsis if it doesn't fit even on its own row.
 
 = 0.7.5 =
 * Fix: Translation loading now uses a path built directly from the plugin file's own location instead of plugin_basename(), which could silently fail (and return the wrong locale/never load the .mo file) on symlinked or non-standard mounted plugin directories

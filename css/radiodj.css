@@ -3,7 +3,6 @@
    ========================= */
 
 @import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
 
 .rdj-kalam-light {
   font-family: "Kalam", cursive;
@@ -24,18 +23,32 @@
 }
 
 .rdj-wrap {
-    --rdj-color-bg: #f8f8f8;
-    --rdj-color-muted: #cccccc;
-    --rdj-color-primary: #3498db;
-    --rdj-color-accent: #0073aa;
-    --rdj-color-text: #000;
-    --rdj-color-light: #eee;
-    --rdj-color-warning: #fff4e5;
-    --rdj-color-success: #d4ffd4;
-    --rdj-color-bg-circle: #ccc;
+    /* Palette matched to the site's own dark teal / lime-green / orange
+       look, rather than a separately-invented color scheme. Text colors
+       are light-on-dark throughout for readability.
+
+       Background is a solid dark color rather than transparent -- the
+       page chrome (nav, sidebar boxes) is dark, but the theme's own
+       content/article area turned out to have a light background of its
+       own, which made light text unreadable. Giving the plugin its own
+       background makes it readable regardless of what's behind it. */
+    --rdj-color-bg: #171b20;
+    --rdj-color-bg-alt: #1e232a;
+    --rdj-color-muted: #55636b;
+    --rdj-color-primary: #2ea3a3;       /* teal -- matches the site's box/nav headers */
+    --rdj-color-primary-dark: #123d3d;
+    --rdj-color-accent: #8dc63f;        /* lime green -- matches the site branding */
+    --rdj-color-warn: #f0a840;          /* orange -- matches the site's date links */
+    --rdj-color-text: #e9f1f1;
+    --rdj-color-text-muted: #9fb0b0;
+    --rdj-color-light: #b8c2c2;
+    --rdj-color-bg-circle: #e9f1f1;
 
     background-color: var(--rdj-color-bg);
+    color: var(--rdj-color-text);
     font-family: Arial, sans-serif;
+    border-radius: 6px;
+    overflow: hidden;
 }
 
 /* ====================
@@ -55,7 +68,7 @@
 .rdj-wrap .rdj-paginate a.rdj-paginate-prev,
 .rdj-wrap .rdj-paginate a.rdj-paginate-next {
     padding: 6px 10px;
-    border: 1px solid var(--rdj-color-muted);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 4px;
     color: var(--rdj-color-accent);
     text-decoration: none;
@@ -63,29 +76,29 @@
 }
 
 .rdj-wrap .rdj-paginate a:hover {
-    background-color: var(--rdj-color-muted);
+    background-color: rgba(141, 198, 63, 0.15);
 }
 
 .rdj-wrap .rdj-paginate .rdj-paginate-current {
-    background-color: var(--rdj-color-accent);
-    color: white;
+    background-color: var(--rdj-color-primary);
+    color: #04211f;
     padding: 6px 10px;
     border-radius: 4px;
     font-weight: bold;
 }
 
 .rdj-wrap .rdj-paginate .rdj-paginate-disabled {
-    color: #555;
-    background-color: #ddd;
+    color: var(--rdj-color-text-muted);
+    background-color: rgba(255, 255, 255, 0.04);
     padding: 6px 10px;
     border-radius: 4px;
-    border: 1px solid var(--rdj-color-muted);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     cursor: not-allowed;
 }
 
 .rdj-wrap .rdj-paginate .rdj-paginate-ellipsis {
     padding: 6px 10px;
-    color: #666;
+    color: var(--rdj-color-text-muted);
 }
 
 /* ====================
@@ -105,6 +118,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    color: var(--rdj-color-text);
 }
 
 .rdj-wrap .rdj-main-table th,
@@ -113,12 +127,19 @@
 }
 
 .rdj-wrap.rdj-now-playing {
-    background-color: #eef6ff;
     padding: 10px;
 }
 
+.rdj-wrap.rdj-now-playing .rdj-main-table {
+    margin-bottom: 20px;
+}
+
+.rdj-wrap.rdj-now-playing .rdj-main-table:last-child {
+    margin-bottom: 0;
+}
+
 .rdj-wrap .rdj-current-track .rdj-playing-track {
-    background-color: var(--rdj-color-success);
+    background-color: rgba(141, 198, 63, 0.12);
     font-weight: bold;
     text-align: left;
 }
@@ -150,25 +171,25 @@
 
 .rdj-top-tracks td.rdj-artist {
     font-weight: bold;
-    color: #2c3e50;
+    color: var(--rdj-color-text);
     text-align: left;
 }
 
 .rdj-top-tracks td.rdj-title {
     font-style: italic;
-    color: #34495e;
+    color: var(--rdj-color-light);
     text-align: left;
 }
 
 .rdj-wrap .rdj-artist {
     font-weight: bold;
-    color: #2c3e50;
+    color: var(--rdj-color-text);
     text-align: left;
 }
 
 .rdj-wrap .rdj-title {
     font-style: italic;
-    color: #34495e;
+    color: var(--rdj-color-light);
     text-align: left;
 }
 
@@ -179,11 +200,11 @@
 
 .rdj-wrap .rdj-separator {
     margin: 0 5px;
-    color: #999;
+    color: var(--rdj-color-text-muted);
 }
 
 .rdj-wrap .rdj-timestamp {
-    color: #666;
+    color: var(--rdj-color-text-muted);
     margin-right: 10px;
     text-align: left;
 }
@@ -191,7 +212,7 @@
 .rdj-wrap .rdj-duration {
     float: right;
     font-size: 0.9em;
-    color: #777;
+    color: var(--rdj-color-text-muted);
     text-align: right;
 }
 
@@ -226,9 +247,34 @@
 }
 
 .rdj-wrap .rdj-coming-soon td {
-    background-color: #fff8cc;
+    background-color: rgba(46, 163, 163, 0.08);
     text-align: left;
     font-size: 12px;
+    white-space: normal;
+}
+
+/* Artist and title each get their own row so long titles are readable
+   in full, rather than being squeezed onto one line next to the artist.
+   Each still truncates independently with an ellipsis if it's too long
+   to fit even on its own full-width row. */
+.rdj-wrap .rdj-track-left--stacked {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.rdj-wrap .rdj-track-left--stacked .rdj-artist,
+.rdj-wrap .rdj-track-left--stacked .rdj-title {
+    display: block;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.rdj-wrap .rdj-track-left--stacked .rdj-title {
+    font-size: 1.05em;
 }
 
 /* ====================
@@ -257,6 +303,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     text-align: center;
+    color: var(--rdj-color-text-muted);
 }
 
 .rdj-requests td.rdj-position,
@@ -265,17 +312,21 @@
 .rdj-top-artists td.rdj-position,
 .rdj-top-albums td.rdj-position {
     font-family: 'Kalam', cursive;
-    color: #1e6327;
+    color: var(--rdj-color-primary-dark);
     font-size: 15px;
+    line-height: 1;
+    box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
     width: 28px;
     height: 28px;
     margin: 6px auto;
     border-radius: 50%;
     background-color: var(--rdj-color-bg-circle);
-    border: 1px solid #000;
+    border: 1px solid var(--rdj-color-primary);
+    box-shadow: 0 0 6px rgba(46, 163, 163, 0.7), 0 0 12px rgba(46, 163, 163, 0.35);
     font-weight: bold;
 }
 
@@ -284,11 +335,11 @@
 }
 
 .rdj-top-tracks tr.rdj-odd {
-  background-color: #f2f2f2; /* light grey */
+  background-color: rgba(255, 255, 255, 0.02);
 }
 
 .rdj-top-tracks tr.rdj-even {
-  background-color: #F5F9B0; /* pale yellow */
+  background-color: rgba(46, 163, 163, 0.06);
 }
 
 /* ====================
@@ -300,7 +351,7 @@
 
 .rdj-wrap .rdj-request-container {
     padding: 15px;
-    border: 1px solid #ddd;
+    border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .rdj-wrap .rdj-request-col {
@@ -315,9 +366,9 @@
     margin: 20px auto;
     padding: 20px;
     max-width: 500px;
-    background-color: #f4f4f4;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 #rdj_searchform p {
@@ -331,11 +382,12 @@
     flex: 1;
     min-width: 250px;
     padding: 10px 12px;
-    border: 1px solid #ccc;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
     font-size: 1em;
-    background-color: var(--rdj-color-muted);
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    background-color: rgba(255, 255, 255, 0.08);
+    color: var(--rdj-color-text);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
     transition: border-color 0.3s ease;
 }
 
@@ -347,16 +399,17 @@
 #rdj_searchform input[type="submit"] {
     padding: 10px 16px;
     background-color: var(--rdj-color-primary);
-    color: #fff;
+    color: #04211f;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     font-size: 1em;
+    font-weight: bold;
     transition: background-color 0.3s ease;
 }
 
 #rdj_searchform input[type="submit"]:hover {
-    background-color: #2d80c6;
+    background-color: #37bcbc;
 }
 
 #rdj_searchform label,
@@ -371,9 +424,9 @@
 .rdj-wrap .rdj-notice {
     margin: 10px 0;
     padding: 10px;
-    background-color: var(--rdj-color-warning);
-    border: 1px solid #e0c097;
-    color: var(--rdj-color-text);
+    background-color: rgba(240, 168, 64, 0.1);
+    border: 1px solid rgba(240, 168, 64, 0.4);
+    color: var(--rdj-color-warn);
 }
 
 .screenreader-text {
@@ -393,14 +446,15 @@
 
 .rdj-wrap .rdj-track-left {
     flex: 1;
+    min-width: 0;
 }
 
 .rdj-wrap .rdj-track-right {
     text-align: right;
     font-size: 10px;
-    color: #EED427;
+    color: var(--rdj-color-primary);
     white-space: nowrap;
-    background-color: #4A4A4A;
+    background-color: rgba(0, 0, 0, 0.3);
     padding: 5px;
     border-radius: 8px;
 }
@@ -410,28 +464,23 @@
 }
 
 .rdj-wrap .rdj-header {
-    background: linear-gradient(135deg, #2b2e3a 0%, #3f4355 50%, #2b2e3a 100%);
-    color: #0ff; /* neon cyan */
-    padding: 20px;
-    font-size: 1.6em;
+    background-color: var(--rdj-color-primary-dark);
+    background-image: linear-gradient(135deg, var(--rdj-color-primary-dark) 0%, var(--rdj-color-primary) 50%, var(--rdj-color-primary-dark) 100%);
+    background-repeat: repeat;
+    color: #f4fbfb;
+    padding: 16px 20px;
+    font-size: 1.3em;
     font-weight: bold;
     text-align: left;
-    border-radius: 10px 10px 0 0;
-    box-shadow:
-        0 4px 10px rgba(0, 255, 255, 0.4),
-        inset 0 0 10px rgba(0, 255, 255, 0.2);
-    text-shadow:
-        0 0 2px rgba(0, 255, 255, 0.4),
-        0 0 4px rgba(0, 255, 255, 0.2);
-    font-family: 'Orbitron', sans-serif; /* techno display font */
-    letter-spacing: 2px;
+    border-radius: 6px 6px 0 0;
+    letter-spacing: 0.5px;
 }
 
 .rdj-wrap .rdj-header th.rdj-title,
 .rdj-wrap .rdj-header th.rdj-duration,
 .rdj-wrap .rdj-header th.rdj-request-col,
 .rdj-wrap .rdj-header th.rdj-artist {
-    color: #0ff;
+    color: #f4fbfb;
     font-weight: bold;
 }
 
