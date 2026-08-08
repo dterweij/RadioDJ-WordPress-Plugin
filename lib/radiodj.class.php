@@ -389,6 +389,31 @@ class RadioDJ {
 	}
 
 	/**
+	 * Renders a request-flow message (success or error) with a "return to
+	 * list of tracks" button. Wrapped in .rdj-wrap since the plugin's CSS
+	 * is entirely scoped under that class -- without it, this content
+	 * fell back to the surrounding theme's default styling, which could
+	 * mean unreadable text depending on the theme.
+	 *
+	 * @since 0.7.9
+	 *
+	 * @param string $message Already-translated message text.
+	 * @param string $type    'error' (default) or 'success'.
+	 */
+	private static function message_with_return_link( $message, $type = 'error' ) {
+		if ( 'success' === $type ) {
+			$css_class = 'rdj-success';
+		} else {
+			$css_class = 'rdj-error';
+		}
+
+		return '<div class="rdj-wrap rdj-request-result">'
+			. '<div class="' . esc_attr( $css_class ) . '">' . $message . '</div>'
+			. '<p><a href="?" class="rdj-return rdj-button">' . __( 'Return to list of tracks', 'radiodj' ) . '</a></p>'
+			. '</div>';
+	}
+
+	/**
 	 * Track request shortcode
 	 *
 	 * @since 0.6.0
@@ -451,16 +476,16 @@ class RadioDJ {
 			$request_state = $DB->get_row( $sql );
 
 			if( $request_state->userlimit >= $request_limit ) {
-				return '<div class="rdj-error">' . __("Sorry, you've reached the request limit. Please try again later.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks', 'radiodj')).'</p>';
+				return self::message_with_return_link( __("Sorry, you've reached the request limit. Please try again later.", 'radiodj'), 'error' );
 			}
 			if( $request_state->already_requested ) {
-				return '<div class="rdj-error">' . __("The selected track is already requested. Please try again later, or select another track.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks', 'radiodj')).'</p>';
+				return self::message_with_return_link( __("The selected track is already requested. Please try again later, or select another track.", 'radiodj'), 'error' );
 			}
 
 			$sql = $DB->prepare( "SELECT `artist`, `title` FROM `songs` WHERE `ID` = %d AND `song_type` IN(" . implode(',', $allowed_types) . ")", $requestid );
 			$track = $DB->get_row( $sql );
 			if( empty($track) ) {
-				return '<div class="rdj-error">' . __('The selected track was not found', 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks', 'radiodj')).'</p>';
+				return self::message_with_return_link( __('The selected track was not found', 'radiodj'), 'error' );
 			}
 			require_once(RDJ_PLUGIN_DIR . 'views/request-form.php');
 
@@ -601,8 +626,7 @@ if ($lastpage > 1) {
 		}
 
 		if( get_option('rdj_use_recaptcha') && '' != get_option('rdj_recaptcha_secret') && !self::verify_recaptcha() ) {
-			return '<div class="rdj-error">' . __('reCAPTCHA validation failed. Are you really a human?', 'radiodj') . '</div>'
-					.'<p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks', 'radiodj')).'</p>';
+			return self::message_with_return_link( __('reCAPTCHA validation failed. Are you really a human?', 'radiodj') );
 		}
 
 		$request_name = isset($_POST['requsername']) ? wp_unslash($_POST['requsername']) : '';
@@ -614,7 +638,7 @@ if ($lastpage > 1) {
 		$sql = $DB->prepare( "SELECT `artist`, `title` FROM `songs` WHERE `ID` = %d", $request_songID );
 		$track = $DB->get_row( $sql );
 		if( empty($track) ) {
-			return '<div class="rdj-error">' . __('The selected track was not found', 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks', 'radiodj')).'</p>';
+			return self::message_with_return_link( __('The selected track was not found', 'radiodj'), 'error' );
 		}
 
 		if( empty($request_name) && get_option('rdj_request_name_field') ) {
@@ -634,20 +658,20 @@ if ($lastpage > 1) {
 		$request_state = $DB->get_row( $sql );
 
 		if( $request_state->userlimit >= $request_limit ) {
-			return '<div class="rdj-error">' . __("Sorry, you've reached the request limit. Please try again later.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks', 'radiodj')).'</p>';
+			return self::message_with_return_link( __("Sorry, you've reached the request limit. Please try again later.", 'radiodj'), 'error' );
 		}
 
 		if( $request_state->already_requested ) {
-			return '<div class="rdj-error">' . __("The selected track is already requested. Please try again later, or select another track.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks', 'radiodj')).'</p>';
+			return self::message_with_return_link( __("The selected track is already requested. Please try again later, or select another track.", 'radiodj'), 'error' );
 		}
 
 		$sql = $DB->prepare("INSERT INTO `requests` SET `songID` = %d, `username` = %s, `userIP` = %s, `message` = %s, `requested` = NOW()", $request_songID, $request_name, $request_IP, $request_msg);
 		$result = $DB->query( $sql );
 
 		if( $result ) {
-			return '<div class="rdj-notice">' . __("Your request was succesfully placed.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks', 'radiodj')).'</p>';
+			return self::message_with_return_link( __("Your request was succesfully placed.", 'radiodj'), 'success' );
 		} else {
-			return '<div class="rdj-error">' . __("Unknown error occured. Please try again.", 'radiodj') . '</div><p>'.sprintf('<a href="?" class="rdj-return">%s</a>', __('Return to list of tracks', 'radiodj')).'</p>';
+			return self::message_with_return_link( __("Unknown error occured. Please try again.", 'radiodj'), 'error' );
 		}
 	}
 

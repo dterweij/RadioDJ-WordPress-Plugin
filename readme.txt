@@ -2,7 +2,7 @@
 Contributors: Marius Vaida
 Donate link: http://axellence.lv/downloads/?plugin=WordPress
 Tags: RadioDJ, now playing info, external database
-Stable tag: 0.7.8
+Stable tag: 0.7.9
 Requires at least: 5.0
 Requires PHP: 7.3
 Tested up to: 6.9
@@ -47,6 +47,12 @@ For more information about RadioDJ check out [radiodj.ro](http://radiodj.ro/).
 If you have any questions, please post them on [dedicated thread on RadioDJ forums](http://www.radiodj.ro/community/index.php?topic=5577)
 
 == Changelog ==
+
+= 0.7.9 =
+* Fix: Request success/error messages (e.g. "Your request was succesfully placed.") were rendered outside the plugin's .rdj-wrap container, so none of the plugin's CSS applied to them -- falling back to unreadable white-on-white theme styling in some cases. All 9 of these messages across the codebase now share one consistent, properly-wrapped helper.
+* Enhancement: The "Return to list of tracks" link is now a styled button instead of plain text.
+* Enhancement: Success messages now use a distinct green style instead of reusing the orange "notice" styling meant for neutral messages.
+* Tweak: Section header background updated with a teal inset glow effect and lighter text color, per feedback.
 
 = 0.7.8 =
 * Enhancement: Section headers (Now:, Coming Soon:, Recently Played:) now use the active theme's own header background image (img/header.png, checked in the child theme first, falling back to the parent theme) instead of a plain gradient, for closer visual match with the rest of the site. Falls back to the existing teal gradient if the theme doesn't have that file.

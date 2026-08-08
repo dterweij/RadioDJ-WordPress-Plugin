@@ -90,3 +90,9 @@ This file is here for tracking changes in development versions
 * Fix: Position badge circles now properly centered both directions, with a glowing teal ring
 * Fix: Removed leftover separator dash in Recently Played list
 * Housekeeping: Added Requires at least (5.0), Requires PHP (7.3), updated Tested up to (6.9)
+
+2026-08-07
+* Fix: Request success/error messages rendered outside .rdj-wrap so plugin CSS never applied, causing unreadable white-on-white text in some cases. All 9 occurrences now use one consistent, properly-wrapped helper.
+* Enhancement: Return to list of tracks link is now a styled button
+* Enhancement: Success messages use a distinct green style instead of the orange notice style
+* Tweak: Header background updated with teal inset glow effect and lighter text color per feedback
