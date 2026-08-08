@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RadioDJ Plugin (new) 0.7.2\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-08-05 18:26+0000\n"
+"POT-Creation-Date: 2026-08-08 20:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en_US\n"
@@ -34,7 +34,7 @@ msgstr "AJAX Refresh"
 msgid "Accept requests"
 msgstr "Accept requests"
 
-#: views/nowplaying.php:58
+#: views/nowplaying.php:74
 msgid "Added to the database on:"
 msgstr "Added to the database on:"
 
@@ -59,7 +59,7 @@ msgstr "Allowed Track Types"
 msgid "Artist"
 msgstr "Artist"
 
-#: views/nowplaying.php:26
+#: views/nowplaying.php:36
 msgid "Coming Soon:"
 msgstr "Coming Soon:"
 
@@ -76,7 +76,7 @@ msgstr "Could not get last played song. Have you enabled history in RadioDJ?"
 msgid "Count"
 msgstr "Count"
 
-#: lib/radiodj.class.php:680
+#: lib/radiodj.class.php:788
 msgid "Currently there are no results to display."
 msgstr "Currently there are no results to display."
 
@@ -117,9 +117,9 @@ msgstr ""
 "Either your webhost is blocking outgoing MySQL connections or MySQL is "
 "not listening on given IP address and port."
 
-#: lib/radiodj.class.php:220 lib/radiodj.class.php:271
-#: lib/radiodj.class.php:312 lib/radiodj.class.php:353
-#: lib/radiodj.class.php:552 lib/radiodj.class.php:688
+#: lib/radiodj.class.php:304 lib/radiodj.class.php:355
+#: lib/radiodj.class.php:396 lib/radiodj.class.php:437
+#: lib/radiodj.class.php:661 lib/radiodj.class.php:796
 msgid "Empty output from ob_get_clean()"
 msgstr "Empty output from ob_get_clean()"
 
@@ -158,7 +158,7 @@ msgstr ""
 msgid "Items per Page"
 msgstr "Items per Page"
 
-#: views/nowplaying.php:57
+#: views/nowplaying.php:73
 msgid "Last played on:"
 msgstr "Last played on:"
 
@@ -175,7 +175,7 @@ msgstr "Last played:"
 msgid "Message (optional)"
 msgstr "Message (optional)"
 
-#: lib/radiodj.class.php:536 lib/radiodj.class.php:538
+#: lib/radiodj.class.php:645 lib/radiodj.class.php:647
 msgid "Next"
 msgstr "Next"
 
@@ -236,7 +236,7 @@ msgstr "Please enter an artist or title to search."
 msgid "Please enter request details below"
 msgstr "Please enter request details below"
 
-#: lib/radiodj.class.php:589
+#: lib/radiodj.class.php:697
 msgid "Please enter your name in order to send the request."
 msgstr "Please enter your name in order to send the request."
 
@@ -248,7 +248,7 @@ msgstr "Please make sure that you are using correct IP address and port number."
 msgid "Please verify that you are using correct database name"
 msgstr "Please verify that you are using correct database name"
 
-#: lib/radiodj.class.php:475 lib/radiodj.class.php:477
+#: lib/radiodj.class.php:584 lib/radiodj.class.php:586
 msgid "Previous"
 msgstr "Previous"
 
@@ -276,7 +276,7 @@ msgstr ""
 msgid "RadioDJ shortcodes"
 msgstr "RadioDJ shortcodes"
 
-#: views/nowplaying.php:70
+#: views/nowplaying.php:89
 msgid "Recently Played:"
 msgstr "Recently Played:"
 
@@ -303,6 +303,11 @@ msgctxt "indicates status"
 msgid "Requested"
 msgstr "Requested"
 
+#: views/nowplaying.php:20 views/nowplaying.php:65 views/nowplaying.php:105
+#, python-format
+msgid "Requested by %s"
+msgstr "Requested by %s"
+
 #: views/config.php:150
 msgid "Requests Options"
 msgstr "Requests Options"
@@ -311,11 +316,7 @@ msgstr "Requests Options"
 msgid "Requests not accepted Message"
 msgstr "Requests not accepted Message"
 
-#: lib/radiodj.class.php:422 lib/radiodj.class.php:425
-#: lib/radiodj.class.php:431 lib/radiodj.class.php:573
-#: lib/radiodj.class.php:585 lib/radiodj.class.php:605
-#: lib/radiodj.class.php:609 lib/radiodj.class.php:616
-#: lib/radiodj.class.php:618
+#: lib/radiodj.class.php:464
 msgid "Return to list of tracks"
 msgstr "Return to list of tracks"
 
@@ -343,7 +344,7 @@ msgstr "Shuffle Upcoming"
 msgid "Shuffle upcoming songs"
 msgstr "Shuffle upcoming songs"
 
-#: lib/radiodj.class.php:422 lib/radiodj.class.php:605
+#: lib/radiodj.class.php:531 lib/radiodj.class.php:713
 msgid "Sorry, you've reached the request limit. Please try again later."
 msgstr "Sorry, you've reached the request limit. Please try again later."
 
@@ -355,7 +356,7 @@ msgstr "Submit your request"
 msgid "Successfully connected to RadioDJ database"
 msgstr "Successfully connected to RadioDJ database"
 
-#: lib/radiodj.class.php:425 lib/radiodj.class.php:609
+#: lib/radiodj.class.php:534 lib/radiodj.class.php:717
 msgid ""
 "The selected track is already requested. Please try again later, or "
 "select another track."
@@ -363,7 +364,7 @@ msgstr ""
 "The selected track is already requested. Please try again later, or "
 "select another track."
 
-#: lib/radiodj.class.php:431 lib/radiodj.class.php:585
+#: lib/radiodj.class.php:540 lib/radiodj.class.php:693
 msgid "The selected track was not found"
 msgstr "The selected track was not found"
 
@@ -433,7 +434,7 @@ msgstr ""
 "Unknown errno (9999) or no error description available because of "
 "existing mysql connection."
 
-#: lib/radiodj.class.php:618
+#: lib/radiodj.class.php:726
 msgid "Unknown error occured. Please try again."
 msgstr "Unknown error occured. Please try again."
 
@@ -492,7 +493,7 @@ msgstr ""
 msgid "Your Name"
 msgstr "Your Name"
 
-#: lib/radiodj.class.php:616
+#: lib/radiodj.class.php:724
 msgid "Your request was succesfully placed."
 msgstr "Your request was succesfully placed."
 
@@ -500,7 +501,7 @@ msgstr "Your request was succesfully placed."
 msgid "[IP address or hostname]:[port]"
 msgstr "[IP address or hostname]:[port]"
 
-#: views/nowplaying.php:41 views/toptracks.php:29
+#: views/nowplaying.php:51 views/toptracks.php:29
 msgid "never"
 msgstr "never"
 
@@ -516,7 +517,7 @@ msgstr "reCAPTCHA secret key"
 msgid "reCAPTCHA site key"
 msgstr "reCAPTCHA site key"
 
-#: lib/radiodj.class.php:572
+#: lib/radiodj.class.php:681
 msgid "reCAPTCHA validation failed. Are you really a human?"
 msgstr "reCAPTCHA validation failed. Are you really a human?"
 

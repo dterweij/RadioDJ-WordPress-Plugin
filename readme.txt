@@ -2,7 +2,7 @@
 Contributors: Marius Vaida
 Donate link: http://axellence.lv/downloads/?plugin=WordPress
 Tags: RadioDJ, now playing info, external database
-Stable tag: 0.7.9
+Stable tag: 0.8.0
 Requires at least: 5.0
 Requires PHP: 7.3
 Tested up to: 6.9
@@ -47,6 +47,10 @@ For more information about RadioDJ check out [radiodj.ro](http://radiodj.ro/).
 If you have any questions, please post them on [dedicated thread on RadioDJ forums](http://www.radiodj.ro/community/index.php?topic=5577)
 
 == Changelog ==
+
+= 0.8.0 =
+* New: Now Playing, Coming Soon, and Recently Played now show a "Requested by [name]" badge (with their message, if they left one) on tracks that were requested -- this was stored in the database already but never surfaced in these views. Uses a LEFT JOIN with a defensive fallback: if your database schema doesn't support the join (e.g. the history table doesn't have a songID column), it silently falls back to the original query so the core now-playing display can never break because of this.
+* Note: This assumes the `history` table has a `songID` column referencing the played song, which is standard for RadioDJ but wasn't something any existing query in this plugin actually relied on. If requester info doesn't show up on played tracks, that assumption may not hold for your database -- the plugin will keep working normally either way, just without this feature on those two blocks.
 
 = 0.7.9 =
 * Fix: Request success/error messages (e.g. "Your request was succesfully placed.") were rendered outside the plugin's .rdj-wrap container, so none of the plugin's CSS applied to them -- falling back to unreadable white-on-white theme styling in some cases. All 9 of these messages across the codebase now share one consistent, properly-wrapped helper.

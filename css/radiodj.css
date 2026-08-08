@@ -508,6 +508,45 @@
     text-align: right;
 }
 
+/* "Requested by X" badge shown on tracks that were requested, in the
+   now-playing, coming-soon, and recently-played blocks. */
+.rdj-wrap .rdj-request-tag {
+    display: inline-block;
+    margin-top: 4px;
+    padding: 3px 8px;
+    font-size: 11px;
+    font-weight: normal;
+    font-style: normal;
+    white-space: normal;
+    color: var(--rdj-color-accent);
+    background-color: rgba(141, 198, 63, 0.12);
+    border: 1px solid rgba(141, 198, 63, 0.35);
+    border-radius: 10px;
+}
+
+.rdj-wrap .rdj-request-tag strong {
+    color: var(--rdj-color-accent);
+}
+
+.rdj-wrap .rdj-request-tag .rdj-request-message {
+    display: block;
+    margin-top: 2px;
+    color: var(--rdj-color-text-muted);
+    font-style: italic;
+}
+
+.rdj-wrap .rdj-request-tag--inline {
+    margin-top: 0;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+.rdj-wrap .rdj-request-tag--inline .rdj-request-message {
+    display: inline;
+    margin-top: 0;
+    margin-left: 4px;
+}
+
 .rdj-wrap .rdj-header {
     background-color: var(--rdj-color-primary-dark);
     background-image: linear-gradient(135deg, var(--rdj-color-primary-dark) 0%, var(--rdj-color-primary) 50%, var(--rdj-color-primary-dark) 100%);

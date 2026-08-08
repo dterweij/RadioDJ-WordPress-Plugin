@@ -15,6 +15,14 @@ if ( !function_exists( 'add_action' ) ) {
 			<td class="rdj-playing-track">
 				<span class="rdj-artist"><?php echo htmlspecialchars($current->artist, ENT_QUOTES) ?></span><span class="rdj-separator"> - </span>
 				<span class="rdj-title"><?php echo htmlspecialchars($current->title, ENT_QUOTES) ?></span>
+<?php if( !empty($current->request_username) ) { ?>
+				<div class="rdj-request-tag">
+					<?php printf( __( 'Requested by %s', 'radiodj' ), '<strong>' . htmlspecialchars( $current->request_username, ENT_QUOTES ) . '</strong>' ); ?>
+<?php if( !empty($current->request_message) ) { ?>
+					<span class="rdj-request-message">&ldquo;<?php echo htmlspecialchars( $current->request_message, ENT_QUOTES ); ?>&rdquo;</span>
+<?php } ?>
+				</div>
+<?php } ?>
 
 			</td>
 		</tr>
@@ -52,6 +60,14 @@ if ( !function_exists( 'add_action' ) ) {
             <div class="rdj-track-left rdj-track-left--stacked">
                 <span class="rdj-artist"><?php echo htmlspecialchars($song->artist, ENT_QUOTES); ?></span>
                 <span class="rdj-title"><?php echo htmlspecialchars($song->title, ENT_QUOTES); ?></span>
+<?php if( !empty($song->request_username) ) { ?>
+                <div class="rdj-request-tag">
+                    <?php printf( __( 'Requested by %s', 'radiodj' ), '<strong>' . htmlspecialchars( $song->request_username, ENT_QUOTES ) . '</strong>' ); ?>
+<?php if( !empty($song->request_message) ) { ?>
+                    <span class="rdj-request-message">&ldquo;<?php echo htmlspecialchars( $song->request_message, ENT_QUOTES ); ?>&rdquo;</span>
+<?php } ?>
+                </div>
+<?php } ?>
             </div>
             <div class="rdj-track-right">
                 <div class="rdj-meta-line"><?php _e('Last played on:', 'radiodj'); ?> <strong><?php echo $date_played; ?></strong></div>
@@ -84,6 +100,14 @@ if ( !function_exists( 'add_action' ) ) {
         <span class="rdj-track-info">
             <span class="rdj-artist"><?php echo htmlspecialchars( $song->artist, ENT_QUOTES ); ?></span>
             <span class="rdj-title"><?php echo htmlspecialchars( $song->title, ENT_QUOTES ); ?></span>
+<?php if( !empty($song->request_username) ) { ?>
+            <span class="rdj-request-tag rdj-request-tag--inline">
+                <?php printf( __( 'Requested by %s', 'radiodj' ), '<strong>' . htmlspecialchars( $song->request_username, ENT_QUOTES ) . '</strong>' ); ?>
+<?php if( !empty($song->request_message) ) { ?>
+                <span class="rdj-request-message">&ldquo;<?php echo htmlspecialchars( $song->request_message, ENT_QUOTES ); ?>&rdquo;</span>
+<?php } ?>
+            </span>
+<?php } ?>
         </span>
         <span class="rdj-duration">[<?php echo RadioDJ::track_duration( $song->duration ); ?>]</span>
     </td>

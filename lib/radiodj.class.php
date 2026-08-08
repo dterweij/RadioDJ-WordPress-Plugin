@@ -189,6 +189,32 @@ class RadioDJ {
 
 				$upcoming_show_titles = (bool)get_option('rdj_upcoming_show_titles');
 				if($upcoming_show_titles) {
+					// Left join against `requests` to show who requested a track
+					// and their message, if it was requested. The correlated
+					// subquery picks the most recent still-pending request for
+					// that song, in case it was requested more than once.
+					$sql = $DB->prepare( 
+    				"SELECT songs.artist, songs.title, songs.ID, songs.date_played, songs.date_added, queuelist.songID,
+    				req.username AS request_username, req.message AS request_message
+     				FROM songs 
+     				JOIN queuelist ON songs.ID = queuelist.songID 
+     				LEFT JOIN requests req ON req.songID = queuelist.songID AND req.played = 0
+     					AND req.requested = (
+     						SELECT MAX(r2.requested) FROM requests r2
+     						WHERE r2.songID = queuelist.songID AND r2.played = 0
+     					)
+     				WHERE songs.song_type IN ($song_types) 
+     				ORDER BY $order 
+     				LIMIT 0, %d", 
+    				$upcoming_items 
+				);
+				$suppress = $DB->suppress_errors( true );
+				$upcoming = $DB->get_results( $sql );
+				$DB->suppress_errors( $suppress );
+
+				if ( $DB->last_error ) {
+					// Schema doesn't support the requester join -- fall back to
+					// the plain query so the upcoming list still works.
 					$sql = $DB->prepare( 
     				"SELECT songs.artist, songs.title, songs.ID, songs.date_played, songs.date_added, queuelist.songID 
      				FROM songs 
@@ -197,8 +223,10 @@ class RadioDJ {
      				ORDER BY $order 
      				LIMIT 0, %d", 
     				$upcoming_items 
-				);
-				$upcoming = $DB->get_results( $sql );
+					);
+					$upcoming = $DB->get_results( $sql );
+				}
+
 
 
 				} else {
@@ -210,8 +238,32 @@ class RadioDJ {
 			}
 
 			$history_items = intval( get_option( 'history_items' ) ) + 1;
-			$sql = $DB->prepare("SELECT `date_played`, `artist`, `title`, `duration`, TIMESTAMPDIFF(SECOND, `date_played`, NOW()) AS `since_played` FROM `history` WHERE `song_type` IN ($song_types) ORDER BY `date_played` DESC LIMIT 0, %d", $history_items);
+
+			// Left join against `requests` to show who requested a track
+			// and their message, for both the current track and recently
+			// played list (both come from this same history query). The
+			// correlated subquery picks the most recent request for that
+			// song made at or before it was actually played.
+			$suppress = $DB->suppress_errors( true );
+			$sql = $DB->prepare("SELECT h.songID, h.date_played, h.artist, h.title, h.duration, TIMESTAMPDIFF(SECOND, h.date_played, NOW()) AS `since_played`,
+				req.username AS request_username, req.message AS request_message
+				FROM `history` h
+				LEFT JOIN requests req ON req.songID = h.songID
+					AND req.requested = (
+						SELECT MAX(r2.requested) FROM requests r2
+						WHERE r2.songID = h.songID AND r2.requested <= h.date_played
+					)
+				WHERE h.song_type IN ($song_types) ORDER BY h.date_played DESC LIMIT 0, %d", $history_items);
 			$nowplaying = $DB->get_results( $sql );
+			$DB->suppress_errors( $suppress );
+
+			if ( $DB->last_error ) {
+				// Schema doesn't support the requester join (e.g. no
+				// history.songID column) -- fall back to the plain query
+				// so the now-playing/recently-played list still works.
+				$sql = $DB->prepare("SELECT `date_played`, `artist`, `title`, `duration`, TIMESTAMPDIFF(SECOND, `date_played`, NOW()) AS `since_played` FROM `history` WHERE `song_type` IN ($song_types) ORDER BY `date_played` DESC LIMIT 0, %d", $history_items);
+				$nowplaying = $DB->get_results( $sql );
+			}
 
 			if( !empty( $nowplaying ) ) {
 				$current = reset( $nowplaying );
